@@ -11,8 +11,11 @@ namespace WIL
     {
         public static void Main(string[] args)
         {
-            Truck t;
-            Console.WriteLine("test...");
+            DBManager dbm = new DBManager();
+            foreach(Truck t in dbm.GetTrucks())
+            {
+                Console.WriteLine(t.ToString());
+            }
             Console.ReadLine();
         }
     }
