@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WIL", "WIL\WIL.csproj", "{20985CD8-0B6E-4D50-A5B6-38DDE7A9DCF8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemLogic", "SystemLogic\SystemLogic.csproj", "{7EF78FC4-A455-4A2B-A1AB-C012428036FA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{20985CD8-0B6E-4D50-A5B6-38DDE7A9DCF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20985CD8-0B6E-4D50-A5B6-38DDE7A9DCF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20985CD8-0B6E-4D50-A5B6-38DDE7A9DCF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20985CD8-0B6E-4D50-A5B6-38DDE7A9DCF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EF78FC4-A455-4A2B-A1AB-C012428036FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EF78FC4-A455-4A2B-A1AB-C012428036FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EF78FC4-A455-4A2B-A1AB-C012428036FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EF78FC4-A455-4A2B-A1AB-C012428036FA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
