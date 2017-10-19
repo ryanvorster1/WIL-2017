@@ -1,11 +1,14 @@
+drop table truck
+drop table truckType
+
 create table truckType (
 	ID				integer identity(0,1) primary key,
 	type			varchar(30),
 	manufacturor	varchar(30),
-	engineSize		int,
-	serviceInterval	int,
-	maxWeight		int,
-	maxVol			int
+	engineSize		int, --cc
+	serviceInterval	int, --km
+	maxWeight		int, --kg
+	maxVol			int --mm3
 )
 
 create table truck (
@@ -79,6 +82,16 @@ create table trip (
 	routeID		integer foreign key references routes(ID)
 )
 
+insert into truckType(type, manufacturor, engineSize, serviceInterval, maxWeight, maxVol)
+values('bakkie','Isuzu',2500,15000,1174,1564557280)
 
+insert into truck(vin,reg,kms,availible,truckType)
+values('987654321','bak-1',200,1,0)
 
+insert into department(name)
+values('Cape Town'),
+	  ('Johannesburg')
+
+insert into routes(departure, destination,kms)
+values(0,1,1400)
 
