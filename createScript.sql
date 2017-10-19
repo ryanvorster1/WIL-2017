@@ -94,4 +94,3 @@ values('Cape Town'),
 
 insert into routes(departure, destination,kms)
 values(0,1,1400)
-
