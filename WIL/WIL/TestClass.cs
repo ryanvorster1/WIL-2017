@@ -12,7 +12,7 @@ namespace WIL
         public static void Main(string[] args)
         {
             DBManager dbm = new DBManager();
-            foreach(var t in dbm.GetRoutes())
+            foreach(var t in dbm.GetTrips())
             {
                 Console.WriteLine(t.ToString());
             }

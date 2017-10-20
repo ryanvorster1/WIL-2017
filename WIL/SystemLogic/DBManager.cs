@@ -25,6 +25,38 @@ namespace SystemLogic
             }
         }
 
+        //get a list of all Trips
+        public List<Trip> GetTrips()
+        {
+            List<Trip> trips = new List<Trip>();
+
+            try
+            {
+                string sql = "select * from trip";
+                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    int ID = (int)row["ID"];
+                    Truck truck = GetTruckByID((int)row["truckID"]);
+                    User customer = GetUserByID((int)row["clientID"]);
+                    User driver = GetUserByID((int)row["driverID"]);
+                    DateTime start = (DateTime)row["StartDate"];
+                    DateTime end = (DateTime)row["endDate"];
+                    Route route = GetRouteByID((int)row["routeID"]);
+
+                    trips.Add(new Trip(ID,truck,customer,start,end,driver,route));
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return trips;
+        }
+
         //get a list of all incidents
         public List<Incident> GetIncidents()
         {
@@ -43,7 +75,7 @@ namespace SystemLogic
                     IncidentType type = GetIncidentTypeByID((int)row["incidentType"]);
                     User driver = GetUserByID((int)row["driverID"]);
 
-                    incidents.Add(new Incident(ID, type,driver));
+                    incidents.Add(new Incident(ID, type, driver));
                 }
             }
             catch (Exception ex)
@@ -66,13 +98,13 @@ namespace SystemLogic
                 da.Fill(ds);
 
                 DataRow row = ds.Tables[0].Rows[0];
-                
-                    int ID = (int)row["ID"];
-                    string description = row["username"].ToString();
-                    int cost = (int)row["cost"];
-                    int hours = (int)row["repairTime"];
 
-                    incident = new IncidentType(ID, description, cost, hours);
+                int ID = (int)row["ID"];
+                string description = row["username"].ToString();
+                int cost = (int)row["cost"];
+                int hours = (int)row["repairTime"];
+
+                incident = new IncidentType(ID, description, cost, hours);
             }
             catch (Exception ex)
             {
@@ -103,7 +135,7 @@ namespace SystemLogic
                     string fname = row["fname"].ToString();
                     string lname = row["lname"].ToString();
 
-                    User u = new User(ID, username, password, type, hours, fname, lname); 
+                    User u = new User(ID, username, password, type, hours, fname, lname);
                     users.Add(u);
                 }
             }
@@ -113,7 +145,7 @@ namespace SystemLogic
             }
             return users;
         }
-        
+
         //get specific user by ID
         public User GetUserByID(int id)
         {
@@ -128,13 +160,13 @@ namespace SystemLogic
                 DataRow row = ds.Tables[0].Rows[0];
                 int ID = (int)row["ID"];
                 string username = row["username"].ToString();
-                string password = row["password"].ToString();
+                string password = row["pass"].ToString();
                 UserType type = GetUserTypeById((int)row["userType"]);
                 int hours = (int)row["hours"];
                 string fname = row["fname"].ToString();
                 string lname = row["lname"].ToString(); ;
 
-                user = new User(ID,username, password, type, hours, fname, lname);
+                user = new User(ID, username, password, type, hours, fname, lname);
             }
             catch (Exception ex)
             {
@@ -155,16 +187,43 @@ namespace SystemLogic
                 da.Fill(ds);
 
                 DataRow row = ds.Tables[0].Rows[0];
-                    int ID = (int)row["ID"];
-                    string descr = row["userType"].ToString();
+                int ID = (int)row["ID"];
+                string descr = row["userType"].ToString();
 
-                    type = new UserType(id, descr);
+                type = new UserType(id, descr);
             }
             catch (Exception ex)
             {
                 throw ex;
             }
             return type;
+        }
+
+        //get route by id
+        public Route GetRouteByID(int id)
+        {
+            Route route = null;
+
+            try
+            {
+                string sql = "select * from routes";
+                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+
+                DataRow row = ds.Tables[0].Rows[0];
+                int ID = (int)row["ID"];
+                Department deptart = GetDepartmentByID((int)row["departure"]);
+                Department dest = GetDepartmentByID((int)row["destination"]);
+                int kms = (int)row["kms"];
+
+                route = new Route(ID, deptart, dest, kms);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return route;
         }
 
         //get a list of all routes
@@ -245,6 +304,34 @@ namespace SystemLogic
                 throw ex;
             }
             return depos;
+        }
+
+        //get truck by ID
+        public Truck GetTruckByID(int id)
+        {
+            Truck truck = null;
+
+            try
+            {
+                string sql = $"select * from truck where id = {id}";
+                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+
+                DataRow row = ds.Tables[0].Rows[0];
+                int ID = (int)row["ID"];
+                string vin = row["vin"].ToString();
+                string reg = row["reg"].ToString();
+                int kms = (int)row["kms"];
+                bool availible = (bool)row["availible"];
+                TruckType type = GetTruckType((int)row["truckType"]);
+                truck = new Truck(ID, vin, reg, kms, availible, type);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return truck;
         }
 
         //get a list of all trucks in db
