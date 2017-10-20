@@ -82,6 +82,19 @@ create table trip (
 	routeID		integer foreign key references routes(ID)
 )
 
+create table incidentTYpe (
+	ID			integer identity(0,1) primary key,
+	description	varchar(50),
+	cost		money,
+	repairTime	int
+)
+
+create table incident (
+	ID				integer identity(0,1) primary key,
+	incidentType	integer foreign key references incidentType(ID),
+	driverID		integer foreign key references users(ID)
+)
+
 insert into truckType(type, manufacturor, engineSize, serviceInterval, maxWeight, maxVol)
 values('bakkie','Isuzu',2500,15000,1174,1564557280)
 
