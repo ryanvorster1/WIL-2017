@@ -8,29 +8,29 @@ namespace SystemLogic
 {
     public class Trip
     {
-        private int ID;
-        private Truck truck;
-        private User customer;
-        private DateTime start;
-        private DateTime end;
-        private User driver;
-        private Route route;
+        public int ID { get; set; }
+        public Truck Truck { get; set; }
+        public User Customer { get; set; }
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
+        public User Driver { get; set; }
+        public Route Route { get; set; }
 
         public Trip(int id, Truck truck, User customer, DateTime start, DateTime end,
             User driver, Route route)
         {
             ID = id;
-            this.truck = truck;
-            this.customer = customer;
-            this.start = start;
-            this.end = end;
-            this.driver = driver;
-            this.route = route;
+            this.Truck = truck;
+            this.Customer = customer;
+            this.Start = start;
+            this.End = end;
+            this.Driver = driver;
+            this.Route = route;
         }
 
         public string ToString()
         {
-            return $"{ID}\n {truck.ToString()}\n{customer.ToString()}";
+            return $"{ID}\n {Truck.ToString()}\n{Customer.ToString()}";
         }
     }
 }

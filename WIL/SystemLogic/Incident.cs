@@ -8,32 +8,32 @@ namespace SystemLogic
 {
     public class Incident
     {
-        private int ID;
-        private IncidentType type;
-        private User driver;
+        public int ID { get; set; }
+        public IncidentType Type { get; set; }
+        public User Driver { get; set; }
 
         public Incident(int id, IncidentType type, User driver)
         {
             id = id;
-            this.type = type;
-            this.driver = driver;
+            this.Type = type;
+            this.Driver = driver;
         }
 
     }
 
     public class IncidentType
     {
-        private int ID;
-        private string description;
-        private double cost;
-        private int repairTime;
+       public int ID { get; set; }
+        public string Description { get; set; }
+        public double Cost { get; set; }
+        public int RepairTime { get; set; }
 
         public  IncidentType(int id, string descript, double cost, int repairTime)
         {
             ID = id;
-            description = descript;
-            this.cost = cost;
-            this.repairTime = repairTime;
+            Description = descript;
+            this.Cost = cost;
+            this.RepairTime = repairTime;
         }
     }
 }

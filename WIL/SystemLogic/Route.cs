@@ -8,23 +8,23 @@ namespace SystemLogic
 {
     public class Route
     {
-        private int ID;
-        private Department departure;
-        private Department destination;
-        private int kms;
+        public int ID { get; set; }
+        public Department Departure { get; set; }
+        public Department Destination { get; set; }
+        public int Kms { get; set; }
 
         public Route(int id, Department depart, Department dest, int kms)
         {
             ID = id;
-            departure = depart;
-            destination = dest;
-            this.kms = kms;
+            Departure = depart;
+            Destination = dest;
+            this.Kms = kms;
         }
 
         public string ToString()
         {
-            string result = $"depoID: {ID}\nDestination\n {destination.ToString()}";
-            result += $"\nDeparture\n {departure.ToString()}\n KMS: {kms}";
+            string result = $"depoID: {ID}\nDestination\n {Destination.ToString()}";
+            result += $"\nDeparture\n {Departure.ToString()}\n KMS: {Kms}";
             return result;
         }
 
@@ -32,18 +32,18 @@ namespace SystemLogic
 
     public class Department
     {
-        private int ID;
-        private string name;
+        public int ID { get; set; }
+        public string Name { get; set; }
 
         public Department(int id, string name)
         {
             ID = id;
-            this.name = name;
+            this.Name = name;
         }
 
         public String ToString()
         {
-            string result = $"DepoID: {ID}\nDepoName: {name}";
+            string result = $"DepoID: {ID}\nDepoName: {Name}";
             return result;
         }
 

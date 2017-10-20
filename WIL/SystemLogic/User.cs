@@ -8,25 +8,25 @@ namespace SystemLogic
 {
     public class User
     {
-        private int ID;
-        private string username;
-        private string password;
-        private UserType type;
-        private int hours;
-        private string fname;
-        private string lname;
+        public int ID { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public UserType Type { get; set; }
+        public int Hours { get; set; }
+        public string Fname { get; set; }
+        public string Lname { get; set; }
 
 
         public User(int id, string username, string pass,
             UserType type, int hours, string fname, string lname)
         {
             ID = id;
-            this.username = username;
-            password = pass;
-            this.type = type;
-            this.hours = hours;
-            this.fname = fname;
-            this.lname = lname;
+            this.Username = username;
+            Password = pass;
+            this.Type = type;
+            this.Hours = hours;
+            this.Fname = fname;
+            this.Lname = lname;
         }
 
 
@@ -35,13 +35,13 @@ namespace SystemLogic
 
     public class UserType
     {
-        private int ID;
-        private string type;
+        public int ID { get; set; }
+        public string Type { get; set; }
 
         public UserType(int ID, string type)
         {
             this.ID = ID;
-            this.type = type;
+            this.Type = type;
         }
     }
 }
