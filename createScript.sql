@@ -107,3 +107,15 @@ values('Cape Town'),
 
 insert into routes(departure, destination,kms)
 values(0,1,1400)
+
+insert into userType(userType)
+values('driver')
+
+insert into users(username, pass, userType, hours, fname, lname)
+values('jonny', 'walks', 0, 0, 'Johnny', 'Walker')
+
+insert into incidentTYpe (description, cost, repairTime)
+values('burst tyre', 600, 1)
+
+insert into incident(incidentType, driverID)
+values(0,0)

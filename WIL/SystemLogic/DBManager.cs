@@ -25,6 +25,148 @@ namespace SystemLogic
             }
         }
 
+        //get a list of all incidents
+        public List<Incident> GetIncidents()
+        {
+            List<Incident> incidents = new List<Incident>();
+
+            try
+            {
+                string sql = "select * from Incident";
+                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    int ID = (int)row["ID"];
+                    IncidentType type = GetIncidentTypeByID((int)row["incidentType"]);
+                    User driver = GetUserByID((int)row["driverID"]);
+
+                    incidents.Add(new Incident(ID, type,driver));
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return incidents;
+        }
+
+        //get specific incident type by ID
+        public IncidentType GetIncidentTypeByID(int id)
+        {
+            IncidentType incident = null;
+
+            try
+            {
+                string sql = $"select * from IncidenType where id = {id}";
+                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+
+                DataRow row = ds.Tables[0].Rows[0];
+                
+                    int ID = (int)row["ID"];
+                    string description = row["username"].ToString();
+                    int cost = (int)row["cost"];
+                    int hours = (int)row["repairTime"];
+
+                    incident = new IncidentType(ID, description, cost, hours);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return incident;
+        }
+
+        //get a list of all users
+        public List<User> GetUsers()
+        {
+            List<User> users = new List<User>();
+
+            try
+            {
+                string sql = "select * from Users";
+                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    int ID = (int)row["ID"];
+                    string username = row["username"].ToString();
+                    string password = row["password"].ToString();
+                    UserType type = GetUserTypeById((int)row["userType"]);
+                    int hours = (int)row["hours"];
+                    string fname = row["fname"].ToString();
+                    string lname = row["lname"].ToString();
+
+                    User u = new User(ID, username, password, type, hours, fname, lname); 
+                    users.Add(u);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return users;
+        }
+        
+        //get specific user by ID
+        public User GetUserByID(int id)
+        {
+            User user = null;
+            try
+            {
+                string sql = $"select * from Users where id = {id}";
+                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+
+                DataRow row = ds.Tables[0].Rows[0];
+                int ID = (int)row["ID"];
+                string username = row["username"].ToString();
+                string password = row["password"].ToString();
+                UserType type = GetUserTypeById((int)row["userType"]);
+                int hours = (int)row["hours"];
+                string fname = row["fname"].ToString();
+                string lname = row["lname"].ToString(); ;
+
+                user = new User(ID,username, password, type, hours, fname, lname);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return user;
+        }
+
+        //get user type by ID
+        public UserType GetUserTypeById(int id)
+        {
+            UserType type = null;
+            try
+            {
+                string sql = $"select * from UserType where id = {id}";
+                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+
+                DataRow row = ds.Tables[0].Rows[0];
+                    int ID = (int)row["ID"];
+                    string descr = row["userType"].ToString();
+
+                    type = new UserType(id, descr);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return type;
+        }
+
         //get a list of all routes
         public List<Route> GetRoutes()
         {
@@ -168,6 +310,8 @@ namespace SystemLogic
             }
             return truckType;
         }
+
+
 
     }
 }
