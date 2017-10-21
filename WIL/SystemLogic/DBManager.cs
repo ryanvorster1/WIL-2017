@@ -113,6 +113,48 @@ namespace SystemLogic
             return incident;
         }
 
+        /////////////////////////////////////////////////////////////////////////////users
+
+        //add user do DB
+        //get ID in return
+        //ref user object sets user.ID automatically
+        public int AddUser(ref User user)
+        {
+            int id = -1;
+            try
+            {
+                string sql = "insert into users(username, pass, userType, hours, fname, lname) " +
+                            "values(@user, @pass, @userType, @hours, @fname, @lname)";
+
+                SqlCommand cmd = new SqlCommand(sql, dbCon);
+                cmd.Parameters.AddWithValue("@user", user.Username);
+                cmd.Parameters.AddWithValue("@pass", user.Password);
+                cmd.Parameters.AddWithValue("@userType", user.Type.ID);
+                cmd.Parameters.AddWithValue("@hours", user.Hours);
+                cmd.Parameters.AddWithValue("@fname", user.Fname);
+                cmd.Parameters.AddWithValue("@lname", user.Lname);
+
+                dbCon.Open();
+                //do insert
+                cmd.ExecuteNonQuery();
+                //get ID
+                sql = "select @@identity";
+                cmd.CommandText = sql;
+                id = Convert.ToInt32(cmd.ExecuteScalar());
+
+                dbCon.Close();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            user.ID = id;
+
+            return id;
+        }
+
         //get a list of all users
         public List<User> GetUsers()
         {
@@ -129,7 +171,7 @@ namespace SystemLogic
                 {
                     int ID = (int)row["ID"];
                     string username = row["username"].ToString();
-                    string password = row["password"].ToString();
+                    string password = row["pass"].ToString();
                     UserType type = GetUserTypeById((int)row["userType"]);
                     int hours = (int)row["hours"];
                     string fname = row["fname"].ToString();
@@ -198,6 +240,34 @@ namespace SystemLogic
             }
             return type;
         }
+
+        //get all user types
+        public List<UserType> GetUserTypes()
+        {
+            List<UserType> types = new List<UserType>();
+            try
+            {
+                string sql = $"select * from UserType";
+                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    int ID = (int)row["ID"];
+                    string descr = row["userType"].ToString();
+                    types.Add(new UserType(ID, descr));
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return types;
+        }
+
+        ////////////////////////////////////////////////////////////////////////////routes
 
         //get route by id
         public Route GetRouteByID(int id)
@@ -305,6 +375,9 @@ namespace SystemLogic
             }
             return depos;
         }
+
+        ////////////////////////////////////////////////////////////////////////////////////trucks
+
 
         //save truck to DB and get ID in return
         //returns -1 for failure
@@ -476,6 +549,7 @@ namespace SystemLogic
             return truckType;
         }
 
+        //get availiable trucks of specified type that are currently free
         public List<Truck> GetAvailiableTrucks(TruckType type)
         {
             List<Truck> trucks = new List<Truck>();
@@ -505,6 +579,8 @@ namespace SystemLogic
             }
             return trucks;
         }
+
+        //TODO: getAvailiableTrucks(Type type, Trip trip?) 
 
 
     }

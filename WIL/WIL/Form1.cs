@@ -16,5 +16,10 @@ namespace WIL
         {
             InitializeComponent();
         }
+
+        private void btnUsers_Click(object sender, EventArgs e)
+        {
+            new UserForm().ShowDialog();
+        }
     }
 }

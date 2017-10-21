@@ -29,6 +29,23 @@ namespace SystemLogic
             this.Lname = lname;
         }
 
+        public User(string username, string pass,
+            UserType type, string fname, string lname)
+        {
+            ID = -1;
+            this.Username = username;
+            Password = pass;
+            this.Type = type;
+            this.Hours = 0;
+            this.Fname = fname;
+            this.Lname = lname;
+        }
+
+
+        public String ToString()
+        {
+            return $"ID: {ID} USername: {Username}";
+        }
 
         
     }
@@ -42,6 +59,11 @@ namespace SystemLogic
         {
             this.ID = ID;
             this.Type = type;
+        }
+
+        public String ToString()
+        {
+            return $"ID: {ID} type: {Type}";
         }
     }
 }
