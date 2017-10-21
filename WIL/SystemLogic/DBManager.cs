@@ -402,7 +402,7 @@ namespace SystemLogic
                 string reg = row["reg"].ToString();
                 int kms = (int)row["kms"];
                 bool availible = (bool)row["availible"];
-                TruckType type = GetTruckType((int)row["truckType"]);
+                TruckType type = GetTruckTypeById((int)row["truckType"]);
                 truck = new Truck(ID, vin, reg, kms, availible, type);
             }
             catch (Exception ex)
@@ -431,7 +431,7 @@ namespace SystemLogic
                     string reg = row["reg"].ToString();
                     int kms = (int)row["kms"];
                     bool availible = (bool)row["availible"];
-                    TruckType type = GetTruckType((int)row["truckType"]);
+                    TruckType type = GetTruckTypeById((int)row["truckType"]);
                     Truck t = new Truck(ID, vin, reg, kms, availible, type);
                     trucks.Add(t);
                 }
@@ -444,7 +444,7 @@ namespace SystemLogic
         }
 
         //query db for truck type by ID of type
-        public TruckType GetTruckType(int id)
+        public TruckType GetTruckTypeById(int id)
         {
             TruckType truckType = null;
 
@@ -476,6 +476,35 @@ namespace SystemLogic
             return truckType;
         }
 
+        public List<Truck> GetAvailiableTrucks(TruckType type)
+        {
+            List<Truck> trucks = new List<Truck>();
+
+            try
+            {
+                string sql = $"select * from truck where availible = 1 and truckType = {type.ID}";
+                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    int ID = (int)row["ID"];
+                    string vin = row["vin"].ToString();
+                    string reg = row["reg"].ToString();
+                    int kms = (int)row["kms"];
+                    bool availible = (bool)row["availible"];
+                    TruckType truckType = GetTruckTypeById((int)row["truckType"]);
+                    Truck t = new Truck(ID, vin, reg, kms, availible, truckType);
+                    trucks.Add(t);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return trucks;
+        }
 
 
     }
