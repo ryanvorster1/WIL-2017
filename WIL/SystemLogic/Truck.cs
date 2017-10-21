@@ -20,10 +20,21 @@ namespace SystemLogic
 
         }
 
-        public Truck(int id, string vin, string reg, 
+        public Truck(int id, string vin, string reg,
             int kms, bool avail, TruckType type)
         {
             ID = id;
+            this.Vin = vin;
+            this.Reg = reg;
+            this.Kms = kms;
+            Availible = avail;
+            this.Type = type;
+        }
+
+        public Truck(string vin, string reg,
+            int kms, bool avail, TruckType type)
+        {
+            ID = -1;
             this.Vin = vin;
             this.Reg = reg;
             this.Kms = kms;
@@ -40,7 +51,7 @@ namespace SystemLogic
 
     }
 
-   public class TruckType
+    public class TruckType
     {
         public int ID { get; set; }
         public string Type { get; set; }
@@ -50,15 +61,29 @@ namespace SystemLogic
         public int MaxWeight { get; set; }
         public int MaxVol { get; set; }
 
+        //default constructor
         public TruckType()
         {
 
         }
 
-        public TruckType(int id, string type, string man, 
-            int engineSize, int serviceInterval,int maxWeight, int maxVol)
+        //constructor will all paramaters
+        public TruckType(int id, string type, string man,
+            int engineSize, int serviceInterval, int maxWeight, int maxVol)
         {
             ID = id;
+            this.Type = type;
+            Manufacturor = man;
+            this.EngineSize = engineSize;
+            this.ServiceInterval = serviceInterval;
+            this.MaxWeight = maxWeight;
+            this.MaxVol = maxVol;
+        }
+
+        //constructor without ID
+        public TruckType(string type, string man,
+            int engineSize, int serviceInterval, int maxWeight, int maxVol)
+        {
             this.Type = type;
             Manufacturor = man;
             this.EngineSize = engineSize;

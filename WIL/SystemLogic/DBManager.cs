@@ -10,7 +10,7 @@ namespace SystemLogic
 {
     public class DBManager
     {
-        private string connectionString = "Data Source=GEIMAJ;Initial Catalog=WIL2017;Integrated Security=True";
+        private string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=2017WIL;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";//Data Source=GEIMAJ;Initial Catalog=WIL2017;Integrated Security=True";
         private SqlConnection dbCon;
 
         public DBManager()
@@ -304,6 +304,84 @@ namespace SystemLogic
                 throw ex;
             }
             return depos;
+        }
+
+        //save truck to DB and get ID in return
+        //returns -1 for failure
+        //ref type is used to set ID of passed object automatically
+        public int AddTruck(ref Truck truck)
+        {
+            int id = -1;
+            try
+            {
+                string sql = "insert into truck(vin,reg,kms,availible,truckType)" +
+                             "values(@vin,@reg,@kms,@avail,@truckType)";
+
+                SqlCommand cmd = new SqlCommand(sql, dbCon);
+                cmd.Parameters.AddWithValue("@vin",truck.Vin);
+                cmd.Parameters.AddWithValue("@reg", truck.Reg);
+                cmd.Parameters.AddWithValue("@kms", truck.Kms);
+                cmd.Parameters.AddWithValue("@avail", truck.Availible);
+                cmd.Parameters.AddWithValue("@truckType", truck.Type.ID);
+
+                dbCon.Open();
+                //do insert
+                cmd.ExecuteNonQuery();
+                //get ID
+                sql = "select @@identity";
+                cmd.CommandText = sql;
+                id = Convert.ToInt32(cmd.ExecuteScalar());
+
+                dbCon.Close();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            truck.ID = id;
+
+            return id;
+        }
+
+        //save truckType to DB 
+        //recieve ID in return or -1 if failure
+        //ref type is used to set ID of passed object automatically
+        public int AddTruckType(ref TruckType type)
+        {
+            int id = -1;
+            try
+            {
+                string sql = "insert into truckType(type, manufacturor, engineSize, serviceInterval, maxWeight, maxVol)" +
+                             "values(@type, @manufacturor, @engineSize, @serviceInterval, @maxWeight, @maxVol)";
+
+                SqlCommand cmd = new SqlCommand(sql, dbCon);
+                cmd.Parameters.AddWithValue("@type", type.Type);
+                cmd.Parameters.AddWithValue("@manufacturor", type.Manufacturor);
+                cmd.Parameters.AddWithValue("@engineSize", type.EngineSize);
+                cmd.Parameters.AddWithValue("@serviceInterval", type.ServiceInterval);
+                cmd.Parameters.AddWithValue("@maxWeight", type.MaxWeight);
+                cmd.Parameters.AddWithValue("@maxVol", type.MaxVol);
+
+                dbCon.Open();
+                //do insert
+                cmd.ExecuteNonQuery();
+                //get ID
+                sql = "select @@identity";
+                cmd.CommandText = sql;
+                id = Convert.ToInt32( cmd.ExecuteScalar());
+
+                dbCon.Close();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            type.ID = id;
+            return id;
         }
 
         //get truck by ID

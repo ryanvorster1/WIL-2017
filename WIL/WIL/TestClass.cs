@@ -12,10 +12,13 @@ namespace WIL
         public static void Main(string[] args)
         {
             DBManager dbm = new DBManager();
-            foreach(var t in dbm.GetTrips())
-            {
-                Console.WriteLine(t.ToString());
-            }
+            TruckType t = new TruckType("truck", "man", 4000, 20000, 40000, 80000);
+            Truck truck = new Truck("789456321", "CA-TRUCK", 0, true, t);
+
+            dbm.AddTruck(ref truck);
+
+            Console.WriteLine(truck.ID);
+
             Console.ReadLine();
         }
     }
