@@ -10,7 +10,7 @@ namespace SystemLogic
 {
     public class DBManager
     {
-        private string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=2017WIL;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";//Data Source=GEIMAJ;Initial Catalog=WIL2017;Integrated Security=True";
+        private string connectionString = Properties.Settings.Default._2017_WILConnectionString;
         private SqlConnection dbCon;
 
         public DBManager()
@@ -47,7 +47,7 @@ namespace SystemLogic
                     DateTime end = (DateTime)row["endDate"];
                     Route route = GetRouteByID((int)row["routeID"]);
 
-                    trips.Add(new Trip(ID,truck,customer,start,end,driver,route));
+                    trips.Add(new Trip(ID, truck, customer, start, end, driver, route));
                 }
             }
             catch (Exception ex)
@@ -114,6 +114,100 @@ namespace SystemLogic
         }
 
         /////////////////////////////////////////////////////////////////////////////users
+
+        //getcustomer by ID
+        public Customer GetCustomerByID(int id)
+        {
+            Customer customer = null;
+            try
+            {
+                string sql = $"select * from customer where id = {id}";
+                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+
+                DataRow row = ds.Tables[0].Rows[0];
+                int ID = (int)row["ID"];
+                string fname = row["fname"].ToString();
+                string lname = row["lname"].ToString();
+                string email = row["email"].ToString();
+                string cell = row["cell"].ToString();
+
+                customer = new Customer(ID, fname, lname, email, cell);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return customer;
+        }
+
+        //get a list of all customers
+        public List<Customer> GetCustomers()
+        {
+            List<Customer> customers = new List<Customer>();
+
+            try
+            {
+                string sql = "select * from customer";
+                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    int ID = (int)row["ID"];
+                    string fname = row["fname"].ToString();
+                    string lname = row["lname"].ToString();
+                    string email = row["email"].ToString();
+                    string cell = row["cell"].ToString();
+
+                    Customer c = new Customer(ID, fname, lname, email, cell);
+                    customers.Add(c);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return customers;
+        }
+
+        //return ID. ref type Customer so cus.ID is automatically assigned
+        public int AddCustomer(ref Customer cus)
+        {
+            int id = -1;
+            try
+            {
+                string sql = "insert into customer(fname, lname, email,cell) " +
+                            "values(@fname, @lname, @email, @cell)";
+
+                SqlCommand cmd = new SqlCommand(sql, dbCon);
+                cmd.Parameters.AddWithValue("@fname", cus.Fname);
+                cmd.Parameters.AddWithValue("@lname", cus.Lname);
+                cmd.Parameters.AddWithValue("@email", cus.Email);
+                cmd.Parameters.AddWithValue("@cell", cus.Cell);
+
+
+                dbCon.Open();
+                //do insert
+                cmd.ExecuteNonQuery();
+                //get ID
+                sql = "select @@identity";
+                cmd.CommandText = sql;
+                id = Convert.ToInt32(cmd.ExecuteScalar());
+
+                dbCon.Close();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            cus.ID = id;
+
+            return id;
+        }
 
         //add user do DB
         //get ID in return
@@ -391,7 +485,7 @@ namespace SystemLogic
                              "values(@vin,@reg,@kms,@avail,@truckType)";
 
                 SqlCommand cmd = new SqlCommand(sql, dbCon);
-                cmd.Parameters.AddWithValue("@vin",truck.Vin);
+                cmd.Parameters.AddWithValue("@vin", truck.Vin);
                 cmd.Parameters.AddWithValue("@reg", truck.Reg);
                 cmd.Parameters.AddWithValue("@kms", truck.Kms);
                 cmd.Parameters.AddWithValue("@avail", truck.Availible);
@@ -443,7 +537,7 @@ namespace SystemLogic
                 //get ID
                 sql = "select @@identity";
                 cmd.CommandText = sql;
-                id = Convert.ToInt32( cmd.ExecuteScalar());
+                id = Convert.ToInt32(cmd.ExecuteScalar());
 
                 dbCon.Close();
 

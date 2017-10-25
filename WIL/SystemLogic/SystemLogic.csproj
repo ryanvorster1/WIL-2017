@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Customer.cs" />
     <Compile Include="DBManager.cs" />
     <Compile Include="Incident.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -56,6 +57,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>WIL2017DataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="_2017_WILDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_2017_WILDataSet.xsd</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -74,6 +80,17 @@
     </None>
     <None Include="WIL2017DataSet.xss">
       <DependentUpon>WIL2017DataSet.xsd</DependentUpon>
+    </None>
+    <None Include="_2017_WILDataSet.xsc">
+      <DependentUpon>_2017_WILDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="_2017_WILDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>_2017_WILDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="_2017_WILDataSet.xss">
+      <DependentUpon>_2017_WILDataSet.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
