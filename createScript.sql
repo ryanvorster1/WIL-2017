@@ -61,8 +61,10 @@ create table department (
 
 create table customer (
 	ID			integer identity(0,1) primary key,
-	userID		integer foreign key references users(ID),
-	bankDetails varchar(100)	
+	fname		varchar(30),
+	lname		varchar(30),
+	email 		varchar(30),
+	cell		varchar(20)
 )
 
 create table routes (
