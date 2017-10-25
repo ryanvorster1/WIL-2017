@@ -1,5 +1,5 @@
-drop table truck
-drop table truckType
+--drop all tables
+EXEC sp_MSforeachtable @command1 = "DROP TABLE ?"
 
 create table truckType (
 	ID				integer identity(0,1) primary key,
@@ -82,7 +82,7 @@ create table trip (
 	routeID		integer foreign key references routes(ID)
 )
 
-create table incidentTYpe (
+create table incidentType (
 	ID			integer identity(0,1) primary key,
 	description	varchar(50),
 	cost		money,
