@@ -127,3 +127,6 @@ values(0,'abasa bank')
 
 insert into trip(truckID, clientID, startDate, endDate, driverID, routeID)
 values(0,0,'2012-06-20 10:34:09.000','2012-06-22 10:34:09.000',0,0)
+
+insert into customer(fname, lname, email, cell)
+values('jimbo', 'gregson', 'jimbogregsa@gmail.com','0845998047')
