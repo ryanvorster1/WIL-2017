@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace WIL
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
+        }
+
+        private void btnUsers_Click(object sender, EventArgs e)
+        {
+            new UserForm().ShowDialog();
         }
     }
 }
