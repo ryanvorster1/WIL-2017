@@ -14,40 +14,49 @@ namespace WIL
     public partial class UserForm : Form
     {
         private DBManager dbm;
+        private bool updating;
 
         public UserForm()
         {
             InitializeComponent();
             dbm = new DBManager();
+            UpdateLsbUsers();
+
         }
 
         private void UserForm_Load(object sender, EventArgs e)
         {
-            UpdateLsbUsers();
         }
 
         private void UpdateLsbUsers()
         {
-            lsbUsers.Items.Clear();
-            List<User> users = dbm.GetUsers();
-            foreach (var user in users)
-            {
-                lsbUsers.Items.Add(user);
-            }
+            updating = true;
+            lsbUsers.DataSource = (List<User>)dbm.GetUsers();
             lsbUsers.DisplayMember = "Username";
             lsbUsers.ValueMember = "ID";
-
+            updating = false;
         }
 
         private void lsbUsers_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int userID = Convert.ToInt32(lsbUsers.SelectedValue);
-            User user = dbm.GetUserByID(userID);
-            Console.WriteLine($"changed! {user.Username}");//dbm.GetUserByID((int)lsbUsers.SelectedValue).ToString());
+            if (!updating)
+            {
+                pnlAddUser.Visible = false;
+                int id = Convert.ToInt32( lsbUsers.SelectedValue.ToString());
+                User user = dbm.GetUserByID(id);
+                lblName.Text = user.Fname;
+                lblSurname.Text = user.Lname;
+                lblHours.Text = user.Hours + " hrs";
+                lblType.Text = user.Type.Type;
+                pnlDetails.Visible = true;
+            }
+
         }
 
         private void btnAddUser_Click(object sender, EventArgs e)
         {
+            //hide details
+            pnlDetails.Visible = false;
             //show controls
             pnlAddUser.Visible = true;
             //update controls
@@ -73,28 +82,31 @@ namespace WIL
             string pass1 = txbPass1.Text;
             string pass2 = txbPass2.Text;
             int typeID = Convert.ToInt32(cmbUserType.SelectedValue);
-            
+
             UserType type = dbm.GetUserTypeById(typeID);
 
             Console.WriteLine(type.ToString());
 
-            if(!name.Equals("") && !surname.Equals("") && !pass1.Equals("") && !pass2.Equals(""))
+            if (!name.Equals("") && !surname.Equals("") && !pass1.Equals("") && !pass2.Equals(""))
             {
                 if (pass1.Equals(pass2))
                 {
-                    User user = new User(name+surname,pass1,type,name,surname);
+                    User user = new User(name + surname, pass1, type, name, surname);
                     dbm.AddUser(ref user);
                     UpdateLsbUsers();
+                    pnlAddUser.Visible = false;
                 }
                 else
                 {
                     MessageBox.Show("Passwords do not match.");
                 }
-            } else
+            }
+            else
             {
                 MessageBox.Show("Complete all fields.");
             }
 
         }
+
     }
 }

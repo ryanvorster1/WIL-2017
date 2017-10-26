@@ -111,7 +111,9 @@ insert into routes(departure, destination,kms)
 values(0,1,1400)
 
 insert into userType(userType)
-values('driver')
+values('Driver'),
+		('Service Manager'),
+		('General Manager')
 
 insert into users(username, pass, userType, hours, fname, lname)
 values('jonny', 'walks', 0, 0, 'Johnny', 'Walker')
@@ -122,8 +124,8 @@ values('burst tyre', 600, 1)
 insert into incident(incidentType, driverID)
 values(0,0)
 
-insert into customer(userID, bankDetails)
-values(0,'abasa bank')
+insert into customer(fname,lname,email,cell)
+values('Bartholomew', 'Simpson','bart@gmail.com','0845998047')
 
 insert into trip(truckID, clientID, startDate, endDate, driverID, routeID)
 values(0,0,'2012-06-20 10:34:09.000','2012-06-22 10:34:09.000',0,0)

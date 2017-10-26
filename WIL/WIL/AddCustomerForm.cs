@@ -11,9 +11,9 @@ using SystemLogic;
 
 namespace WIL
 {
-    public partial class AddUserForm : Form
+    public partial class AddCustomerForm : Form
     {
-        public AddUserForm()
+        public AddCustomerForm()
         {
             InitializeComponent();
         }
