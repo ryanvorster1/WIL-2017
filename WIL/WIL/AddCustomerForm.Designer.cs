@@ -1,6 +1,6 @@
 ﻿namespace WIL
 {
-    partial class AddUserForm
+    partial class AddCustomerForm
     {
         /// <summary>
         /// Required designer variable.
