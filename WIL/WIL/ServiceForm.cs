@@ -11,11 +11,11 @@ using SystemLogic;
 
 namespace WIL
 {
-    public partial class Servicefrm : Form
+    public partial class ServiceForm : Form
     {
         DBManager dbm;
         List<string> service = new List<string>();
-        public Servicefrm()
+        public ServiceForm()
         {
             
             InitializeComponent();
