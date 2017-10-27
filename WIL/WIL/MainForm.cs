@@ -21,5 +21,10 @@ namespace WIL
         {
             new UserForm().ShowDialog();
         }
+
+        private void btnServices_Click(object sender, EventArgs e)
+        {
+            new ServiceForm().ShowDialog();
+        }
     }
 }

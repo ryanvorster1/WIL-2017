@@ -70,6 +70,7 @@
             this.btnServices.TabIndex = 3;
             this.btnServices.Text = "Services";
             this.btnServices.UseVisualStyleBackColor = true;
+            this.btnServices.Click += new System.EventHandler(this.btnServices_Click);
             // 
             // btnUsers
             // 
@@ -81,7 +82,7 @@
             this.btnUsers.UseVisualStyleBackColor = true;
             this.btnUsers.Click += new System.EventHandler(this.btnUsers_Click);
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -91,7 +92,7 @@
             this.Controls.Add(this.btnTrucks);
             this.Controls.Add(this.btnTrips);
             this.Controls.Add(this.label1);
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "Form1";
             this.ResumeLayout(false);
             this.PerformLayout();
