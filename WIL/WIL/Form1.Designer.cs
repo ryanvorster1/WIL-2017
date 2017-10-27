@@ -70,6 +70,7 @@
             this.btnServices.TabIndex = 3;
             this.btnServices.Text = "Services";
             this.btnServices.UseVisualStyleBackColor = true;
+            this.btnServices.Click += new System.EventHandler(this.btnServices_Click);
             // 
             // btnUsers
             // 
