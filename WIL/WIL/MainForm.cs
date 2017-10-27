@@ -16,7 +16,6 @@ namespace WIL
         public MainForm()
         {
             InitializeComponent();
-            Console.WriteLine(new DBManager().GetServiceItems()[0].Service.Mechanic.Fname + new DBManager().GetServiceItems()[0].ServiceType.Job);
         }
 
         private void btnUsers_Click(object sender, EventArgs e)
