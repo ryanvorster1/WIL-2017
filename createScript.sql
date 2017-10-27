@@ -116,7 +116,8 @@ values('Driver'),
 		('General Manager')
 
 insert into users(username, pass, userType, hours, fname, lname)
-values('jonny', 'walks', 0, 0, 'Johnny', 'Walker')
+values('jonny', 'walks', 0, 0, 'Johnny', 'Walker'),
+		('Bart', 'simps', 1, 0, 'Bartholomew', 'Simpson')
 
 insert into incidentTYpe (description, cost, repairTime)
 values('burst tyre', 600, 1)
@@ -132,3 +133,14 @@ values(0,0,'2012-06-20 10:34:09.000','2012-06-22 10:34:09.000',0,0)
 
 insert into customer(fname, lname, email, cell)
 values('jimbo', 'gregson', 'jimbogregsa@gmail.com','0845998047')
+
+insert into serviceType(job,cost,hours)
+values('oil change',600,2)
+
+insert into service(truckID,mechanic)
+values(0,1)
+
+insert into serviceItem(serviceID, serviceJob)
+values(0,0)
+
+select * from serviceItem
