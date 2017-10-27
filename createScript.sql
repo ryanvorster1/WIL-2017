@@ -143,4 +143,4 @@ values(0,1)
 insert into serviceItem(serviceID, serviceJob)
 values(0,0)
 
-select * from serviceItem
+
