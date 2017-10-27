@@ -676,6 +676,170 @@ namespace SystemLogic
 
         //TODO: getAvailiableTrucks(Type type, Trip trip?) 
 
+        //////////////////////////////////////////////////////////////////////////////////services
+        public List<Service> GetServices()
+        {
+            List<Service> services = new List<Service>();
 
+            try
+            {
+                string sql = "select * from service";
+                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    int ID = (int)row["ID"];
+                    Truck truck = GetTruckByID((int)row["truckID"]);
+                    User mechanic = GetUserByID((int)row["mechanic"]);
+                    Service s = new Service(ID, truck, mechanic);
+                    services.Add(s);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return services;
+        }
+
+        public Service GetServiceById(int id)
+        {
+            Service services = null;
+            try
+            {
+                string sql = $"select * from service where id = {id}";
+                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+
+                DataRow row = ds.Tables[0].Rows[0];
+                int ID = (int)row["ID"];
+                Truck truck = GetTruckByID((int)row["truckID"]);
+                User mechanic = GetUserByID((int)row["mechanic"]);
+                services = new Service(ID, truck, mechanic);
+
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return services;
+        }
+
+        public List<ServiceType> GetServiceTypes()
+        {
+            List<ServiceType> serviceTypes = new List<ServiceType>();
+
+            try
+            {
+                string sql = "select * from serviceType";
+                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    int ID = (int)row["ID"];
+                    string job = row["job"].ToString();
+                    double cost = Convert.ToDouble(row["cost"]);
+                    int hours = (int)row["hours"];
+
+                    ServiceType st = new ServiceType(ID, job, cost, hours);
+                    serviceTypes.Add(st);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return serviceTypes;
+        }
+
+        public ServiceType GetServiceTypeById(int id)
+        {
+            ServiceType serviceType = null;
+
+            try
+            {
+                string sql = $"select * from serviceType where id = {id}";
+                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+
+                DataRow row = ds.Tables[0].Rows[0];
+                int ID = (int)row["ID"];
+                string job = row["job"].ToString();
+                double cost = Convert.ToDouble(row["cost"]);
+                int hours = (int)row["hours"];
+
+                serviceType = new ServiceType(ID, job, cost, hours);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return serviceType;
+        }
+
+        public List<ServiceItem> GetServiceItems()
+        {
+            List<ServiceItem> serviceItems = new List<ServiceItem>();
+
+            try
+            {
+                string sql = "select * from serviceItem";
+                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    int ID = (int)row["ID"];
+                    Service service = GetServiceById((int)row["serviceID"]);
+                    ServiceType type = GetServiceTypeById((int)row["serviceJob"]);
+
+                    ServiceItem si = new ServiceItem(ID, service, type);
+                    serviceItems.Add(si);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return serviceItems;
+        }
+
+        public ServiceItem GetServiceItemById(int id)
+        {
+            ServiceItem serviceItem = null;
+
+            try
+            {
+                string sql = $"select * from serviceItem where id = {id}";
+                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+
+                DataRow row = ds.Tables[0].Rows[0];
+                int ID = (int)row["ID"];
+                Service service = GetServiceById((int)row["serviceID"]);
+                ServiceType type = GetServiceTypeById((int)row["serviceJob"]);
+
+                serviceItem = new ServiceItem(ID, service, type);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return serviceItem;
+        }
     }
 }

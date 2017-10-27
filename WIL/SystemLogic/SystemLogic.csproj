@@ -50,6 +50,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Route.cs" />
+    <Compile Include="Service.cs" />
     <Compile Include="Trip.cs" />
     <Compile Include="Truck.cs" />
     <Compile Include="User.cs" />
