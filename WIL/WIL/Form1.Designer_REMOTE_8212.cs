@@ -28,9 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-<<<<<<< HEAD
-            this.components = new System.ComponentModel.Container();
-=======
             this.label1 = new System.Windows.Forms.Label();
             this.btnTrips = new System.Windows.Forms.Button();
             this.btnTrucks = new System.Windows.Forms.Button();
@@ -88,11 +85,27 @@
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
->>>>>>> Morne
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(529, 261);
+            this.Controls.Add(this.btnUsers);
+            this.Controls.Add(this.btnServices);
+            this.Controls.Add(this.btnTrucks);
+            this.Controls.Add(this.btnTrips);
+            this.Controls.Add(this.label1);
+            this.Name = "Form1";
             this.Text = "Form1";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnTrips;
+        private System.Windows.Forms.Button btnTrucks;
+        private System.Windows.Forms.Button btnServices;
+        private System.Windows.Forms.Button btnUsers;
     }
 }
+
