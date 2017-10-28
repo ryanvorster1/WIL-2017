@@ -125,3 +125,65 @@ values(0,'abasa bank')
 
 insert into trip(truckID, clientID, startDate, endDate, driverID, routeID)
 values(0,0,'2012-06-20 10:34:09.000','2012-06-22 10:34:09.000',0,0)
+
+--------------------------------------------------
+--- Code used for service form (Morne)
+
+
+insert into userType (userType)
+values ('Mechanic')
+
+select * from userType
+
+insert into users (username, pass, userType, hours, fname, lname)
+values ('MechBob', '1234', 0, 0,'Billy', 'Bob' )
+
+select * from users
+
+insert into truckType(type, manufacturor, engineSize, serviceInterval, maxWeight, maxVol)
+values('Container Truck','Chev',2500,15000,1174,1564557280)
+
+select * from truckType
+
+insert into truck(vin,reg,kms,availible,truckType)
+values('987','Container-1',250,1,0)
+
+select * from truck
+
+set identity_insert service on
+insert into service (ID,truckID, mechanic)
+values ( 0, 1, 0)
+
+select * from service
+
+insert into serviceType (job, cost, hours)
+values ('change oil', '400.00', 1)
+
+select * from serviceType
+
+insert into serviceItem(serviceID, serviceJob)
+values (0, 0)
+
+select * from serviceItem
+
+select top 1
+a3.fname, a3.lname, 
+a4.vin, a4.reg, 
+a5.manufacturor, a5.type, a5.engineSize, a5.serviceInterval,
+a1.job, a1.cost, a1.hours
+from serviceItem a
+inner join serviceType a1 on
+a1.ID = a.serviceID
+inner join service a2 on
+a2.ID = a.serviceID
+inner join users a3 on
+a3.ID = a2.mechanic
+inner join truck a4 on
+a4.ID = a2.truckID 
+inner join truckType a5 on
+a4.truckType = a5.ID
+where a.serviceID = 0
+
+(select serviceItem
+
+select * from [dbo].[service]
