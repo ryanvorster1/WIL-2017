@@ -7,4 +7,5 @@ Work Integrated Learning logistics assignment
 3) Copy connection string for new data source 
 4) set connectionString in DBManager.cs line 13 = "yourNewConnectionString"
 
-Numbering has changed
+
+
