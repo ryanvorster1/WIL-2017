@@ -11,10 +11,10 @@ using SystemLogic;
 
 namespace WIL
 {
-    public partial class Bookings : Form
+    public partial class BookingsForm : Form
     {
         private DBManager db;
-        public Bookings()
+        public BookingsForm()
         {
             InitializeComponent();
             db = new DBManager();
