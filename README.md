@@ -6,3 +6,5 @@ Work Integrated Learning logistics assignment
 2) Add db as new data source in visual studio
 3) Copy connection string for new data source 
 3) set connectionString in DBManager.cs line 13 = "yourNewConnectionString"
+
+I also edited this file
