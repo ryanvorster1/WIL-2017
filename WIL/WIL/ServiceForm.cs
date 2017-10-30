@@ -14,8 +14,9 @@ namespace WIL
 {
     public partial class ServiceForm : Form
     {
-        private string connectionString = "Data Source=POKKOLS-PC;Initial Catalog=WIL;Integrated Security=True";
-        private SqlConnection dbCon;
+        //no DB code in form
+        //private string connectionString = "Data Source=POKKOLS-PC;Initial Catalog=WIL;Integrated Security=True";
+        //private SqlConnection dbCon;
         //DBManager dbm;
         List<string> service = new List<string>();
         public ServiceForm()
@@ -29,14 +30,14 @@ namespace WIL
 
         void DBManager()
         {
-            try
-            {
-                dbCon = new SqlConnection(connectionString);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            //try
+            //{
+            //    dbCon = new SqlConnection(connectionString);
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
         }
 
         private void ListBoxHandle()
@@ -55,83 +56,83 @@ namespace WIL
         private void dtpDateTime_ValueChanged(object sender, EventArgs e)
         {
             // TODO add Date param
-            string tSQL = BuildGetServiceListSQL("");
-            DataSet tResults = GetSQLResults(tSQL);
-            List <TruckService> tDayServiceList = MapSQLToList(tResults);
-            PopulateListBoxWithResults(tDayServiceList);
+            //string tSQL = BuildGetServiceListSQL("");
+            //DataSet tResults = GetSQLResults(tSQL);
+            //List <TruckService> tDayServiceList = MapSQLToList(tResults);
+            //PopulateListBoxWithResults(tDayServiceList);
         }
 
-        string BuildGetServiceListSQL(string pDate)
-        {
-            string tSQL = "SELECT * FROM [dbo].[service]";
-            return tSQL;
-        }
+        //string BuildGetServiceListSQL(string pDate)
+        //{
+        //    //string tSQL = "SELECT * FROM [dbo].[service]";
+        //    //return tSQL;
+      ///  }
 
-        DataSet GetSQLResults(string pSql)
-        {
-            try
-            {
-                SqlDataAdapter da = new SqlDataAdapter(pSql, dbCon);
-                DataSet ds = new DataSet();
-                da.Fill(ds);
-                return ds;
-            }
-            catch
-            {
-                DataSet ds = new DataSet();
-                return ds;
-            }
-        }
+        //DataSet GetSQLResults(string pSql)
+        //{
+        //    //try
+        //    //{
+        //    //    SqlDataAdapter da = new SqlDataAdapter(pSql, dbCon);
+        //    //    DataSet ds = new DataSet();
+        //    //    da.Fill(ds);
+        //    //    return ds;
+        //    //}
+        //    //catch
+        //    //{
+        //    //    DataSet ds = new DataSet();
+        //    //    return ds;
+        //    //}
+      //  }
 
-        List<TruckService> MapSQLToList(DataSet pResults)
-        {
-            List<TruckService> tResults = new List<TruckService>();
-            TruckService tTruckService = null;
-            foreach (DataRow row in pResults.Tables[0].Rows)
-            {
-                int tID = (int)row["ID"];
-                int tTruckID = (int)row["truckID"];
-                int tMechanicID = (int)row["mechanic"];
-                tTruckService = new TruckService(tID, tTruckID, tMechanicID);
+        //List<TruckService> MapSQLToList(DataSet pResults)
+        //{
+        //    List<TruckService> tResults = new List<TruckService>();
+        //    TruckService tTruckService = null;
+        //    foreach (DataRow row in pResults.Tables[0].Rows)
+        //    {
+        //        int tID = (int)row["ID"];
+        //        int tTruckID = (int)row["truckID"];
+        //        int tMechanicID = (int)row["mechanic"];
+        //        tTruckService = new TruckService(tID, tTruckID, tMechanicID);
 
-                tResults.Add(tTruckService);
-            }
-            return tResults;
-        }
+        //        tResults.Add(tTruckService);
+        //    }
+        //    return tResults;
+        //}
 
-        void PopulateListBoxWithResults(List<TruckService> pResults)
-        {
-            foreach (TruckService tServiceItem in pResults)
-            {
-                string[] tRowData = new string[3];
-                tRowData[0] = tServiceItem.ID.ToString();
-                tRowData[1] = tServiceItem.TruckID.ToString();
-                tRowData[2] = tServiceItem.MechanicID.ToString();
+        //void PopulateListBoxWithResults(List<TruckService> pResults)
+        //{
+        //    foreach (TruckService tServiceItem in pResults)
+        //    {
+        //        string[] tRowData = new string[3];
+        //        tRowData[0] = tServiceItem.ID.ToString();
+        //        tRowData[1] = tServiceItem.TruckID.ToString();
+        //        tRowData[2] = tServiceItem.MechanicID.ToString();
 
-                InsertListBoxItem(tRowData);
-            }
-        }
+        //        InsertListBoxItem(tRowData);
+        //    }
+        //}
 
-        void InsertListBoxItem(string[] pRow)
-        {
-            ListViewItem tRowItem = new ListViewItem(pRow);
-            lvServiceList.Items.Add(tRowItem);
-        }
+        //void InsertListBoxItem(string[] pRow)
+        //{
+        //    ListViewItem tRowItem = new ListViewItem(pRow);
+        //    lvServiceList.Items.Add(tRowItem);
+        //}
 
-        int iUserSelectedServiceID = -1;
+        //int iUserSelectedServiceID = -1;
 
-        private void lvServiceList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            iUserSelectedServiceID = lvServiceList.SelectedIndices[0];
-        }
+        //private void lvServiceList_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    iUserSelectedServiceID = lvServiceList.SelectedIndices[0];
+        //}
 
-        private void lvServiceList_DoubleClick(object sender, EventArgs e)
-        {
-            if (iUserSelectedServiceID > -1)
-            {
-                ServiceDetailsfrm svcDetailfrm = new ServiceDetailsfrm(iUserSelectedServiceID);
-                svcDetailfrm.ShowDialog();
-            }
-        }
+        //private void lvServiceList_DoubleClick(object sender, EventArgs e)
+        //{
+        //    if (iUserSelectedServiceID > -1)
+        //    {
+        //        ServiceDetailsForm svcDetailfrm = new ServiceDetailsForm(iUserSelectedServiceID);
+        //        svcDetailfrm.ShowDialog();
+        //    }
+        //}
     }
 }

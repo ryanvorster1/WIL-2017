@@ -1,6 +1,6 @@
 ﻿namespace WIL
 {
-    partial class ServiceDetailsfrm
+    partial class ServiceDetailsForm
     {
         /// <summary>
         /// Required designer variable.

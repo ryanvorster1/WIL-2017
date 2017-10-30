@@ -54,8 +54,6 @@
             this.lvServiceList.TabIndex = 34;
             this.lvServiceList.UseCompatibleStateImageBehavior = false;
             this.lvServiceList.View = System.Windows.Forms.View.Details;
-            this.lvServiceList.SelectedIndexChanged += new System.EventHandler(this.lvServiceList_SelectedIndexChanged);
-            this.lvServiceList.DoubleClick += new System.EventHandler(this.lvServiceList_DoubleClick);
             // 
             // bttnExit
             // 
