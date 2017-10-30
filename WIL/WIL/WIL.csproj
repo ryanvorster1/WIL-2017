@@ -101,7 +101,8 @@
     </Compile>
     <EmbeddedResource Include="ServiceForm.resx">
       <DependentUpon>ServiceForm.cs</DependentUpon>
-      <!-- <EmbeddedResource Include="ServiceDetailsfrm.resx">
+  <!--
+      <EmbeddedResource Include="ServiceDetailsfrm.resx">
       <DependentUpon>ServiceDetailsfrm.cs</DependentUpon>
     </EmbeddedResource>
 -->

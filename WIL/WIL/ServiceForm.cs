@@ -17,11 +17,15 @@ namespace WIL
         //no DB code in form
         //private string connectionString = "Data Source=POKKOLS-PC;Initial Catalog=WIL;Integrated Security=True";
         //private SqlConnection dbCon;
-        //DBManager dbm;
+        DBManager dbm;
         List<string> service = new List<string>();
         public ServiceForm()
         {
-            DBManager();
+            dbm = new DBManager();
+
+            List <Service> services = dbm.GetServices();
+
+
             InitializeComponent();
             ListBoxHandle();
 
