@@ -52,6 +52,7 @@
             this.btnTrips.TabIndex = 1;
             this.btnTrips.Text = "Trips";
             this.btnTrips.UseVisualStyleBackColor = true;
+            this.btnTrips.Click += new System.EventHandler(this.btnTrips_Click);
             // 
             // btnTrucks
             // 

@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace WIL
 {
-    public partial class tripForm : Form
+    public partial class TripForm : Form
     {
-        public tripForm()
+        public TripForm()
         {
             InitializeComponent();
         }

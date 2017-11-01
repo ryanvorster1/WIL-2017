@@ -27,5 +27,10 @@ namespace WIL
         {
             new ServiceForm().ShowDialog();
         }
+
+        private void btnTrips_Click(object sender, EventArgs e)
+        {
+            new TripForm().ShowDialog();
+        }
     }
 }

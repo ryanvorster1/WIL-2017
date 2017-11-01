@@ -1,6 +1,6 @@
 ﻿namespace WIL
 {
-    partial class tripForm
+    partial class TripForm
     {
         /// <summary>
         /// Required designer variable.
@@ -42,10 +42,9 @@
             this.departure = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.destination = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.wILDBDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.wILDBDataSet = new WIL.WILDBDataSet();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.wILDBDataSetBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.wILDBDataSet)).BeginInit();
+            //((System.ComponentModel.ISupportInitialize)(this.wILDBDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // updateTripButton
@@ -143,13 +142,13 @@
             // 
             // wILDBDataSetBindingSource
             // 
-            this.wILDBDataSetBindingSource.DataSource = this.wILDBDataSet;
+            //this.wILDBDataSetBindingSource.DataSource = this.wILDBDataSet;
             this.wILDBDataSetBindingSource.Position = 0;
             // 
             // wILDBDataSet
             // 
-            this.wILDBDataSet.DataSetName = "WILDBDataSet";
-            this.wILDBDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            //this.wILDBDataSet.DataSetName = "WILDBDataSet";
+            //this.wILDBDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // tripForm
             // 
@@ -166,7 +165,7 @@
             this.Text = "tripForm";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.wILDBDataSetBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.wILDBDataSet)).EndInit();
+            //((System.ComponentModel.ISupportInitialize)(this.wILDBDataSet)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -186,6 +185,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn departure;
         private System.Windows.Forms.DataGridViewTextBoxColumn destination;
         private System.Windows.Forms.BindingSource wILDBDataSetBindingSource;
-        private WILDBDataSet wILDBDataSet;
     }
 }
