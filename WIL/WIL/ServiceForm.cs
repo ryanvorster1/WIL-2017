@@ -21,7 +21,7 @@ namespace WIL
             dbm = new DBManager();
 
             InitializeComponent();
-            ListBoxHandle();
+            dtpDateTime_ValueChanged(null,null);
         }
 
         void DBManager()
@@ -45,11 +45,12 @@ namespace WIL
         private void dtpDateTime_ValueChanged(object sender, EventArgs e)
         {
             DateTime theDate = dtpDateTime.Value;
-            DBManager dbm = new DBManager();
             List<Service> services = dbm.GetServices(theDate);
+
+            lvServiceList.Clear();
+            ListBoxHandle();
             if (services.Count > 0)
             {
-                lvServiceList.Clear();
                 PopulateListBoxWithResults(services);
             }
         }
