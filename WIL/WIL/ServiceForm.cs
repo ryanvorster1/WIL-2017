@@ -59,6 +59,15 @@ namespace WIL
 
         private void dtpDateTime_ValueChanged(object sender, EventArgs e)
         {
+            string theDate = dtpDateTime.Value.ToString("yyyy-MM-dd");
+            DBManager dbm = new DBManager();
+            List<Service> services = dbm.GetServices(theDate);
+            Console.WriteLine(service.Count);
+            if(services.Count > 0)
+            {
+                PopulateListBoxWithResults(dbm.GetServices(theDate));
+
+            }
             // TODO add Date param
             //string tSQL = BuildGetServiceListSQL("");
             //DataSet tResults = GetSQLResults(tSQL);
@@ -70,7 +79,7 @@ namespace WIL
         //{
         //    //string tSQL = "SELECT * FROM [dbo].[service]";
         //    //return tSQL;
-      ///  }
+        ///  }
 
         //DataSet GetSQLResults(string pSql)
         //{
@@ -86,7 +95,7 @@ namespace WIL
         //    //    DataSet ds = new DataSet();
         //    //    return ds;
         //    //}
-      //  }
+        //  }
 
         //List<TruckService> MapSQLToList(DataSet pResults)
         //{
@@ -104,24 +113,24 @@ namespace WIL
         //    return tResults;
         //}
 
-        //void PopulateListBoxWithResults(List<TruckService> pResults)
-        //{
-        //    foreach (TruckService tServiceItem in pResults)
-        //    {
-        //        string[] tRowData = new string[3];
-        //        tRowData[0] = tServiceItem.ID.ToString();
-        //        tRowData[1] = tServiceItem.TruckID.ToString();
-        //        tRowData[2] = tServiceItem.MechanicID.ToString();
+        void PopulateListBoxWithResults(List<Service> pResults)
+        {
+            foreach (Service tServiceItem in pResults)
+            {
+                string[] tRowData = new string[3];
+                tRowData[0] = tServiceItem.ID.ToString();
+                tRowData[1] = tServiceItem.Truck.ID.ToString();
+                tRowData[2] = tServiceItem.Mechanic.ID.ToString();
 
-        //        InsertListBoxItem(tRowData);
-        //    }
-        //}
+                InsertListBoxItem(tRowData);
+            }
+        }
 
-        //void InsertListBoxItem(string[] pRow)
-        //{
-        //    ListViewItem tRowItem = new ListViewItem(pRow);
-        //    lvServiceList.Items.Add(tRowItem);
-        //}
+        void InsertListBoxItem(string[] pRow)
+        {
+            ListViewItem tRowItem = new ListViewItem(pRow);
+            lvServiceList.Items.Add(tRowItem);
+        }
 
         //int iUserSelectedServiceID = -1;
 

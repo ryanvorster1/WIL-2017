@@ -704,6 +704,53 @@ namespace SystemLogic
             }
             return services;
         }
+        public List<Service> GetServices(string date)
+        {
+            List<Service> services = new List<Service>();
+
+            try
+            {
+                //TOdo fIX THIS
+                string sql = $"select* from service where startDate ";//>= {date} and endDate <= {date}";
+                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    int ID = (int)row["ID"];
+                    Truck truck = GetTruckByID((int)row["truckID"]);
+                    User mechanic = GetUserByID((int)row["mechanic"]);
+                    Service s = new Service(ID, truck, mechanic);
+                    services.Add(s);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return services;
+        }
+
+        public DataSet GetServicesDataSet()
+        {
+            DataSet services = null;
+
+            try
+            {
+                string sql = "select * from service";
+                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                services = new DataSet();
+                da.Fill(services);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return services;
+        }
 
         public Service GetServiceById(int id)
         {
