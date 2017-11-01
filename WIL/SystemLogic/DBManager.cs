@@ -10,7 +10,7 @@ namespace SystemLogic
 {
     public class DBManager
     {
-        private string connectionString = "Data Source=VCCT-STD-SQL01;Initial Catalog = 16000925; Integrated Security = True";//Properties.Settings.Default._2017_WILConnectionString;
+        private string connectionString = Properties.Settings.Default._2017_WILConnectionString;
         private SqlConnection dbCon;
 
         public DBManager()
@@ -704,14 +704,14 @@ namespace SystemLogic
             }
             return services;
         }
-        public List<Service> GetServices(string date)
+
+        public List<Service> GetServices(DateTime date)
         {
             List<Service> services = new List<Service>();
 
             try
             {
-                //TOdo fIX THIS
-                string sql = $"select* from service where startDate ";//>= {date} and endDate <= {date}";
+                string sql = $"select* from service where startDate <=  '{date.ToShortDateString()}' and endDate >= '{date.ToShortDateString()}'";
                 SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
                 DataSet ds = new DataSet();
                 da.Fill(ds);

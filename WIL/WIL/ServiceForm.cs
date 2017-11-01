@@ -14,34 +14,19 @@ namespace WIL
 {
     public partial class ServiceForm : Form
     {
-        //no DB code in form
-        //private string connectionString = "Data Source=POKKOLS-PC;Initial Catalog=WIL;Integrated Security=True";
-        //private SqlConnection dbCon;
-        DBManager dbm;
-        List<string> service = new List<string>();
+
+        private DBManager dbm;
         public ServiceForm()
         {
             dbm = new DBManager();
 
-            List <Service> services = dbm.GetServices();
-
-
             InitializeComponent();
             ListBoxHandle();
-
-
         }
 
         void DBManager()
         {
-            //try
-            //{
-            //    dbCon = new SqlConnection(connectionString);
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw ex;
-            //}
+
         }
 
         private void ListBoxHandle()
@@ -51,7 +36,7 @@ namespace WIL
             lvServiceList.Columns.Add("Mechanic", 200);
         }
 
-      
+
         private void bttnExit_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -59,20 +44,14 @@ namespace WIL
 
         private void dtpDateTime_ValueChanged(object sender, EventArgs e)
         {
-            string theDate = dtpDateTime.Value.ToString("yyyy-MM-dd");
+            DateTime theDate = dtpDateTime.Value;
             DBManager dbm = new DBManager();
             List<Service> services = dbm.GetServices(theDate);
-            Console.WriteLine(service.Count);
-            if(services.Count > 0)
+            if (services.Count > 0)
             {
-                PopulateListBoxWithResults(dbm.GetServices(theDate));
-
+                lvServiceList.Clear();
+                PopulateListBoxWithResults(services);
             }
-            // TODO add Date param
-            //string tSQL = BuildGetServiceListSQL("");
-            //DataSet tResults = GetSQLResults(tSQL);
-            //List <TruckService> tDayServiceList = MapSQLToList(tResults);
-            //PopulateListBoxWithResults(tDayServiceList);
         }
 
         //string BuildGetServiceListSQL(string pDate)
@@ -113,7 +92,7 @@ namespace WIL
         //    return tResults;
         //}
 
-        void PopulateListBoxWithResults(List<Service> pResults)
+       private void PopulateListBoxWithResults(List<Service> pResults)
         {
             foreach (Service tServiceItem in pResults)
             {
@@ -126,7 +105,7 @@ namespace WIL
             }
         }
 
-        void InsertListBoxItem(string[] pRow)
+        private void InsertListBoxItem(string[] pRow)
         {
             ListViewItem tRowItem = new ListViewItem(pRow);
             lvServiceList.Items.Add(tRowItem);
