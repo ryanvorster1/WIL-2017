@@ -26,5 +26,20 @@ namespace WIL
             slctCustBox.DisplayMember = "Fname";
             slctCustBox.ValueMember = "ID";
         }
+
+        private void cancelBtn_Click(object sender, EventArgs e)
+        {
+            //Open trip Form when cancel button is clicked
+            TripForm tf = new TripForm();
+
+        }
+
+        private void AddCustBtn_Click(object sender, EventArgs e)
+        {
+            //Open add customer form when add customer button is clicked
+            AddCustomerForm acf = new AddCustomerForm();
+            acf.ShowDialog();
+            this.Close();
+        }
     }
 }
