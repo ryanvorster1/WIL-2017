@@ -133,10 +133,14 @@ values('Burst tyre', 600, 1),
 ('Bumper bashing',900,2),
 ('Blown bulb',350,2),
 ('Blown radiator',8000,4),
-('Other>',100,10)
+('Low damage',40000,10),
+('Medium damage',80000,60),
+('Heavy damage',120000,120)
 
 insert into incident(incidentType, driverID)
 values(0,0)
+
+select * from incident
 
 insert into customer(fname,lname,email,cell)
 values('Bartholomew', 'Simpson','bart@gmail.com','0845998047')
@@ -156,6 +160,7 @@ values(0,1,'2017/11/2','2017/11/2')
 insert into serviceItem(serviceID, serviceJob)
 values(0,0)
 
---select * from incidentType
+select * from users
+join userType on users.userType = userType.ID 
 
 

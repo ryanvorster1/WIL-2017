@@ -13,8 +13,10 @@ namespace WIL
 {
     public partial class LogIncidentForm : Form
     {
-        public LogIncidentForm()
+        private User loggedIn;
+        public LogIncidentForm(User user)
         {
+            loggedIn = user;
             InitializeComponent();
         }
 
@@ -22,6 +24,25 @@ namespace WIL
         {
             cnbIncidents.DataSource = new DBManager().GetIncidentTypes();
             cnbIncidents.DisplayMember = "Description";
+            cnbIncidents.ValueMember = "ID";
+        }
+
+        private void btnLogIncident_Click(object sender, EventArgs e)
+        {
+            pnlIncident.Visible = true;
+        }
+
+        private void cancelButton_Click(object sender, EventArgs e)
+        {
+            pnlIncident.Visible = false;
+        }
+
+        private void sendIncidentReportButton_Click(object sender, EventArgs e)
+        {
+            DBManager db = new DBManager();
+            Console.WriteLine(loggedIn.ToString());
+            Incident inc = db.logIncident((int)cnbIncidents.SelectedValue,loggedIn);
+
         }
     }
 }

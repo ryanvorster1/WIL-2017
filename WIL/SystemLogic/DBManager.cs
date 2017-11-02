@@ -84,7 +84,70 @@ namespace SystemLogic
             }
             return incidents;
         }
+        public Incident GetIncidentByID(int id)
+        {
+            Incident incidents = null;
 
+            try
+            {
+                string sql = $"select * from Incident where id = {id}";
+                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    int ID = (int)row["ID"];
+                    IncidentType type = GetIncidentTypeByID((int)row["incidentType"]);
+                    User driver = GetUserByID((int)row["driverID"]);
+
+                    incidents = (new Incident(ID, type, driver));
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return incidents;
+        }
+
+        //log incidents from driverform
+        public Incident logIncident(int incidentId , User driver)
+        {
+            int id = -1;
+            Console.WriteLine(incidentId);
+            Console.WriteLine(driver.ToString());
+            try
+            {
+                string sql = "insert into Incident(incidentType, driverID) " +
+                            "values(@incidentType, @driverID)";
+
+                SqlCommand cmd = new SqlCommand(sql, dbCon);
+                cmd.Parameters.AddWithValue("@incidentType", incidentId);
+                cmd.Parameters.AddWithValue("@driverID", driver.ID);
+                
+
+
+                dbCon.Open();
+                //do insert
+                cmd.ExecuteNonQuery();
+                //get ID
+                sql = "select @@identity";
+                cmd.CommandText = sql;
+                id = Convert.ToInt32(cmd.ExecuteScalar());
+
+                dbCon.Close();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            //naz.ID= id;
+
+            return GetIncidentByID(id);
+        }
+    
         //get specific incident type by ID
         public IncidentType GetIncidentTypeByID(int id)
         {
