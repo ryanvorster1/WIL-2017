@@ -42,7 +42,7 @@ namespace SystemLogic
             this.Type = type;
         }
 
-        public string ToString()
+        public override string ToString()
         {
             string result = $"ID: {ID}\nVIN: {Vin}\nREG: {Reg}\nKMS: {Kms}\nAvail: {Availible}";
             result += Type.ToString();
@@ -92,7 +92,7 @@ namespace SystemLogic
             this.MaxVol = maxVol;
         }
 
-        public string ToString()
+        public override string ToString()
         {
             string result = $"\nTRUCKTYPE\nID: {ID}\nType: {Type}\nMan: {Manufacturor}\nEngine: {EngineSize}cc\nService: {ServiceInterval}\nMax Weight:{MaxWeight}\nMax Vol: {MaxVol}";
             return result;

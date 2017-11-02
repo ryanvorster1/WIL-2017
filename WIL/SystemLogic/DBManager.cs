@@ -10,7 +10,7 @@ namespace SystemLogic
 {
     public class DBManager
     {
-        private string connectionString = Properties.Settings.Default._2017_WILConnectionString;
+        private string connectionString = "Data Source=POKKOLS-PC;Initial Catalog=WIL;Integrated Security=True";// Properties.Settings.Default._2017_WILConnectionString;
         private SqlConnection dbCon;
 
         public DBManager()
@@ -209,6 +209,40 @@ namespace SystemLogic
             return id;
         }
 
+        //Log in user
+        //return null if no user
+        public User LogInUser(string _username, string _password)
+        {
+            User user = null;
+
+            try
+            {
+                string sql = $"select * from users  where username = '{_username}' and pass = '{_password}'";
+                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+
+                DataRow row = ds.Tables[0].Rows[0];
+                    int ID = (int)row["ID"];
+                    string username = row["username"].ToString();
+                    string password = row["pass"].ToString();
+                    UserType type = GetUserTypeById((int)row["userType"]);
+                    int hours = (int)row["hours"];
+                    string fname = row["fname"].ToString();
+                    string lname = row["lname"].ToString();
+
+                    user = new User(ID, username, password, type, hours, fname, lname);
+                Console.WriteLine(user.ToString());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                //throw ex;
+            }
+            return user;
+        }
+
+
         //add user do DB
         //get ID in return
         //ref user object sets user.ID automatically
@@ -238,6 +272,17 @@ namespace SystemLogic
 
                 dbCon.Close();
 
+            }
+            catch (SqlException sqlEx)
+            {
+                if (sqlEx.Message.StartsWith("Violation of UNIQUE KEY constraint 'UQ__users"))
+                {
+                    throw new Exception("username already taken.");
+                }
+                else
+                {
+                    throw new Exception("error when connecting to db.");
+                }
             }
             catch (Exception ex)
             {

@@ -1,4 +1,4 @@
---drop all tables
+﻿--drop all tables
 EXEC sp_MSforeachtable @command1 = "DROP TABLE ?"
 
 create table truckType (
@@ -27,7 +27,7 @@ create table userType (
 
 create table users (
 	ID			integer identity(0,1) primary key,
-	username	varchar(30),
+	username	varchar(30) unique,
 	pass		varchar(30),
 	userType		int foreign key references userType(ID),
 	hours		int,
@@ -46,8 +46,8 @@ create table service (
 	ID			integer identity(0,1) primary key,
 	truckID		integer foreign key references truck(ID),
 	mechanic	integer foreign key references users(ID),
-	startDate	datetime,
-	endDate		datetime
+	startdate	datetime,
+	enddate		datetime
 )
 
 create table serviceItem (
@@ -143,9 +143,12 @@ values('jimbo', 'gregson', 'jimbogregsa@gmail.com','0845998047')
 insert into serviceType(job,cost,hours)
 values('oil change',600,2)
 
-insert into service(truckID,mechanic, startDate, endDate)
-values(0,1,'2017-11-01','2017-11-02')
+insert into service(truckID,mechanic, startdate, enddate)
+values(0,1,'2017/11/2','2017/11/2')
 
 insert into serviceItem(serviceID, serviceJob)
 values(0,0)
+
+select * from users
+
 

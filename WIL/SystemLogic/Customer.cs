@@ -36,8 +36,8 @@ namespace SystemLogic
             Email = email;
             Cell = cell;
         }
-
-        public string ToString()
+        
+        public override string ToString()
         {
             return $"{ID}) {Fname + Lname} {Email} {Cell}";
         }

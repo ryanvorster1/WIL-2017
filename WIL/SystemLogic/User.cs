@@ -42,7 +42,7 @@ namespace SystemLogic
         }
 
 
-        public String ToString()
+        public  override String ToString()
         {
             return $"ID: {ID} USername: {Username}";
         }
@@ -61,7 +61,7 @@ namespace SystemLogic
             this.Type = type;
         }
 
-        public String ToString()
+        public override String ToString()
         {
             return $"ID: {ID} type: {Type}";
         }
