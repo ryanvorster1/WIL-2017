@@ -14,7 +14,7 @@ namespace SystemLogic
 
         public Incident(int id, IncidentType type, User driver)
         {
-            id = id;
+            ID = id;
             this.Type = type;
             this.Driver = driver;
         }

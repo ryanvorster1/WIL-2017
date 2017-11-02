@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SystemLogic;
 
 namespace WIL
 {
@@ -17,6 +18,10 @@ namespace WIL
             InitializeComponent();
         }
 
-       
+        private void LogIncidentForm_Load(object sender, EventArgs e)
+        {
+            cnbIncidents.DataSource = new DBManager().GetIncidentTypes();
+            cnbIncidents.DisplayMember = "Description";
+        }
     }
 }

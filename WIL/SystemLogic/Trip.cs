@@ -28,7 +28,7 @@ namespace SystemLogic
             this.Route = route;
         }
 
-        public string ToString()
+        public override string ToString()
         {
             return $"{ID}\n {Truck.ToString()}\n{Customer.ToString()}";
         }

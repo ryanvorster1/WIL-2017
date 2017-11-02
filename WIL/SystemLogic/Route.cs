@@ -21,7 +21,7 @@ namespace SystemLogic
             this.Kms = kms;
         }
 
-        public string ToString()
+        public override string ToString()
         {
             string result = $"depoID: {ID}\nDestination\n {Destination.ToString()}";
             result += $"\nDeparture\n {Departure.ToString()}\n KMS: {Kms}";
@@ -41,7 +41,7 @@ namespace SystemLogic
             this.Name = name;
         }
 
-        public String ToString()
+        public override String ToString()
         {
             string result = $"DepoID: {ID}\nDepoName: {Name}";
             return result;
