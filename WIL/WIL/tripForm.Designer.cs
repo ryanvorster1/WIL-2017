@@ -44,7 +44,6 @@
             this.wILDBDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.wILDBDataSetBindingSource)).BeginInit();
-            //((System.ComponentModel.ISupportInitialize)(this.wILDBDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // updateTripButton
@@ -92,6 +91,7 @@
             this.exitButton.TabIndex = 4;
             this.exitButton.Text = "Exit ";
             this.exitButton.UseVisualStyleBackColor = true;
+            this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             // 
             // dataGridView1
             // 
@@ -140,17 +140,7 @@
             this.destination.HeaderText = "Destination";
             this.destination.Name = "destination";
             // 
-            // wILDBDataSetBindingSource
-            // 
-            //this.wILDBDataSetBindingSource.DataSource = this.wILDBDataSet;
-            this.wILDBDataSetBindingSource.Position = 0;
-            // 
-            // wILDBDataSet
-            // 
-            //this.wILDBDataSet.DataSetName = "WILDBDataSet";
-            //this.wILDBDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // tripForm
+            // TripForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -161,11 +151,10 @@
             this.Controls.Add(this.printReportButton);
             this.Controls.Add(this.report6Button);
             this.Controls.Add(this.updateTripButton);
-            this.Name = "tripForm";
+            this.Name = "TripForm";
             this.Text = "tripForm";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.wILDBDataSetBindingSource)).EndInit();
-            //((System.ComponentModel.ISupportInitialize)(this.wILDBDataSet)).EndInit();
             this.ResumeLayout(false);
 
         }

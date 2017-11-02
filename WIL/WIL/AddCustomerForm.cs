@@ -30,11 +30,17 @@ namespace WIL
             {
                 MessageBox.Show("Complete all fields");
             }
+            //Opens booking form after ok button is clicked
+            BookingsForm bf = new BookingsForm();
+            bf.ShowDialog();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            Close();
+            // Close add customer form and then show bookings form again
+            this.Close();
+            BookingsForm bf = new BookingsForm();
+            bf.ShowDialog();
         }
     }
 }

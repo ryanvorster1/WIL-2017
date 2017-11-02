@@ -60,6 +60,7 @@
             this.cancelBtn.TabIndex = 24;
             this.cancelBtn.Text = "Cancel";
             this.cancelBtn.UseVisualStyleBackColor = true;
+            this.cancelBtn.Click += new System.EventHandler(this.cancelBtn_Click);
             // 
             // label5
             // 
@@ -136,6 +137,7 @@
             this.AddCustBtn.TabIndex = 15;
             this.AddCustBtn.Text = "Add Customer";
             this.AddCustBtn.UseVisualStyleBackColor = true;
+            this.AddCustBtn.Click += new System.EventHandler(this.AddCustBtn_Click);
             // 
             // label1
             // 
