@@ -30,6 +30,7 @@ namespace WIL
                 if(loggedIn != null)
                 {
                     new MainForm(loggedIn).Show();
+                    Close();
                 } else
                 {
                     MessageBox.Show("Invalid username or password");
