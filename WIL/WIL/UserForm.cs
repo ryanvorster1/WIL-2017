@@ -92,8 +92,17 @@ namespace WIL
                 if (pass1.Equals(pass2))
                 {
                     User user = new User(name + surname, pass1, type, name, surname);
-                    dbm.AddUser(ref user);
-                    UpdateLsbUsers();
+                    try
+                    {
+                        dbm.AddUser(ref user);
+
+                        UpdateLsbUsers();
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
                     pnlAddUser.Visible = false;
                 }
                 else

@@ -10,7 +10,7 @@ namespace SystemLogic
 {
     public class DBManager
     {
-        private string connectionString = Properties.Settings.Default._2017_WILConnectionString;
+        private string connectionString = "Data Source=POKKOLS-PC;Initial Catalog=WIL;Integrated Security=True";// Properties.Settings.Default._2017_WILConnectionString;
         private SqlConnection dbCon;
 
         public DBManager()
@@ -238,6 +238,17 @@ namespace SystemLogic
 
                 dbCon.Close();
 
+            }
+            catch (SqlException sqlEx)
+            {
+                if (sqlEx.Message.StartsWith("Violation of UNIQUE KEY constraint 'UQ__users"))
+                {
+                    throw new Exception("username already taken.");
+                }
+                else
+                {
+                    throw new Exception("error when connecting to db.");
+                }
             }
             catch (Exception ex)
             {

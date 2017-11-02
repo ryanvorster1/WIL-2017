@@ -32,5 +32,10 @@ namespace WIL
         {
             new TripForm().ShowDialog();
         }
+
+        private void btnTrucks_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

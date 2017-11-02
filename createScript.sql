@@ -27,7 +27,7 @@ create table userType (
 
 create table users (
 	ID			integer identity(0,1) primary key,
-	username	varchar(30),
+	username	varchar(30) unique,
 	pass		varchar(30),
 	userType		int foreign key references userType(ID),
 	hours		int,
@@ -148,3 +148,7 @@ values(0,1,'2017/11/2','2017/11/2')
 
 insert into serviceItem(serviceID, serviceJob)
 values(0,0)
+
+select * from users
+
+

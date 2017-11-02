@@ -62,6 +62,7 @@
             this.btnTrucks.TabIndex = 2;
             this.btnTrucks.Text = "Trucks";
             this.btnTrucks.UseVisualStyleBackColor = true;
+            this.btnTrucks.Click += new System.EventHandler(this.btnTrucks_Click);
             // 
             // btnServices
             // 
