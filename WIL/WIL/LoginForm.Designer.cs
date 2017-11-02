@@ -1,6 +1,6 @@
 ﻿namespace WIL
 {
-    partial class Logincs
+    partial class LoginForm
     {
         /// <summary>
         /// Required designer variable.
@@ -78,7 +78,7 @@
             this.txbPassword.Size = new System.Drawing.Size(100, 20);
             this.txbPassword.TabIndex = 3;
             // 
-            // Logincs
+            // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -88,8 +88,9 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txbUsername);
             this.Controls.Add(this.btnLogin);
-            this.Name = "Logincs";
+            this.Name = "LoginForm";
             this.Text = "Logincs";
+            this.Load += new System.EventHandler(this.LoginForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

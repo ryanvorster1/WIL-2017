@@ -28,21 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblUser = new System.Windows.Forms.Label();
             this.btnTrips = new System.Windows.Forms.Button();
             this.btnTrucks = new System.Windows.Forms.Button();
             this.btnServices = new System.Windows.Forms.Button();
             this.btnUsers = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // label1
+            // lblUser
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(240, 102);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(36, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "trucks";
+            this.lblUser.AutoSize = true;
+            this.lblUser.Location = new System.Drawing.Point(429, 18);
+            this.lblUser.Name = "lblUser";
+            this.lblUser.Size = new System.Drawing.Size(36, 13);
+            this.lblUser.TabIndex = 0;
+            this.lblUser.Text = "trucks";
             // 
             // btnTrips
             // 
@@ -93,9 +93,10 @@
             this.Controls.Add(this.btnServices);
             this.Controls.Add(this.btnTrucks);
             this.Controls.Add(this.btnTrips);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblUser);
             this.Name = "MainForm";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -103,7 +104,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblUser;
         private System.Windows.Forms.Button btnTrips;
         private System.Windows.Forms.Button btnTrucks;
         private System.Windows.Forms.Button btnServices;

@@ -209,6 +209,40 @@ namespace SystemLogic
             return id;
         }
 
+        //Log in user
+        //return null if no user
+        public User LogInUser(string _username, string _password)
+        {
+            User user = null;
+
+            try
+            {
+                string sql = $"select * from users  where username = '{_username}' and pass = '{_password}'";
+                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+
+                DataRow row = ds.Tables[0].Rows[0];
+                    int ID = (int)row["ID"];
+                    string username = row["username"].ToString();
+                    string password = row["pass"].ToString();
+                    UserType type = GetUserTypeById((int)row["userType"]);
+                    int hours = (int)row["hours"];
+                    string fname = row["fname"].ToString();
+                    string lname = row["lname"].ToString();
+
+                    user = new User(ID, username, password, type, hours, fname, lname);
+                Console.WriteLine(user.ToString());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                //throw ex;
+            }
+            return user;
+        }
+
+
         //add user do DB
         //get ID in return
         //ref user object sets user.ID automatically

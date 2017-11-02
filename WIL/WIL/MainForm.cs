@@ -13,9 +13,12 @@ namespace WIL
 {
     public partial class MainForm : Form
     {
-        public MainForm()
+        private User LoggedIn { get; set; }
+
+        public MainForm(User loggedIn)
         {
             InitializeComponent();
+            LoggedIn = loggedIn;
         }
 
         private void btnUsers_Click(object sender, EventArgs e)
@@ -36,6 +39,11 @@ namespace WIL
         private void btnTrucks_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            lblUser.Text = LoggedIn.Fname;
         }
     }
 }
