@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.updateTripButton = new System.Windows.Forms.Button();
-            this.report6Button = new System.Windows.Forms.Button();
             this.printReportButton = new System.Windows.Forms.Button();
             this.addTripButton = new System.Windows.Forms.Button();
             this.exitButton = new System.Windows.Forms.Button();
@@ -55,18 +54,9 @@
             this.updateTripButton.Text = "Update Trips";
             this.updateTripButton.UseVisualStyleBackColor = true;
             // 
-            // report6Button
-            // 
-            this.report6Button.Location = new System.Drawing.Point(11, 293);
-            this.report6Button.Name = "report6Button";
-            this.report6Button.Size = new System.Drawing.Size(104, 40);
-            this.report6Button.TabIndex = 1;
-            this.report6Button.Text = "Print Report 6";
-            this.report6Button.UseVisualStyleBackColor = true;
-            // 
             // printReportButton
             // 
-            this.printReportButton.Location = new System.Drawing.Point(121, 293);
+            this.printReportButton.Location = new System.Drawing.Point(12, 293);
             this.printReportButton.Name = "printReportButton";
             this.printReportButton.Size = new System.Drawing.Size(104, 40);
             this.printReportButton.TabIndex = 2;
@@ -149,10 +139,10 @@
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.addTripButton);
             this.Controls.Add(this.printReportButton);
-            this.Controls.Add(this.report6Button);
             this.Controls.Add(this.updateTripButton);
             this.Name = "TripForm";
             this.Text = "tripForm";
+            this.Load += new System.EventHandler(this.TripForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.wILDBDataSetBindingSource)).EndInit();
             this.ResumeLayout(false);
@@ -162,7 +152,6 @@
         #endregion
 
         private System.Windows.Forms.Button updateTripButton;
-        private System.Windows.Forms.Button report6Button;
         private System.Windows.Forms.Button printReportButton;
         private System.Windows.Forms.Button addTripButton;
         private System.Windows.Forms.Button exitButton;

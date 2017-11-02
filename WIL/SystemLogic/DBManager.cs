@@ -10,7 +10,7 @@ namespace SystemLogic
 {
     public class DBManager
     {
-        private string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=2017WIL;Integrated Security=True;Pooling=False";// Properties.Settings.Default._2017_WILConnectionString;
+        private string connectionString = "Data Source=RYAN;Initial Catalog=WILDB;Integrated Security=True;Pooling=False";// Properties.Settings.Default._2017_WILConnectionString;
         private SqlConnection dbCon;
 
         public DBManager()
@@ -105,6 +105,38 @@ namespace SystemLogic
                 int hours = (int)row["repairTime"];
 
                 incident = new IncidentType(ID, description, cost, hours);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return incident;
+        }
+
+        public List<IncidentType> GetIncidentTypes()
+        {
+            List<IncidentType> incident = new List<IncidentType>();
+
+            try
+            {
+                string sql = $"select * from IncidentType";
+                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    int ID = (int)row["ID"];
+                    string description = row["Description"].ToString();
+                    double cost = Convert.ToDouble(row["cost"]);
+                    int hours = (int)row["repairTime"];
+     
+
+
+                    incident.Add(new IncidentType(ID, description, cost, hours));
+                  
+                   
+                }
             }
             catch (Exception ex)
             {
