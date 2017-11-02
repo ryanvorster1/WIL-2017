@@ -33,5 +33,10 @@ namespace WIL
             mf.ShowDialog();
 
         }
+
+        private void TripForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

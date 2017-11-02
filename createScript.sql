@@ -1,4 +1,4 @@
---drop all tables
+﻿--drop all tables
 EXEC sp_MSforeachtable @command1 = "DROP TABLE ?"
 
 create table truckType (
@@ -126,7 +126,14 @@ values('jonny', 'walks', 0, 0, 'Johnny', 'Walker'),
 		('MechBob', '1234', 3, 0,'Billy', 'Bob' )
 
 insert into incidentTYpe (description, cost, repairTime)
-values('burst tyre', 600, 1)
+values('Burst tyre', 600, 1),
+('Oil leak',3000,2),
+('Cracked windscreen',2000,1),
+('Fuel leak',800,2),
+('Bumper bashing',900,2),
+('Blown bulb',350,0.5),
+('Blown radiator',8000,4),
+('Other>',0,0)
 
 insert into incident(incidentType, driverID)
 values(0,0)
