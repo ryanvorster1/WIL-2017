@@ -10,7 +10,7 @@ namespace SystemLogic
 {
     public class DBManager
     {
-        private string connectionString = "Data Source=POKKOLS-PC;Initial Catalog=WIL;Integrated Security=True";// Properties.Settings.Default._2017_WILConnectionString;
+        private string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=2017WIL;Integrated Security=True;Pooling=False";// Properties.Settings.Default._2017_WILConnectionString;
         private SqlConnection dbCon;
 
         public DBManager()
@@ -686,6 +686,42 @@ namespace SystemLogic
                 throw ex;
             }
             return truckType;
+        }
+
+        public List<TruckType> GetTruckType()
+        {
+            List<TruckType> truckTypes = new List<TruckType>();
+
+            try
+            {
+                string sql = $"select * from trucktype";
+                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+
+                    int typeID = (int)row["ID"];
+                    string type = row["type"].ToString();
+                    string manufacturor = row["manufacturor"].ToString();
+                    int engineSize = (int)row["engineSize"];
+                    int serviceInterval = (int)row["serviceInterval"];
+                    int maxWeight = (int)row["maxWeight"];
+                    int maxVol = (int)row["maxVol"];
+
+                    truckTypes.Add( new TruckType(typeID, type, manufacturor, engineSize,
+                        serviceInterval, maxWeight, maxVol));
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return truckTypes;
         }
 
         //get availiable trucks of specified type that are currently free
