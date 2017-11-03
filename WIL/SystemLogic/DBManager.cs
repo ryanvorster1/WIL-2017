@@ -100,8 +100,10 @@ namespace SystemLogic
                     int ID = (int)row["ID"];
                     IncidentType type = GetIncidentTypeByID((int)row["incidentType"]);
                     User driver = GetUserByID((int)row["driverID"]);
-
-                    incidents = (new Incident(ID, type, driver));
+                    Console.WriteLine(ID);
+                    Console.WriteLine(type);
+                    Console.WriteLine(driver.ToString());
+                    //incidents = (new Incident(ID, type, driver));
                 }
             }
             catch (Exception ex)
@@ -112,7 +114,7 @@ namespace SystemLogic
         }
 
         //log incidents from driverform
-        public Incident logIncident(int incidentId , User driver)
+        public void  logIncident(int incidentId , User driver)
         {
             int id = -1;
             Console.WriteLine(incidentId);
@@ -145,7 +147,7 @@ namespace SystemLogic
             }
             //naz.ID= id;
 
-            return GetIncidentByID(id);
+            //return GetIncidentByID(id);
         }
     
         //get specific incident type by ID
@@ -155,7 +157,7 @@ namespace SystemLogic
 
             try
             {
-                string sql = $"select * from IncidenType where id = {id}";
+                string sql = $"select * from IncidentType where id = {id}";
                 SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
                 DataSet ds = new DataSet();
                 da.Fill(ds);
@@ -440,7 +442,7 @@ namespace SystemLogic
                 UserType type = GetUserTypeById((int)row["userType"]);
                 int hours = (int)row["hours"];
                 string fname = row["fname"].ToString();
-                string lname = row["lname"].ToString(); ;
+                string lname = row["lname"].ToString(); 
 
                 user = new User(ID, username, password, type, hours, fname, lname);
             }

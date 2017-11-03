@@ -126,7 +126,7 @@ values('jonny', 'walks', 0, 0, 'Johnny', 'Walker'),
 		('MechBob', '1234', 3, 0,'Billy', 'Bob' )
 
 insert into incidentType (description, cost, repairTime)
-values('Burst tyre', 600, 1),
+values ('Burst tyre', 600, 1),
 ('Oil leak',3000,2),
 ('Cracked windscreen',2000,1),
 ('Fuel leak',800,2),
@@ -163,4 +163,6 @@ values(0,0)
 select * from users
 join userType on users.userType = userType.ID 
 
-
+select * from Incident
+join incidentType on incident.incidentType = incidentType.ID
+select * from users

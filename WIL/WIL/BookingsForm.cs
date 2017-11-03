@@ -41,5 +41,12 @@ namespace WIL
             acf.ShowDialog();
             this.Close();
         }
+
+        private void bookBtn_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Trip booked");
+            this.Close();
+
+        }
     }
 }

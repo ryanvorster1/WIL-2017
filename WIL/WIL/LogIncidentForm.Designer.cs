@@ -33,12 +33,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cnbIncidents = new System.Windows.Forms.ComboBox();
             this.panelIncidentDetails = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.startbtn = new System.Windows.Forms.Button();
             this.currentTripLabel = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.otherDescriptionL = new System.Windows.Forms.Label();
-            this.startbtn = new System.Windows.Forms.Button();
             this.completedTripsbtn = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
             this.btnLogIncident = new System.Windows.Forms.Button();
             this.pnlIncident = new System.Windows.Forms.Panel();
             this.panelIncidentDetails.SuspendLayout();
@@ -77,10 +77,15 @@
             // cnbIncidents
             // 
             this.cnbIncidents.FormattingEnabled = true;
+            this.cnbIncidents.Items.AddRange(new object[] {
+            "Select item"});
             this.cnbIncidents.Location = new System.Drawing.Point(69, 43);
             this.cnbIncidents.Name = "cnbIncidents";
             this.cnbIncidents.Size = new System.Drawing.Size(306, 21);
             this.cnbIncidents.TabIndex = 3;
+            this.cnbIncidents.SelectedIndexChanged += new System.EventHandler(this.cnbIncidents_SelectedIndexChanged);
+            this.cnbIncidents.Click += new System.EventHandler(this.cnbIncidents_Click);
+            this.cnbIncidents.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cnbIncidents_MouseClick);
             // 
             // panelIncidentDetails
             // 
@@ -91,6 +96,25 @@
             this.panelIncidentDetails.Name = "panelIncidentDetails";
             this.panelIncidentDetails.Size = new System.Drawing.Size(406, 100);
             this.panelIncidentDetails.TabIndex = 4;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(267, 4);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(52, 13);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Truck ID:";
+            // 
+            // startbtn
+            // 
+            this.startbtn.Location = new System.Drawing.Point(127, 51);
+            this.startbtn.Name = "startbtn";
+            this.startbtn.Size = new System.Drawing.Size(125, 34);
+            this.startbtn.TabIndex = 1;
+            this.startbtn.Text = "Start Trip";
+            this.startbtn.UseVisualStyleBackColor = true;
+            this.startbtn.Click += new System.EventHandler(this.startbtn_Click);
             // 
             // currentTripLabel
             // 
@@ -118,15 +142,6 @@
             this.otherDescriptionL.TabIndex = 6;
             this.otherDescriptionL.Text = "Other Description*";
             // 
-            // startbtn
-            // 
-            this.startbtn.Location = new System.Drawing.Point(127, 51);
-            this.startbtn.Name = "startbtn";
-            this.startbtn.Size = new System.Drawing.Size(125, 34);
-            this.startbtn.TabIndex = 1;
-            this.startbtn.Text = "Start Trip";
-            this.startbtn.UseVisualStyleBackColor = true;
-            // 
             // completedTripsbtn
             // 
             this.completedTripsbtn.Location = new System.Drawing.Point(283, 147);
@@ -135,15 +150,7 @@
             this.completedTripsbtn.TabIndex = 2;
             this.completedTripsbtn.Text = "Completed Trips";
             this.completedTripsbtn.UseVisualStyleBackColor = true;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(267, 4);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(52, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Truck ID:";
+            this.completedTripsbtn.Click += new System.EventHandler(this.completedTripsbtn_Click);
             // 
             // btnLogIncident
             // 
@@ -153,6 +160,7 @@
             this.btnLogIncident.TabIndex = 7;
             this.btnLogIncident.Text = "Log Incident";
             this.btnLogIncident.UseVisualStyleBackColor = true;
+            this.btnLogIncident.Visible = false;
             this.btnLogIncident.Click += new System.EventHandler(this.btnLogIncident_Click);
             // 
             // pnlIncident
