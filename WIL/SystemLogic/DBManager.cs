@@ -57,6 +57,25 @@ namespace SystemLogic
             return trips;
         }
 
+        public DataSet GetTripsDataSet()
+        {
+            DataSet trips = null;
+
+            try
+            {
+                string sql = "select * from trip";
+                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                trips = new DataSet();
+                da.Fill(trips);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return trips;
+        }
+
         //get a list of all incidents
         public List<Incident> GetIncidents()
         {
