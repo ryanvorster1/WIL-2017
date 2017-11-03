@@ -53,7 +53,8 @@ namespace WIL
         {
             txbUsername.Visible = true;
             ActiveControl = txbUsername;
-
+            txbUsername.Text = "Bart";
+            txbPassword.Text = "simps";
         }
     }
 }

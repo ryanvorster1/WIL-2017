@@ -55,45 +55,15 @@ namespace WIL
             }
         }
 
-        //string BuildGetServiceListSQL(string pDate)
-        //{
-        //    //string tSQL = "SELECT * FROM [dbo].[service]";
-        //    //return tSQL;
-        ///  }
+        string BuildGetServiceListSQL(string pDate)
+        {
+            string tSQL = "SELECT * FROM [dbo].[service]";
+            return tSQL;
+         }
 
-        //DataSet GetSQLResults(string pSql)
-        //{
-        //    //try
-        //    //{
-        //    //    SqlDataAdapter da = new SqlDataAdapter(pSql, dbCon);
-        //    //    DataSet ds = new DataSet();
-        //    //    da.Fill(ds);
-        //    //    return ds;
-        //    //}
-        //    //catch
-        //    //{
-        //    //    DataSet ds = new DataSet();
-        //    //    return ds;
-        //    //}
-        //  }
+       
 
-        //List<TruckService> MapSQLToList(DataSet pResults)
-        //{
-        //    List<TruckService> tResults = new List<TruckService>();
-        //    TruckService tTruckService = null;
-        //    foreach (DataRow row in pResults.Tables[0].Rows)
-        //    {
-        //        int tID = (int)row["ID"];
-        //        int tTruckID = (int)row["truckID"];
-        //        int tMechanicID = (int)row["mechanic"];
-        //        tTruckService = new TruckService(tID, tTruckID, tMechanicID);
-
-        //        tResults.Add(tTruckService);
-        //    }
-        //    return tResults;
-        //}
-
-       private void PopulateListBoxWithResults(List<Service> pResults)
+        private void PopulateListBoxWithResults(List<Service> pResults)
         {
             foreach (Service tServiceItem in pResults)
             {
@@ -112,20 +82,61 @@ namespace WIL
             lvServiceList.Items.Add(tRowItem);
         }
 
-        //int iUserSelectedServiceID = -1;
-
-        //private void lvServiceList_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    iUserSelectedServiceID = lvServiceList.SelectedIndices[0];
-        //}
-
-        //private void lvServiceList_DoubleClick(object sender, EventArgs e)
-        //{
-        //    if (iUserSelectedServiceID > -1)
-        //    {
-        //        ServiceDetailsForm svcDetailfrm = new ServiceDetailsForm(iUserSelectedServiceID);
-        //        svcDetailfrm.ShowDialog();
-        //    }
-        //}
+        private void lvServiceList_DoubleClick(object sender, EventArgs e)
+        {
+           if (lvServiceList.SelectedItems.Count >= 0)
+            {
+                ListViewItem selecteditem = lvServiceList.SelectedItems[0];
+                int serviceID = Convert.ToInt32(selecteditem.SubItems[0].Text);
+                ServiceDetailsForm svcDetailfrm = new ServiceDetailsForm(serviceID);
+                svcDetailfrm.ShowDialog();
+            }
+            
+        }
     }
 }
+
+
+//DataSet GetSQLResults(string pSql)
+//{
+//    try
+//    {
+//        SqlDataAdapter da = new SqlDataAdapter(pSql, dbCon);
+//        DataSet ds = new DataSet();
+//        da.Fill(ds);
+//        return ds;
+//    }
+//    catch
+//    {
+//        DataSet ds = new DataSet();
+//        return ds;
+//    }
+//}
+
+//List<TruckService> MapSQLToList(DataSet pResults)
+//{
+//    List<TruckService> tResults = new List<TruckService>();
+//    TruckService tTruckService = null;
+//    foreach (DataRow row in pResults.Tables[0].Rows)
+//    {
+//        int tID = (int)row["ID"];
+//        int tTruckID = (int)row["truckID"];
+//        int tMechanicID = (int)row["mechanic"];
+//        tTruckService = new TruckService(tID, tTruckID, tMechanicID);
+
+//        tResults.Add(tTruckService);
+//    }
+//    return tResults;
+//}
+
+//  private void lvServiceList_SelectedIndexChanged(object sender, EventArgs e)
+//  {
+
+// }
+
+// int iUserSelectedServiceID = -1;
+
+//private void lvServiceList_SelectedIndexChanged(object sender, EventArgs e)
+//{
+//    iUserSelectedServiceID = lvServiceList.SelectedIndices[0];
+//}
