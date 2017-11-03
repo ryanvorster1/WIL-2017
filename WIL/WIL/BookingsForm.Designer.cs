@@ -83,7 +83,7 @@
             // destinationBox
             // 
             this.destinationBox.FormattingEnabled = true;
-            this.destinationBox.Location = new System.Drawing.Point(332, 193);
+            this.destinationBox.Location = new System.Drawing.Point(104, 193);
             this.destinationBox.Name = "destinationBox";
             this.destinationBox.Size = new System.Drawing.Size(107, 21);
             this.destinationBox.TabIndex = 21;
@@ -92,7 +92,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(230, 201);
+            this.label4.Location = new System.Drawing.Point(8, 201);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(96, 13);
             this.label4.TabIndex = 20;
@@ -101,7 +101,7 @@
             // deptartBox
             // 
             this.deptartBox.FormattingEnabled = true;
-            this.deptartBox.Location = new System.Drawing.Point(104, 193);
+            this.deptartBox.Location = new System.Drawing.Point(104, 157);
             this.deptartBox.Name = "deptartBox";
             this.deptartBox.Size = new System.Drawing.Size(107, 21);
             this.deptartBox.TabIndex = 19;
@@ -110,7 +110,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 201);
+            this.label3.Location = new System.Drawing.Point(8, 160);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(90, 13);
             this.label3.TabIndex = 18;
@@ -130,9 +130,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(11, 109);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(71, 13);
+            this.label2.Size = new System.Drawing.Size(98, 13);
             this.label2.TabIndex = 16;
-            this.label2.Text = "Select Truck:";
+            this.label2.Text = "Select Truck Type:";
             // 
             // AddCustBtn
             // 

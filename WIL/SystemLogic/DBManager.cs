@@ -48,6 +48,8 @@ namespace SystemLogic
 
                     DateTime startDate = Convert.ToDateTime(row["Available Date"]);
                     startDate = startDate.AddDays(3.0);
+                    UpdateTruckStatus(false, trip.Truck);
+                    UpdateTruckKms(trip.Route.Kms, trip.Truck);
 
                     trip.Start = startDate;
                     AddTrip(trip);
@@ -60,6 +62,51 @@ namespace SystemLogic
 
             }
             return trip;
+        }
+
+        private Truck UpdateTruckStatus(bool available, Truck truck)
+        {
+
+            try
+            {
+                string sql = $"UPDATE truck set availible = {available} where id = {truck.ID}";
+                SqlCommand cmd = new SqlCommand(sql, dbCon);
+
+                dbCon.Open();
+                //do update
+                cmd.ExecuteNonQuery();
+
+                dbCon.Close();
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return GetTruckByID(truck.ID);
+        }
+
+        private Truck UpdateTruckKms(int kms, Truck truck)
+        {
+            try
+            {
+                string sql = $"UPDATE truck set kms = {truck.Kms + kms} where id = {truck.ID}";
+                SqlCommand cmd = new SqlCommand(sql, dbCon);
+
+                dbCon.Open();
+                //do update
+                cmd.ExecuteNonQuery();
+
+                dbCon.Close();
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return GetTruckByID(truck.ID);
         }
 
         private Trip AddTrip(Trip trip)

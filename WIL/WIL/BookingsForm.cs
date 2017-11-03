@@ -30,13 +30,12 @@ namespace WIL
         private void cancelBtn_Click(object sender, EventArgs e)
         {
             //Open trip Form when cancel button is clicked
-<<<<<<< HEAD
+
             TripForm tf = new TripForm();
             tf.ShowDialog();
-=======
+
             this.Close();
 
->>>>>>> 2c17655cacdc3c21b31f5abd2138b60f7aa32b41
         }
 
         private void AddCustBtn_Click(object sender, EventArgs e)
@@ -63,8 +62,8 @@ namespace WIL
 
         private void destinationBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            destinationBox.DataSource = db.GetDepartments();
-            destinationBox.DisplayMember = "name";
+            destinationBox.DataSource = db.GetRoutes();
+            destinationBox.DisplayMember = "Destination.Name";
             destinationBox.ValueMember = "ID";
         }
 
@@ -74,8 +73,12 @@ namespace WIL
 
         private void bookBtn_Click(object sender, EventArgs e)
         {
-            Trip trip = new Trip( );
+            TruckType type = db.GetTruckTypeById((int)slctTruckBox.SelectedValue);
 
+            Truck truck = db.GetAvailiableTrucks(type)[0];
+
+            Trip trip = new Trip(truck, slctTruckBox.SelectedIndex, slctCustBox.SelectedIndex, dateTimePicker.Value, dateTimePicker.Value.AddDays(3), ,destinationBox.SelectedValue );
+            
             //slctCustBox.SelectedValue()
 
             db.BookTrip();
