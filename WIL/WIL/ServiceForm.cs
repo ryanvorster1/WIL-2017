@@ -61,8 +61,6 @@ namespace WIL
             return tSQL;
          }
 
-       
-
         private void PopulateListBoxWithResults(List<Service> pResults)
         {
             foreach (Service tServiceItem in pResults)
