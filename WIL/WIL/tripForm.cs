@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SystemLogic;
 
 namespace WIL
 {
@@ -26,17 +27,22 @@ namespace WIL
         }
 
         private void exitButton_Click(object sender, EventArgs e)
-        {
-            //Close form when exit button is clicked and open Main Form
+        { 
+            //close form to get back to main form
             this.Close();
-            //MainForm mf = new MainForm();
-            //mf.ShowDialog();
-
         }
 
         private void TripForm_Load(object sender, EventArgs e)
         {
-
+          
+            List<Trip> trips = new DBManager().GetTrips();
+            foreach (var item in trips)
+            {
+                dataGridView1.Rows.Add(item.Truck.ID,item.Customer.ID,item.Start, item.End,item.Route.Departure,item.Route.Destination );
+                
+                
+            }
+            
         }
     }
 }

@@ -30,7 +30,7 @@ namespace WIL
         private void cancelBtn_Click(object sender, EventArgs e)
         {
             //Open trip Form when cancel button is clicked
-            TripForm tf = new TripForm();
+            this.Close();
 
         }
 
