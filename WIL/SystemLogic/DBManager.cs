@@ -10,7 +10,7 @@ namespace SystemLogic
 {
     public class DBManager
     {
-        private string connectionString = "Data Source=RYAN;Initial Catalog=WILDB;Integrated Security=True;Pooling=False";// Properties.Settings.Default._2017_WILConnectionString;
+        private string connectionString = "Data Source=RYAN;Initial Catalog=WILDB;Integrated Security=True;Pooling=False";
         private SqlConnection dbCon;
 
         public DBManager()
@@ -125,6 +125,25 @@ namespace SystemLogic
 
                     trips.Add(new Trip(ID, truck, customer, start, end, driver, route));
                 }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return trips;
+        }
+
+        public DataSet GetTripsDataSet()
+        {
+            DataSet trips = null;
+
+            try
+            {
+                string sql = "select * from trip";
+                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                trips = new DataSet();
+                da.Fill(trips);
+
             }
             catch (Exception ex)
             {
@@ -1095,6 +1114,35 @@ namespace SystemLogic
             try
             {
                 string sql = "select * from serviceItem";
+                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    int ID = (int)row["ID"];
+                    Service service = GetServiceById((int)row["serviceID"]);
+                    ServiceType type = GetServiceTypeById((int)row["serviceJob"]);
+
+                    ServiceItem si = new ServiceItem(ID, service, type);
+                    serviceItems.Add(si);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return serviceItems;
+        }
+
+        public List<ServiceItem> GetServiceItems(int serviceID)
+        {
+            List<ServiceItem> serviceItems = new List<ServiceItem>();
+
+            try
+            {
+                string sql = $"select * from serviceItem where id = {serviceID}";
                 SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
                 DataSet ds = new DataSet();
                 da.Fill(ds);

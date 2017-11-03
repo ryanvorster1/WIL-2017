@@ -54,6 +54,7 @@
             this.lvServiceList.TabIndex = 34;
             this.lvServiceList.UseCompatibleStateImageBehavior = false;
             this.lvServiceList.View = System.Windows.Forms.View.Details;
+            this.lvServiceList.DoubleClick += new System.EventHandler(this.lvServiceList_DoubleClick);
             // 
             // bttnExit
             // 
@@ -74,7 +75,7 @@
             this.dtpDateTime.TabIndex = 36;
             this.dtpDateTime.ValueChanged += new System.EventHandler(this.dtpDateTime_ValueChanged);
             // 
-            // Servicefrm
+            // ServiceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -83,7 +84,7 @@
             this.Controls.Add(this.bttnExit);
             this.Controls.Add(this.lvServiceList);
             this.Controls.Add(this.bttnServiceReport);
-            this.Name = "Servicefrm";
+            this.Name = "ServiceForm";
             this.Text = "Vehicles to be serviced";
             this.ResumeLayout(false);
 

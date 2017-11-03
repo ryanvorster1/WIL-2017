@@ -29,8 +29,18 @@ namespace WIL
                 User loggedIn = new DBManager().LogInUser(txbUsername.Text, txbPassword.Text);
                 if(loggedIn != null)
                 {
-                    new MainForm(loggedIn).Show();
-                    Close();
+                    Console.WriteLine(loggedIn.Type);
+                    switch (loggedIn.Type.Type.ToLower())
+                    {
+                        case "driver":
+                            //show driver form
+                            new LogIncidentForm(loggedIn).Show();
+                            break;
+                        default:
+                            new MainForm(loggedIn).Show();
+                            break;
+                    }
+                  //  Close();
                 } else
                 {
                     MessageBox.Show("Invalid username or password");
@@ -43,7 +53,8 @@ namespace WIL
         {
             txbUsername.Visible = true;
             ActiveControl = txbUsername;
-
+            txbUsername.Text = "Bart";
+            txbPassword.Text = "simps";
         }
     }
 }
