@@ -51,6 +51,7 @@
             this.bookBtn.TabIndex = 25;
             this.bookBtn.Text = "Book";
             this.bookBtn.UseVisualStyleBackColor = true;
+            this.bookBtn.Click += new System.EventHandler(this.bookBtn_Click);
             // 
             // cancelBtn
             // 
@@ -115,7 +116,7 @@
             // slctTruckBox
             // 
             this.slctTruckBox.FormattingEnabled = true;
-            this.slctTruckBox.Location = new System.Drawing.Point(130, 118);
+            this.slctTruckBox.Location = new System.Drawing.Point(130, 109);
             this.slctTruckBox.Name = "slctTruckBox";
             this.slctTruckBox.Size = new System.Drawing.Size(146, 21);
             this.slctTruckBox.TabIndex = 17;
@@ -123,7 +124,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(11, 121);
+            this.label2.Location = new System.Drawing.Point(11, 109);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(71, 13);
             this.label2.TabIndex = 16;
