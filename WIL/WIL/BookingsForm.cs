@@ -42,6 +42,7 @@ namespace WIL
             this.Close();
         }
 
+
         private void slctTruckBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             slctTruckBox.DataSource = db.GetTruckType();
@@ -66,6 +67,13 @@ namespace WIL
         private void dateTimePicker_ValueChanged(object sender, EventArgs e)
         {
             DateTime startDate = dateTimePicker.Value;
+
+        private void bookBtn_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Trip booked");
+            this.Close();
+
+
         }
     }
 }

@@ -10,7 +10,7 @@ namespace SystemLogic
 {
     public class DBManager
     {
-        private string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=2017WIL;Integrated Security=True;Pooling=False";// Properties.Settings.Default._2017_WILConnectionString;
+        private string connectionString = "Data Source=RYAN;Initial Catalog=WILDB;Integrated Security=True;Pooling=False";// Properties.Settings.Default._2017_WILConnectionString;
         private SqlConnection dbCon;
 
         public DBManager()
@@ -123,7 +123,72 @@ namespace SystemLogic
             }
             return incidents;
         }
+        public Incident GetIncidentByID(int id)
+        {
+            Incident incidents = null;
 
+            try
+            {
+                string sql = $"select * from Incident where id = {id}";
+                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    int ID = (int)row["ID"];
+                    IncidentType type = GetIncidentTypeByID((int)row["incidentType"]);
+                    User driver = GetUserByID((int)row["driverID"]);
+                    Console.WriteLine(ID);
+                    Console.WriteLine(type);
+                    Console.WriteLine(driver.ToString());
+                    //incidents = (new Incident(ID, type, driver));
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return incidents;
+        }
+
+        //log incidents from driverform
+        public void  logIncident(int incidentId , User driver)
+        {
+            int id = -1;
+            Console.WriteLine(incidentId);
+            Console.WriteLine(driver.ToString());
+            try
+            {
+                string sql = "insert into Incident(incidentType, driverID) " +
+                            "values(@incidentType, @driverID)";
+
+                SqlCommand cmd = new SqlCommand(sql, dbCon);
+                cmd.Parameters.AddWithValue("@incidentType", incidentId);
+                cmd.Parameters.AddWithValue("@driverID", driver.ID);
+                
+
+
+                dbCon.Open();
+                //do insert
+                cmd.ExecuteNonQuery();
+                //get ID
+                sql = "select @@identity";
+                cmd.CommandText = sql;
+                id = Convert.ToInt32(cmd.ExecuteScalar());
+
+                dbCon.Close();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            //naz.ID= id;
+
+            //return GetIncidentByID(id);
+        }
+    
         //get specific incident type by ID
         public IncidentType GetIncidentTypeByID(int id)
         {
@@ -131,7 +196,7 @@ namespace SystemLogic
 
             try
             {
-                string sql = $"select * from IncidenType where id = {id}";
+                string sql = $"select * from IncidentType where id = {id}";
                 SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
                 DataSet ds = new DataSet();
                 da.Fill(ds);
@@ -144,6 +209,38 @@ namespace SystemLogic
                 int hours = (int)row["repairTime"];
 
                 incident = new IncidentType(ID, description, cost, hours);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return incident;
+        }
+
+        public List<IncidentType> GetIncidentTypes()
+        {
+            List<IncidentType> incident = new List<IncidentType>();
+
+            try
+            {
+                string sql = $"select * from IncidentType";
+                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    int ID = (int)row["ID"];
+                    string description = row["Description"].ToString();
+                    double cost = Convert.ToDouble(row["cost"]);
+                    int hours = (int)row["repairTime"];
+     
+
+
+                    incident.Add(new IncidentType(ID, description, cost, hours));
+                  
+                   
+                }
             }
             catch (Exception ex)
             {
@@ -384,7 +481,7 @@ namespace SystemLogic
                 UserType type = GetUserTypeById((int)row["userType"]);
                 int hours = (int)row["hours"];
                 string fname = row["fname"].ToString();
-                string lname = row["lname"].ToString(); ;
+                string lname = row["lname"].ToString(); 
 
                 user = new User(ID, username, password, type, hours, fname, lname);
             }
