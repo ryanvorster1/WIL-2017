@@ -55,27 +55,27 @@ namespace WIL
             }
         }
 
-        //string BuildGetServiceListSQL(string pDate)
-        //{
-        //    //string tSQL = "SELECT * FROM [dbo].[service]";
-        //    //return tSQL;
-        ///  }
+        string BuildGetServiceListSQL(string pDate)
+        {
+            string tSQL = "SELECT * FROM [dbo].[service]";
+            return tSQL;
+         }
 
         //DataSet GetSQLResults(string pSql)
         //{
-        //    //try
-        //    //{
-        //    //    SqlDataAdapter da = new SqlDataAdapter(pSql, dbCon);
-        //    //    DataSet ds = new DataSet();
-        //    //    da.Fill(ds);
-        //    //    return ds;
-        //    //}
-        //    //catch
-        //    //{
-        //    //    DataSet ds = new DataSet();
-        //    //    return ds;
-        //    //}
-        //  }
+        //    try
+        //    {
+        //        SqlDataAdapter da = new SqlDataAdapter(pSql, dbCon);
+        //        DataSet ds = new DataSet();
+        //        da.Fill(ds);
+        //        return ds;
+        //    }
+        //    catch
+        //    {
+        //        DataSet ds = new DataSet();
+        //        return ds;
+        //    }
+        //}
 
         //List<TruckService> MapSQLToList(DataSet pResults)
         //{
@@ -93,7 +93,7 @@ namespace WIL
         //    return tResults;
         //}
 
-       private void PopulateListBoxWithResults(List<Service> pResults)
+        private void PopulateListBoxWithResults(List<Service> pResults)
         {
             foreach (Service tServiceItem in pResults)
             {
@@ -112,20 +112,29 @@ namespace WIL
             lvServiceList.Items.Add(tRowItem);
         }
 
-        //int iUserSelectedServiceID = -1;
+      //  private void lvServiceList_SelectedIndexChanged(object sender, EventArgs e)
+      //  {
+
+       // }
+
+        // int iUserSelectedServiceID = -1;
 
         //private void lvServiceList_SelectedIndexChanged(object sender, EventArgs e)
         //{
         //    iUserSelectedServiceID = lvServiceList.SelectedIndices[0];
         //}
 
-        //private void lvServiceList_DoubleClick(object sender, EventArgs e)
-        //{
-        //    if (iUserSelectedServiceID > -1)
-        //    {
-        //        ServiceDetailsForm svcDetailfrm = new ServiceDetailsForm(iUserSelectedServiceID);
-        //        svcDetailfrm.ShowDialog();
-        //    }
-        //}
+        private void lvServiceList_DoubleClick(object sender, EventArgs e)
+        {
+           if (lvServiceList.SelectedItems.Count >= 0)
+            {
+                ListViewItem selecteditem = lvServiceList.SelectedItems[0];
+                //Console.WriteLine(selecteditem.SubItems[0].Text);
+                int serviceID = Convert.ToInt32(selecteditem.SubItems[0].Text);
+                ServiceDetailsForm svcDetailfrm = new ServiceDetailsForm(serviceID);
+                svcDetailfrm.ShowDialog();
+            }
+            
+        }
     }
 }

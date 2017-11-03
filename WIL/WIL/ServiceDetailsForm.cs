@@ -14,6 +14,7 @@ namespace WIL
 {
     public partial class ServiceDetailsForm : Form
     {
+        private Service service;
         //shouldnt have DB code in form. USE DBManager instead
 
         //private string connectionString = "Data Source=POKKOLS-PC;Initial Catalog=WIL;Integrated Security=True";
@@ -21,9 +22,10 @@ namespace WIL
 
         public ServiceDetailsForm(int pSerivceId)
         {
-            DBManager();
-            InitializeComponent();
 
+            service  = new DBManager().GetServiceById(pSerivceId);
+            InitializeComponent();
+            PopulateFormWithResults(service);
          //   DisplayServiceDetails(pSerivceId);
         }
 
