@@ -39,10 +39,22 @@ namespace WIL
             foreach (var item in trips)
             {
                 dataGridView1.Rows.Add(item.Truck.ID,item.Customer.ID,item.Start, item.End,item.Route.Departure,item.Route.Destination );
-                
-                
             }
             
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            pnlReportView.Visible = true;
+            viewPlannedTripsBtn.Visible = false;
+            viewCompletedTripsBtn.Visible = false;
+        }
+
+        private void btnCloseReportView_Click(object sender, EventArgs e)
+        {
+            pnlReportView.Visible = false;
+            viewPlannedTripsBtn.Visible = true;
+            viewCompletedTripsBtn.Visible = true;
         }
     }
 }
