@@ -25,6 +25,45 @@ namespace SystemLogic
             }
         }
 
+        public Trip AddTrip(Trip trip)
+        {
+              List<Truck> availableTrucks = GetAvailiableTrucks(trip.Truck.Type);
+
+            if (availableTrucks.Count > 0)
+            {
+              //booktrip with current date
+            }
+            else
+            {
+                //no trucks available
+                //select * trucks from trip table of truck type
+                string sql = $"select min(endDate) as [Available Date] from trip join truck on trip.truckID = truck.ID where truckType = {trip.Truck.Type.Type}";
+            }
+              try
+            {
+                string sql = $"select min(endDate) as [Available Date] from trip join truck on trip.truckID = truck.ID where truckType = {trip.Truck.Type.Type}";
+                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+
+                     DataRow row = ds.Tables[0].Rows[0][0] as DataRow;
+                {
+                    int ID = (int)row["ID"];
+                    string vin = row["vin"].ToString();
+                    string reg = row["reg"].ToString();
+                    int kms = (int)row["kms"];
+                    bool availible = (bool)row["availible"];
+                    TruckType truckType = GetTruckTypeById((int)row["truckType"]);
+                    Truck t = new Truck(ID, vin, reg, kms, availible, truckType);
+                    availableTrucks.Add(t);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return trip;
+        }
         //get a list of all Trips
         public List<Trip> GetTrips()
         {

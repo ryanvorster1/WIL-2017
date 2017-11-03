@@ -77,6 +77,7 @@
             this.dateTimePicker.Name = "dateTimePicker";
             this.dateTimePicker.Size = new System.Drawing.Size(200, 20);
             this.dateTimePicker.TabIndex = 22;
+            this.dateTimePicker.ValueChanged += new System.EventHandler(this.dateTimePicker_ValueChanged);
             // 
             // destinationBox
             // 
@@ -85,6 +86,7 @@
             this.destinationBox.Name = "destinationBox";
             this.destinationBox.Size = new System.Drawing.Size(107, 21);
             this.destinationBox.TabIndex = 21;
+            this.destinationBox.SelectedIndexChanged += new System.EventHandler(this.destinationBox_SelectedIndexChanged);
             // 
             // label4
             // 
@@ -102,6 +104,7 @@
             this.deptartBox.Name = "deptartBox";
             this.deptartBox.Size = new System.Drawing.Size(107, 21);
             this.deptartBox.TabIndex = 19;
+            this.deptartBox.SelectedIndexChanged += new System.EventHandler(this.deptartBox_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -119,6 +122,7 @@
             this.slctTruckBox.Name = "slctTruckBox";
             this.slctTruckBox.Size = new System.Drawing.Size(146, 21);
             this.slctTruckBox.TabIndex = 17;
+            this.slctTruckBox.SelectedIndexChanged += new System.EventHandler(this.slctTruckBox_SelectedIndexChanged);
             // 
             // label2
             // 

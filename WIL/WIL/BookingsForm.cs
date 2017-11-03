@@ -31,7 +31,7 @@ namespace WIL
         {
             //Open trip Form when cancel button is clicked
             TripForm tf = new TripForm();
-
+            tf.ShowDialog();
         }
 
         private void AddCustBtn_Click(object sender, EventArgs e)
@@ -40,6 +40,32 @@ namespace WIL
             AddCustomerForm acf = new AddCustomerForm();
             acf.ShowDialog();
             this.Close();
+        }
+
+        private void slctTruckBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            slctTruckBox.DataSource = db.GetTruckType();
+            slctTruckBox.DisplayMember = "type";
+            slctTruckBox.ValueMember = "ID";
+        }
+
+        private void deptartBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            deptartBox.DataSource = db.GetDepartments();
+            deptartBox.DisplayMember = "name";
+            deptartBox.ValueMember = "ID";
+        }
+
+        private void destinationBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            destinationBox.DataSource = db.GetDepartments();
+            destinationBox.DisplayMember = "name";
+            destinationBox.ValueMember = "ID";
+        }
+
+        private void dateTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+            DateTime startDate = dateTimePicker.Value;
         }
     }
 }
