@@ -16,12 +16,13 @@ namespace WIL
     {
 
         private DBManager dbm;
+
         public ServiceForm()
         {
             dbm = new DBManager();
 
             InitializeComponent();
-            dtpDateTime_ValueChanged(null,null);
+            dtpDateTime_ValueChanged(null, null);
         }
 
         void DBManager()
@@ -31,9 +32,9 @@ namespace WIL
 
         private void ListBoxHandle()
         {
-            lvServiceList.Columns.Add("Truck ID", 200);
-            lvServiceList.Columns.Add("Service ID", 200);
-            lvServiceList.Columns.Add("Mechanic", 200);
+            lvServiceList.Columns.Add("Truck #", 200);
+            lvServiceList.Columns.Add("Service #", 200);
+
         }
 
 
@@ -55,17 +56,9 @@ namespace WIL
             }
         }
 
-        string BuildGetServiceListSQL(string pDate)
+        private void PopulateListBoxWithResults(List<Service> results)
         {
-            string tSQL = "SELECT * FROM [dbo].[service]";
-            return tSQL;
-         }
-
-       
-
-        private void PopulateListBoxWithResults(List<Service> pResults)
-        {
-            foreach (Service tServiceItem in pResults)
+            foreach (Service tServiceItem in results)
             {
                 string[] tRowData = new string[3];
                 tRowData[0] = tServiceItem.ID.ToString();
@@ -76,22 +69,46 @@ namespace WIL
             }
         }
 
-        private void InsertListBoxItem(string[] pRow)
+        private void InsertListBoxItem(string[] row)
         {
-            ListViewItem tRowItem = new ListViewItem(pRow);
+            ListViewItem tRowItem = new ListViewItem(row);
             lvServiceList.Items.Add(tRowItem);
         }
 
         private void lvServiceList_DoubleClick(object sender, EventArgs e)
         {
-           if (lvServiceList.SelectedItems.Count >= 0)
+            if (lvServiceList.SelectedItems.Count >= 0)
             {
                 ListViewItem selecteditem = lvServiceList.SelectedItems[0];
                 int serviceID = Convert.ToInt32(selecteditem.SubItems[0].Text);
                 ServiceDetailsForm svcDetailfrm = new ServiceDetailsForm(serviceID);
                 svcDetailfrm.ShowDialog();
             }
-            
+
+        }
+
+        private void bttnServiceReport_Click(object sender, EventArgs e)
+        {
+            pnlServiceReport.Visible = true;
+            btnServiceReport.Visible = false;
+            //update 
+
+        }
+
+        private void btnCloseReport_Click(object sender, EventArgs e)
+        {
+            pnlServiceReport.Visible = false;
+            btnServiceReport.Visible = true;
+        }
+
+        private void lvServiceList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ServiceForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
