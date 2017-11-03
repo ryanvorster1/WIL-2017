@@ -25,45 +25,82 @@ namespace SystemLogic
             }
         }
 
-        public Trip AddTrip(Trip trip)
+        public Trip BookTrip(Trip trip)
         {
-              List<Truck> availableTrucks = GetAvailiableTrucks(trip.Truck.Type);
+            List<Truck> availableTrucks = GetAvailiableTrucks(trip.Truck.Type);
 
             if (availableTrucks.Count > 0)
             {
-              //booktrip with current date
+                AddTrip(trip);
+
             }
             else
             {
-                //no trucks available
-                //select * trucks from trip table of truck type
-                string sql = $"select min(endDate) as [Available Date] from trip join truck on trip.truckID = truck.ID where truckType = {trip.Truck.Type.Type}";
-            }
-              try
-            {
-                string sql = $"select min(endDate) as [Available Date] from trip join truck on trip.truckID = truck.ID where truckType = {trip.Truck.Type.Type}";
-                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
-                DataSet ds = new DataSet();
-                da.Fill(ds);
-
-                     DataRow row = ds.Tables[0].Rows[0][0] as DataRow;
+                //no trucks available get next availible date
+                try
                 {
-                    int ID = (int)row["ID"];
-                    string vin = row["vin"].ToString();
-                    string reg = row["reg"].ToString();
-                    int kms = (int)row["kms"];
-                    bool availible = (bool)row["availible"];
-                    TruckType truckType = GetTruckTypeById((int)row["truckType"]);
-                    Truck t = new Truck(ID, vin, reg, kms, availible, truckType);
-                    availableTrucks.Add(t);
+                    string sql = $"select min(endDate) as [Available Date] from trip join truck on trip.truckID = truck.ID where truckType = {trip.Truck.Type.Type}";
+                    SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                    DataSet ds = new DataSet();
+                    da.Fill(ds);
+
+                    DataRow row = ds.Tables[0].Rows[0][0] as DataRow;
+
+                    DateTime startDate = Convert.ToDateTime(row["Available Date"]);
+                    startDate = startDate.AddDays(3.0);
+
+                    trip.Start = startDate;
+                    AddTrip(trip);
+
                 }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+
+            }
+            return trip;
+        }
+
+        private Trip AddTrip(Trip trip)
+        {
+            try
+            {
+                string query = "insert into trip(truckID, clientID, startDate, endDate, driverID, routeID " +
+                            "values(@truckID, @clientID, @startDate, @endDate, @driverID, routeID)";
+
+                SqlCommand cmd = new SqlCommand(query, dbCon);
+                cmd.Parameters.AddWithValue("@truckID", trip.Truck.ID);
+                cmd.Parameters.AddWithValue("@clientID", trip.Customer.ID);
+                cmd.Parameters.AddWithValue("@startDate", trip.Start);
+                cmd.Parameters.AddWithValue("@endDate", trip.End);
+                cmd.Parameters.AddWithValue("@driverID", trip.Driver.ID);
+                cmd.Parameters.AddWithValue("@routeID", trip.Route.ID);
+
+
+                int id = -1;
+
+                dbCon.Open();
+                //do insert
+                cmd.ExecuteNonQuery();
+                //get ID
+                query = "select @@identity";
+                cmd.CommandText = query;
+                id = Convert.ToInt32(cmd.ExecuteScalar());
+                trip.ID = id;
+                dbCon.Close();
+
             }
             catch (Exception ex)
             {
                 throw ex;
             }
+
             return trip;
+
         }
+
+
         //get a list of all Trips
         public List<Trip> GetTrips()
         {
@@ -153,7 +190,7 @@ namespace SystemLogic
         }
 
         //log incidents from driverform
-        public void  logIncident(int incidentId , User driver)
+        public void logIncident(int incidentId, User driver)
         {
             int id = -1;
             Console.WriteLine(incidentId);
@@ -166,7 +203,7 @@ namespace SystemLogic
                 SqlCommand cmd = new SqlCommand(sql, dbCon);
                 cmd.Parameters.AddWithValue("@incidentType", incidentId);
                 cmd.Parameters.AddWithValue("@driverID", driver.ID);
-                
+
 
 
                 dbCon.Open();
@@ -188,7 +225,7 @@ namespace SystemLogic
 
             //return GetIncidentByID(id);
         }
-    
+
         //get specific incident type by ID
         public IncidentType GetIncidentTypeByID(int id)
         {
@@ -234,12 +271,12 @@ namespace SystemLogic
                     string description = row["Description"].ToString();
                     double cost = Convert.ToDouble(row["cost"]);
                     int hours = (int)row["repairTime"];
-     
+
 
 
                     incident.Add(new IncidentType(ID, description, cost, hours));
-                  
-                   
+
+
                 }
             }
             catch (Exception ex)
@@ -359,15 +396,15 @@ namespace SystemLogic
                 da.Fill(ds);
 
                 DataRow row = ds.Tables[0].Rows[0];
-                    int ID = (int)row["ID"];
-                    string username = row["username"].ToString();
-                    string password = row["pass"].ToString();
-                    UserType type = GetUserTypeById((int)row["userType"]);
-                    int hours = (int)row["hours"];
-                    string fname = row["fname"].ToString();
-                    string lname = row["lname"].ToString();
+                int ID = (int)row["ID"];
+                string username = row["username"].ToString();
+                string password = row["pass"].ToString();
+                UserType type = GetUserTypeById((int)row["userType"]);
+                int hours = (int)row["hours"];
+                string fname = row["fname"].ToString();
+                string lname = row["lname"].ToString();
 
-                    user = new User(ID, username, password, type, hours, fname, lname);
+                user = new User(ID, username, password, type, hours, fname, lname);
                 Console.WriteLine(user.ToString());
             }
             catch (Exception ex)
@@ -481,7 +518,7 @@ namespace SystemLogic
                 UserType type = GetUserTypeById((int)row["userType"]);
                 int hours = (int)row["hours"];
                 string fname = row["fname"].ToString();
-                string lname = row["lname"].ToString(); 
+                string lname = row["lname"].ToString();
 
                 user = new User(ID, username, password, type, hours, fname, lname);
             }
@@ -846,7 +883,7 @@ namespace SystemLogic
                     int maxWeight = (int)row["maxWeight"];
                     int maxVol = (int)row["maxVol"];
 
-                    truckTypes.Add( new TruckType(typeID, type, manufacturor, engineSize,
+                    truckTypes.Add(new TruckType(typeID, type, manufacturor, engineSize,
                         serviceInterval, maxWeight, maxVol));
 
                 }

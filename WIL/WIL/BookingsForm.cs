@@ -42,7 +42,6 @@ namespace WIL
             this.Close();
         }
 
-
         private void slctTruckBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             slctTruckBox.DataSource = db.GetTruckType();
@@ -70,6 +69,11 @@ namespace WIL
 
         private void bookBtn_Click(object sender, EventArgs e)
         {
+            Trip trip = new Trip( );
+
+            //slctCustBox.SelectedValue()
+
+            db.BookTrip();
             MessageBox.Show("Trip booked");
             this.Close();
 

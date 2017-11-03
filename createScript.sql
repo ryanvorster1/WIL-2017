@@ -166,3 +166,5 @@ join userType on users.userType = userType.ID
 select * from Incident
 join incidentType on incident.incidentType = incidentType.ID
 select * from users
+
+select * from trip
