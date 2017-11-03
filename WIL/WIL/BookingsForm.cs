@@ -76,6 +76,7 @@ namespace WIL
             TruckType type = db.GetTruckTypeById((int)slctTruckBox.SelectedValue);
 
             Truck truck = db.GetAvailiableTrucks(type)[0];
+            User user = db.
 
             Trip trip = new Trip(truck, slctTruckBox.SelectedIndex, slctCustBox.SelectedIndex, dateTimePicker.Value, dateTimePicker.Value.AddDays(3), ,destinationBox.SelectedValue );
             
