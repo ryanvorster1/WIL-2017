@@ -10,7 +10,11 @@ namespace SystemLogic
 {
     public class DBManager
     {
+<<<<<<< HEAD
         private string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=2017WIL;Integrated Security=True;Pooling=False";
+=======
+        private string connectionString = "Data Source=POKKOLS-PC;Initial Catalog=WIL;Integrated Security=True";
+>>>>>>> master
         private SqlConnection dbCon;
 
         public DBManager()

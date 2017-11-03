@@ -56,6 +56,7 @@ namespace WIL
             }
         }
 
+
         private void PopulateListBoxWithResults(List<Service> results)
         {
             foreach (Service tServiceItem in results)
