@@ -10,7 +10,7 @@ namespace SystemLogic
 {
     public class DBManager
     {
-        private string connectionString = "Data Source=RYAN;Initial Catalog=WILDB;Integrated Security=True;Pooling=False";
+        private string connectionString = "Data Source=POKKOLS-PC;Initial Catalog=WIL;Integrated Security=True";
         private SqlConnection dbCon;
 
         public DBManager()
