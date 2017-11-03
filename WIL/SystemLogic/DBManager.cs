@@ -10,7 +10,7 @@ namespace SystemLogic
 {
     public class DBManager
     {
-        private string connectionString = "Data Source=RYAN;Initial Catalog=WILDB;Integrated Security=True;Pooling=False";// Properties.Settings.Default._2017_WILConnectionString;
+        private string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog = 2017WIL;Integrated Security = True; Pooling=False";
         private SqlConnection dbCon;
 
         public DBManager()
