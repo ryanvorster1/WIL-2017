@@ -28,9 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
+<<<<<<< HEAD
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Text = "AddTruckForm";
+=======
+            this.SuspendLayout();
+            // 
+            // AddTruckForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(364, 324);
+            this.Name = "AddTruckForm";
+            this.Text = "AddTruckForm";
+            this.ResumeLayout(false);
+
+>>>>>>> master
         }
 
         #endregion

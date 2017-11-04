@@ -38,7 +38,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.AddCustBtn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.slctCustBox = new System.Windows.Forms.ComboBox();
+            this.cmbCustomers = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // bookBtn
@@ -102,6 +102,7 @@
             this.slctTruckBox.Name = "slctTruckBox";
             this.slctTruckBox.Size = new System.Drawing.Size(146, 21);
             this.slctTruckBox.TabIndex = 17;
+            this.slctTruckBox.SelectedIndexChanged += new System.EventHandler(this.slctTruckBox_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -114,7 +115,7 @@
             // 
             // AddCustBtn
             // 
-            this.AddCustBtn.Location = new System.Drawing.Point(12, 12);
+            this.AddCustBtn.Location = new System.Drawing.Point(282, 66);
             this.AddCustBtn.Name = "AddCustBtn";
             this.AddCustBtn.Size = new System.Drawing.Size(146, 23);
             this.AddCustBtn.TabIndex = 15;
@@ -131,13 +132,14 @@
             this.label1.TabIndex = 14;
             this.label1.Text = "Select Customer:";
             // 
-            // slctCustBox
+            // cmbCustomers
             // 
-            this.slctCustBox.FormattingEnabled = true;
-            this.slctCustBox.Location = new System.Drawing.Point(130, 68);
-            this.slctCustBox.Name = "slctCustBox";
-            this.slctCustBox.Size = new System.Drawing.Size(146, 21);
-            this.slctCustBox.TabIndex = 13;
+            this.cmbCustomers.FormattingEnabled = true;
+            this.cmbCustomers.Location = new System.Drawing.Point(130, 68);
+            this.cmbCustomers.Name = "cmbCustomers";
+            this.cmbCustomers.Size = new System.Drawing.Size(146, 21);
+            this.cmbCustomers.TabIndex = 13;
+            this.cmbCustomers.SelectedIndexChanged += new System.EventHandler(this.cmbCustomers_SelectedIndexChanged);
             // 
             // BookingsForm
             // 
@@ -154,7 +156,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.AddCustBtn);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.slctCustBox);
+            this.Controls.Add(this.cmbCustomers);
             this.Name = "BookingsForm";
             this.Text = "BookingsForm";
             this.Load += new System.EventHandler(this.BookingsForm_Load);
@@ -175,6 +177,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button AddCustBtn;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox slctCustBox;
+        private System.Windows.Forms.ComboBox cmbCustomers;
     }
 }

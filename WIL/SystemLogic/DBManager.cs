@@ -10,7 +10,8 @@ namespace SystemLogic
 {
     public class DBManager
     {
-        private string connectionString = "Data Source=DESKTOP-IHUJDPR;Initial Catalog=WILDB;Integrated Security=True";
+        private string connectionString = "Data Source = (localdb)\\MSSQLLocalDB;Initial Catalog = 2017WIL;Integrated Security = True; Pooling=False";
+        //private string connectionString = "Data Source=DESKTOP-IHUJDPR;Initial Catalog=WILDB;Integrated Security=True";
         private SqlConnection dbCon;
 
         public DBManager()
@@ -115,7 +116,11 @@ namespace SystemLogic
             try
             {
                 string query = "insert into trip(truckID, clientID, startDate, endDate, driverID, routeID) " +
+<<<<<<< HEAD
                             "values(@truckID, @clientID, @startDate, @endDate, @driverID, @routeID)";
+=======
+                                      "values(@truckID, @clientID, @startDate, @endDate, @driverID, @routeID)";
+>>>>>>> master
 
                 SqlCommand cmd = new SqlCommand(query, dbCon);
                 cmd.Parameters.AddWithValue("@truckID", trip.Truck.ID);
@@ -161,7 +166,7 @@ namespace SystemLogic
                 {
                     int ID = (int)row["ID"];
                     Truck truck = GetTruckByID((int)row["truckID"]);
-                    User customer = GetUserByID((int)row["clientID"]);
+                    Customer customer = GetCustomerByID((int)row["clientID"]);
                     User driver = GetUserByID((int)row["driverID"]);
                     DateTime start = (DateTime)row["StartDate"];
                     DateTime end = (DateTime)row["endDate"];
@@ -195,7 +200,7 @@ namespace SystemLogic
                 {
                     int ID = (int)row["ID"];
                     Truck truck = GetTruckByID((int)row["truckID"]);
-                    User customer = GetUserByID((int)row["clientID"]);
+                    Customer customer = GetCustomerByID((int)row["clientID"]);
                     User driver = GetUserByID((int)row["driverID"]);
                     DateTime start = (DateTime)row["StartDate"];
                     DateTime end = (DateTime)row["endDate"];

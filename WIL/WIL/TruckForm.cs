@@ -16,5 +16,14 @@ namespace WIL
         {
             InitializeComponent();
         }
+<<<<<<< HEAD
+=======
+
+        private void addTruckBtn_Click(object sender, EventArgs e)
+        {
+            AddTruckForm atf = new AddTruckForm();
+            atf.ShowDialog();
+        }
+>>>>>>> master
     }
 }
