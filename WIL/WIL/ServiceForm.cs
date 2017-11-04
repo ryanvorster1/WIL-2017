@@ -20,7 +20,6 @@ namespace WIL
         public ServiceForm()
         {
             dbm = new DBManager();
-
             InitializeComponent();
             dtpDateTime_ValueChanged(null, null);
         }
@@ -33,8 +32,7 @@ namespace WIL
         private void ListBoxHandle()
         {
             lvServiceList.Columns.Add("Truck #", 200);
-            lvServiceList.Columns.Add("Service #", 200);
-
+            lvServiceList.Columns.Add("Service #", 500);
         }
 
 
@@ -99,7 +97,6 @@ namespace WIL
             pnlServiceReport.Visible = true;
             btnServiceReport.Visible = false;
             //update 
-
         }
 
         private void btnCloseReport_Click(object sender, EventArgs e)
