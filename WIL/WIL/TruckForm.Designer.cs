@@ -28,14 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-<<<<<<< HEAD
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "TruckForm";
-        }
-
-        #endregion
-=======
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.addTruckBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -71,9 +63,8 @@
         }
 
         #endregion
-
         private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.Button addTruckBtn;
->>>>>>> master
+
     }
 }
