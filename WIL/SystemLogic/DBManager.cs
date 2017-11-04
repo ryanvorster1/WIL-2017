@@ -10,7 +10,7 @@ namespace SystemLogic
 {
     public class DBManager
     {
-        private string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=2017WIL;Integrated Security=True;Pooling=False";
+        private string connectionString = "Data Source=DESKTOP-IHUJDPR;Initial Catalog=WILDB;Integrated Security=True";
         private SqlConnection dbCon;
 
         public DBManager()
@@ -137,6 +137,13 @@ namespace SystemLogic
                 id = Convert.ToInt32(cmd.ExecuteScalar());
                 trip.ID = id;
                 dbCon.Close();
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+            return trip;
+        }
 
         //get a list of all trips 
         public List<Trip> GetTrips(DateTime selectedDate)
@@ -169,17 +176,10 @@ namespace SystemLogic
             }
 
 
-            return trip;
-
-        }
-
-
-
             return trips;
+
         }
-
-
-        //get a list of all Trips
+                //get a list of all Trips
         public List<Trip> GetTrips()
         {
             List<Trip> trips = new List<Trip>();

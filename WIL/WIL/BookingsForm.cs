@@ -20,20 +20,9 @@ namespace WIL
             db = new DBManager();
         }
 
-        private void slctCustBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            slctCustBox.DataSource = db.GetCustomers();
-            slctCustBox.DisplayMember = "Fname";
-            slctCustBox.ValueMember = "ID";
-        }
-
-        private void cancelBtn_Click(object sender, EventArgs e)
+            private void cancelBtn_Click(object sender, EventArgs e)
         {
             //Open trip Form when cancel button is clicked
-
-            TripForm tf = new TripForm();
-            tf.ShowDialog();
-
             this.Close();
 
         }
@@ -43,49 +32,47 @@ namespace WIL
             //Open add customer form when add customer button is clicked
             AddCustomerForm acf = new AddCustomerForm();
             acf.ShowDialog();
-            this.Close();
-        }
-
-        private void slctTruckBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            slctTruckBox.DataSource = db.GetTruckType();
-            slctTruckBox.DisplayMember = "type";
-            slctTruckBox.ValueMember = "ID";
-        }
-
-        private void deptartBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            deptartBox.DataSource = db.GetDepartments();
-            deptartBox.DisplayMember = "name";
-            deptartBox.ValueMember = "ID";
-        }
-
-        private void destinationBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            destinationBox.DataSource = db.GetRoutes();
-            destinationBox.DisplayMember = "Destination.Name";
-            destinationBox.ValueMember = "ID";
+            
         }
 
         private void dateTimePicker_ValueChanged(object sender, EventArgs e)
         {
             DateTime startDate = dateTimePicker.Value;
+        }
 
         private void bookBtn_Click(object sender, EventArgs e)
         {
             TruckType type = db.GetTruckTypeById((int)slctTruckBox.SelectedValue);
 
             Truck truck = db.GetAvailiableTrucks(type)[0];
-            User user = db.
+            User user = db.GetAvailibleDrivers()[0];
+            Route route = db.GetRouteByID((int)destinationBox.SelectedValue);
+            User customer = db.GetUserByID(0);
 
-            Trip trip = new Trip(truck, slctTruckBox.SelectedIndex, slctCustBox.SelectedIndex, dateTimePicker.Value, dateTimePicker.Value.AddDays(3), ,destinationBox.SelectedValue );
+            Console.WriteLine(truck.Type.Type);
+
+            Trip trip = new Trip(truck, customer, (DateTime) dateTimePicker.Value, (DateTime)dateTimePicker.Value.AddDays(3),user ,route);
             
-            //slctCustBox.SelectedValue()
-
-            db.BookTrip();
+            db.BookTrip(trip);
             MessageBox.Show("Trip booked");
             this.Close();
 
+
+        }
+
+        private void BookingsForm_Load(object sender, EventArgs e)
+        {
+            slctCustBox.DataSource = db.GetCustomers();
+            slctCustBox.DisplayMember = "Fname";
+            slctCustBox.ValueMember = "ID";
+
+            slctTruckBox.DataSource = db.GetTruckType();
+            slctTruckBox.DisplayMember = "Type";
+            slctTruckBox.ValueMember = "ID";
+
+            destinationBox.DataSource = db.GetDepartments();
+            destinationBox.DisplayMember = "Name";
+            destinationBox.ValueMember = "ID";          
 
         }
     }

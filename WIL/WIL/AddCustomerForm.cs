@@ -20,27 +20,25 @@ namespace WIL
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            if(txbFName.Text.Length > 0 && txbLname.Text.Length > 0 && txbEmail.Text.Length > 0 & txbCell.Text.Length > 0)
+            if (txbFName.Text.Length > 0 && txbLname.Text.Length > 0 && txbEmail.Text.Length > 0 & txbCell.Text.Length > 0)
             {
                 Customer cus = new Customer(txbFName.Text, txbLname.Text, txbEmail.Text, txbCell.Text);
                 int cusID = new DBManager().AddCustomer(ref cus);
                 MessageBox.Show($"Customer {cusID} has been added sucsessfully.");
                 Close();
-            } else
+            }
+            else
             {
                 MessageBox.Show("Complete all fields");
             }
-            //Opens booking form after ok button is clicked
-            BookingsForm bf = new BookingsForm();
-            bf.ShowDialog();
+
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
             // Close add customer form and then show bookings form again
             this.Close();
-            BookingsForm bf = new BookingsForm();
-            bf.ShowDialog();
+
         }
     }
 }
