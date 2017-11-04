@@ -31,8 +31,13 @@ namespace WIL
 
         private void ListBoxHandle()
         {
-            lvServiceList.Columns.Add("Truck #", 200);
-            lvServiceList.Columns.Add("Service #", 500);
+]
+
+            lvServiceList.Columns.Add("Truck #", 50);
+            lvServiceList.Columns.Add("Truck Type", 200);
+            lvServiceList.Columns.Add("Service #", 800);
+
+
         }
 
 
@@ -60,15 +65,15 @@ namespace WIL
             foreach (Service serviceItem in results)
             {
                 string[] tRowData = new string[3];
-                tRowData[0] = $"{serviceItem.Truck.Type.Type} #{serviceItem.Truck.ID.ToString()}";
-
+                tRowData[0] = $"{serviceItem.Truck.ID.ToString()}";
+                tRowData[1] = serviceItem.Truck.Type.Type;
                 var services = dbm.GetServiceItems(serviceItem);
                 string ser = "";
                 foreach (var item in services)
                 {
                     ser += item.ServiceType.Job + ",";
                 }
-                tRowData[1] = ser;
+                tRowData[2] = ser;
 
                 InsertListBoxItem(tRowData);
             }
