@@ -245,19 +245,8 @@ values(0,0),
 	  (2,9)
 
 
+	  --print list of usernames and password 
 select * from users
 join userType on users.userType = userType.ID 
 where users.userType = 0 and avaliable = 1
-
-select * from Incident
-join incidentType on incident.incidentType = incidentType.ID
-select * from users
-
-<<<<<<< HEAD
-=======
-select * from trip
-where startDate <= '2017/11/23' and endDate >= '2017/11/23'
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
->>>>>>> ed54b0399880468b74d6ea201d0eada8d19b4b32
 
