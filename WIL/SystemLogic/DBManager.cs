@@ -768,8 +768,8 @@ namespace SystemLogic
                 dbCon.Close();
 
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) { 
+         
 
                 throw ex;
             }
@@ -1111,6 +1111,34 @@ namespace SystemLogic
                 {
                     int ID = (int)row["ID"];
                     Service service = GetServiceById((int)row["serviceID"]);
+                    ServiceType type = GetServiceTypeById((int)row["serviceJob"]);
+
+                    ServiceItem si = new ServiceItem(ID, service, type);
+                    serviceItems.Add(si);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return serviceItems;
+        }
+
+        public List<ServiceItem> GetServiceItems(Service service)
+        {
+            List<ServiceItem> serviceItems = new List<ServiceItem>();
+
+            try
+            {
+                string sql = $"select * from serviceItem join serviceType on serviceItem.ID = serviceType.ID where serviceID = {service.ID}";
+                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    int ID = (int)row["ID"];
                     ServiceType type = GetServiceTypeById((int)row["serviceJob"]);
 
                     ServiceItem si = new ServiceItem(ID, service, type);
