@@ -62,9 +62,15 @@ namespace WIL
             foreach (Service tServiceItem in results)
             {
                 string[] tRowData = new string[3];
-                tRowData[0] = tServiceItem.ID.ToString();
-                tRowData[1] = tServiceItem.Truck.ID.ToString();
-                tRowData[2] = tServiceItem.Mechanic.ID.ToString();
+                tRowData[0] = tServiceItem.Truck.ID.ToString();
+
+                var services = dbm.GetServiceItems(tServiceItem);
+                string ser = "";
+                foreach (var item in services)
+                {
+                    ser += item.ServiceType.Job + ",";
+                }
+                tRowData[1] = ser;
 
                 InsertListBoxItem(tRowData);
             }
