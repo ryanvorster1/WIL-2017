@@ -47,6 +47,10 @@
             this.lblMenumanufacturor = new System.Windows.Forms.Label();
             this.bttnComplete = new System.Windows.Forms.Button();
             this.lblReg = new System.Windows.Forms.Label();
+            this.lsbServiceJobs = new System.Windows.Forms.ListBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.pnlServiceDetails = new System.Windows.Forms.Panel();
+            this.pnlServiceDetails.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblMenuTrucktype
@@ -70,7 +74,7 @@
             // lblServiceDetails
             // 
             this.lblServiceDetails.AutoSize = true;
-            this.lblServiceDetails.Location = new System.Drawing.Point(31, 300);
+            this.lblServiceDetails.Location = new System.Drawing.Point(16, 15);
             this.lblServiceDetails.Name = "lblServiceDetails";
             this.lblServiceDetails.Size = new System.Drawing.Size(81, 13);
             this.lblServiceDetails.TabIndex = 2;
@@ -106,7 +110,7 @@
             // lblServiceJob
             // 
             this.lblServiceJob.AutoSize = true;
-            this.lblServiceJob.Location = new System.Drawing.Point(118, 300);
+            this.lblServiceJob.Location = new System.Drawing.Point(103, 15);
             this.lblServiceJob.Name = "lblServiceJob";
             this.lblServiceJob.Size = new System.Drawing.Size(58, 13);
             this.lblServiceJob.TabIndex = 6;
@@ -160,7 +164,7 @@
             // lblmenuCost
             // 
             this.lblmenuCost.AutoSize = true;
-            this.lblmenuCost.Location = new System.Drawing.Point(39, 347);
+            this.lblmenuCost.Location = new System.Drawing.Point(16, 62);
             this.lblmenuCost.Name = "lblmenuCost";
             this.lblmenuCost.Size = new System.Drawing.Size(31, 13);
             this.lblmenuCost.TabIndex = 12;
@@ -169,7 +173,7 @@
             // lblCost
             // 
             this.lblCost.AutoSize = true;
-            this.lblCost.Location = new System.Drawing.Point(121, 347);
+            this.lblCost.Location = new System.Drawing.Point(106, 62);
             this.lblCost.Name = "lblCost";
             this.lblCost.Size = new System.Drawing.Size(67, 13);
             this.lblCost.TabIndex = 13;
@@ -178,7 +182,7 @@
             // lblHours
             // 
             this.lblHours.AutoSize = true;
-            this.lblHours.Location = new System.Drawing.Point(121, 402);
+            this.lblHours.Location = new System.Drawing.Point(103, 117);
             this.lblHours.Name = "lblHours";
             this.lblHours.Size = new System.Drawing.Size(35, 13);
             this.lblHours.TabIndex = 14;
@@ -187,7 +191,7 @@
             // lblmenuHours
             // 
             this.lblmenuHours.AutoSize = true;
-            this.lblmenuHours.Location = new System.Drawing.Point(50, 402);
+            this.lblmenuHours.Location = new System.Drawing.Point(16, 117);
             this.lblmenuHours.Name = "lblmenuHours";
             this.lblmenuHours.Size = new System.Drawing.Size(38, 13);
             this.lblmenuHours.TabIndex = 15;
@@ -221,32 +225,61 @@
             this.lblReg.TabIndex = 18;
             this.lblReg.Text = "Reg";
             // 
-            // ServiceDetailsfrm
+            // lsbServiceJobs
+            // 
+            this.lsbServiceJobs.FormattingEnabled = true;
+            this.lsbServiceJobs.Location = new System.Drawing.Point(260, 300);
+            this.lsbServiceJobs.Name = "lsbServiceJobs";
+            this.lsbServiceJobs.Size = new System.Drawing.Size(120, 121);
+            this.lsbServiceJobs.TabIndex = 19;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(257, 274);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(68, 13);
+            this.label1.TabIndex = 20;
+            this.label1.Text = "Service Jobs";
+            // 
+            // pnlServiceDetails
+            // 
+            this.pnlServiceDetails.Controls.Add(this.lblServiceDetails);
+            this.pnlServiceDetails.Controls.Add(this.lblServiceJob);
+            this.pnlServiceDetails.Controls.Add(this.lblmenuCost);
+            this.pnlServiceDetails.Controls.Add(this.lblCost);
+            this.pnlServiceDetails.Controls.Add(this.lblHours);
+            this.pnlServiceDetails.Controls.Add(this.lblmenuHours);
+            this.pnlServiceDetails.Location = new System.Drawing.Point(12, 274);
+            this.pnlServiceDetails.Name = "pnlServiceDetails";
+            this.pnlServiceDetails.Size = new System.Drawing.Size(200, 154);
+            this.pnlServiceDetails.TabIndex = 21;
+            // 
+            // ServiceDetailsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(440, 505);
+            this.Controls.Add(this.pnlServiceDetails);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lsbServiceJobs);
             this.Controls.Add(this.lblReg);
             this.Controls.Add(this.bttnComplete);
             this.Controls.Add(this.lblMenumanufacturor);
-            this.Controls.Add(this.lblmenuHours);
-            this.Controls.Add(this.lblHours);
-            this.Controls.Add(this.lblCost);
-            this.Controls.Add(this.lblmenuCost);
             this.Controls.Add(this.lblserInterval);
             this.Controls.Add(this.lblserviceInterval);
             this.Controls.Add(this.lblESize);
             this.Controls.Add(this.lblengineSize);
             this.Controls.Add(this.lblManufacturor);
-            this.Controls.Add(this.lblServiceJob);
             this.Controls.Add(this.lblTruckType);
             this.Controls.Add(this.lblMName);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.lblServiceDetails);
             this.Controls.Add(this.lblMSurname);
             this.Controls.Add(this.lblMenuTrucktype);
-            this.Name = "ServiceDetailsfrm";
+            this.Name = "ServiceDetailsForm";
             this.Text = "ServiceDetailsfrm";
+            this.pnlServiceDetails.ResumeLayout(false);
+            this.pnlServiceDetails.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -273,5 +306,8 @@
         private System.Windows.Forms.Label lblMenumanufacturor;
         private System.Windows.Forms.Button bttnComplete;
         private System.Windows.Forms.Label lblReg;
+        private System.Windows.Forms.ListBox lsbServiceJobs;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel pnlServiceDetails;
     }
 }
