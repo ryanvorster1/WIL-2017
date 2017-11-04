@@ -250,15 +250,3 @@ select * from users
 join userType on users.userType = userType.ID 
 where users.userType = 0 and avaliable = 1
 
-
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
---service jobs on servide
-select *
-from service
-
-select * from serviceItem
-join serviceType on serviceItem.ID = serviceType.ID
-where serviceID = 6

@@ -34,8 +34,6 @@
             this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.destinationBox = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.deptartBox = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.slctTruckBox = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.AddCustBtn = new System.Windows.Forms.Button();
@@ -45,9 +43,9 @@
             // 
             // bookBtn
             // 
-            this.bookBtn.Location = new System.Drawing.Point(205, 355);
+            this.bookBtn.Location = new System.Drawing.Point(260, 280);
             this.bookBtn.Name = "bookBtn";
-            this.bookBtn.Size = new System.Drawing.Size(107, 23);
+            this.bookBtn.Size = new System.Drawing.Size(70, 33);
             this.bookBtn.TabIndex = 25;
             this.bookBtn.Text = "Book";
             this.bookBtn.UseVisualStyleBackColor = true;
@@ -55,9 +53,9 @@
             // 
             // cancelBtn
             // 
-            this.cancelBtn.Location = new System.Drawing.Point(332, 355);
+            this.cancelBtn.Location = new System.Drawing.Point(354, 280);
             this.cancelBtn.Name = "cancelBtn";
-            this.cancelBtn.Size = new System.Drawing.Size(107, 23);
+            this.cancelBtn.Size = new System.Drawing.Size(66, 33);
             this.cancelBtn.TabIndex = 24;
             this.cancelBtn.Text = "Cancel";
             this.cancelBtn.UseVisualStyleBackColor = true;
@@ -66,7 +64,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(8, 264);
+            this.label5.Location = new System.Drawing.Point(9, 216);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(116, 13);
             this.label5.TabIndex = 23;
@@ -74,44 +72,28 @@
             // 
             // dateTimePicker
             // 
-            this.dateTimePicker.Location = new System.Drawing.Point(141, 258);
+            this.dateTimePicker.Location = new System.Drawing.Point(141, 216);
             this.dateTimePicker.Name = "dateTimePicker";
             this.dateTimePicker.Size = new System.Drawing.Size(200, 20);
             this.dateTimePicker.TabIndex = 22;
+            this.dateTimePicker.ValueChanged += new System.EventHandler(this.dateTimePicker_ValueChanged);
             // 
             // destinationBox
             // 
             this.destinationBox.FormattingEnabled = true;
-            this.destinationBox.Location = new System.Drawing.Point(332, 193);
+            this.destinationBox.Location = new System.Drawing.Point(130, 160);
             this.destinationBox.Name = "destinationBox";
-            this.destinationBox.Size = new System.Drawing.Size(107, 21);
+            this.destinationBox.Size = new System.Drawing.Size(146, 21);
             this.destinationBox.TabIndex = 21;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(230, 201);
+            this.label4.Location = new System.Drawing.Point(11, 160);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(96, 13);
             this.label4.TabIndex = 20;
             this.label4.Text = "Select Destination:";
-            // 
-            // deptartBox
-            // 
-            this.deptartBox.FormattingEnabled = true;
-            this.deptartBox.Location = new System.Drawing.Point(104, 193);
-            this.deptartBox.Name = "deptartBox";
-            this.deptartBox.Size = new System.Drawing.Size(107, 21);
-            this.deptartBox.TabIndex = 19;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 201);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(90, 13);
-            this.label3.TabIndex = 18;
-            this.label3.Text = "Select Departure:";
             // 
             // slctTruckBox
             // 
@@ -126,9 +108,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(11, 109);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(71, 13);
+            this.label2.Size = new System.Drawing.Size(98, 13);
             this.label2.TabIndex = 16;
-            this.label2.Text = "Select Truck:";
+            this.label2.Text = "Select Truck Type:";
             // 
             // AddCustBtn
             // 
@@ -156,21 +138,18 @@
             this.slctCustBox.Name = "slctCustBox";
             this.slctCustBox.Size = new System.Drawing.Size(146, 21);
             this.slctCustBox.TabIndex = 13;
-            this.slctCustBox.SelectedIndexChanged += new System.EventHandler(this.slctCustBox_SelectedIndexChanged);
             // 
             // BookingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(455, 410);
+            this.ClientSize = new System.Drawing.Size(432, 330);
             this.Controls.Add(this.bookBtn);
             this.Controls.Add(this.cancelBtn);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.dateTimePicker);
             this.Controls.Add(this.destinationBox);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.deptartBox);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.slctTruckBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.AddCustBtn);
@@ -178,6 +157,7 @@
             this.Controls.Add(this.slctCustBox);
             this.Name = "BookingsForm";
             this.Text = "BookingsForm";
+            this.Load += new System.EventHandler(this.BookingsForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -191,8 +171,6 @@
         private System.Windows.Forms.DateTimePicker dateTimePicker;
         private System.Windows.Forms.ComboBox destinationBox;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox deptartBox;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox slctTruckBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button AddCustBtn;

@@ -20,14 +20,7 @@ namespace WIL
             db = new DBManager();
         }
 
-        private void slctCustBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            slctCustBox.DataSource = db.GetCustomers();
-            slctCustBox.DisplayMember = "Fname";
-            slctCustBox.ValueMember = "ID";
-        }
-
-        private void cancelBtn_Click(object sender, EventArgs e)
+            private void cancelBtn_Click(object sender, EventArgs e)
         {
             //Open trip Form when cancel button is clicked
             this.Close();
@@ -39,13 +32,47 @@ namespace WIL
             //Open add customer form when add customer button is clicked
             AddCustomerForm acf = new AddCustomerForm();
             acf.ShowDialog();
-            this.Close();
+            
+        }
+
+        private void dateTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+            DateTime startDate = dateTimePicker.Value;
         }
 
         private void bookBtn_Click(object sender, EventArgs e)
         {
+            TruckType type = db.GetTruckTypeById((int)slctTruckBox.SelectedValue);
+
+            Truck truck = db.GetAvailiableTrucks(type)[0];
+            User user = db.GetAvailibleDrivers()[0];
+            Route route = db.GetRouteByID((int)destinationBox.SelectedValue);
+            User customer = db.GetUserByID(0);
+
+            Console.WriteLine(truck.Type.Type);
+
+            Trip trip = new Trip(truck, customer, (DateTime) dateTimePicker.Value, (DateTime)dateTimePicker.Value.AddDays(3),user ,route);
+            
+            db.BookTrip(trip);
             MessageBox.Show("Trip booked");
             this.Close();
+
+
+        }
+
+        private void BookingsForm_Load(object sender, EventArgs e)
+        {
+            slctCustBox.DataSource = db.GetCustomers();
+            slctCustBox.DisplayMember = "Fname";
+            slctCustBox.ValueMember = "ID";
+
+            slctTruckBox.DataSource = db.GetTruckType();
+            slctTruckBox.DisplayMember = "Type";
+            slctTruckBox.ValueMember = "ID";
+
+            destinationBox.DataSource = db.GetDepartments();
+            destinationBox.DisplayMember = "Name";
+            destinationBox.ValueMember = "ID";          
 
         }
     }

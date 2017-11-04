@@ -28,6 +28,18 @@ namespace SystemLogic
             this.Route = route;
         }
 
+        public Trip( Truck truck, User customer, DateTime start, DateTime end,
+           User driver, Route route)
+        {
+            ID = -1;
+            this.Truck = truck;
+            this.Customer = customer;
+            this.Start = start;
+            this.End = end;
+            this.Driver = driver;
+            this.Route = route;
+        }
+
         public override string ToString()
         {
             return $"{ID}\n {Truck.ToString()}\n{Customer.ToString()}";

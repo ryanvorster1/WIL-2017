@@ -10,7 +10,7 @@ namespace SystemLogic
 {
     public class DBManager
     {
-        private string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=2017WIL;Integrated Security=True;Pooling=False";
+        private string connectionString = "Data Source=DESKTOP-IHUJDPR;Initial Catalog=WILDB;Integrated Security=True";
         private SqlConnection dbCon;
 
         public DBManager()
@@ -23,6 +23,126 @@ namespace SystemLogic
             {
                 throw ex;
             }
+        }
+
+
+        public Trip BookTrip(Trip trip)
+        {
+            List<Truck> availableTrucks = GetAvailiableTrucks(trip.Truck.Type);
+
+            if (availableTrucks.Count > 0)
+            {
+                AddTrip(trip);
+
+            }
+            else
+            {
+                //no trucks available get next availible date
+                try
+                {
+                    string sql = $"select min(endDate) as [Available Date] from trip join truck on trip.truckID = truck.ID where truckType = {trip.Truck.Type.Type}";
+                    SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                    DataSet ds = new DataSet();
+                    da.Fill(ds);
+
+                    DataRow row = ds.Tables[0].Rows[0][0] as DataRow;
+
+                    DateTime startDate = Convert.ToDateTime(row["Available Date"]);
+                    startDate = startDate.AddDays(3.0);
+                    UpdateTruckStatus(false, trip.Truck);
+                    UpdateTruckKms(trip.Route.Kms, trip.Truck);
+
+                    trip.Start = startDate;
+                    AddTrip(trip);
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+
+            }
+            return trip;
+        }
+
+        private Truck UpdateTruckStatus(bool available, Truck truck)
+        {
+
+            try
+            {
+                string sql = $"UPDATE truck set availible = {available} where id = {truck.ID}";
+                SqlCommand cmd = new SqlCommand(sql, dbCon);
+
+                dbCon.Open();
+                //do update
+                cmd.ExecuteNonQuery();
+
+                dbCon.Close();
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return GetTruckByID(truck.ID);
+        }
+
+        private Truck UpdateTruckKms(int kms, Truck truck)
+        {
+            try
+            {
+                string sql = $"UPDATE truck set kms = {truck.Kms + kms} where id = {truck.ID}";
+                SqlCommand cmd = new SqlCommand(sql, dbCon);
+
+                dbCon.Open();
+                //do update
+                cmd.ExecuteNonQuery();
+
+                dbCon.Close();
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return GetTruckByID(truck.ID);
+        }
+
+        private Trip AddTrip(Trip trip)
+        {
+            try
+            {
+                string query = "insert into trip(truckID, clientID, startDate, endDate, driverID, routeID " +
+                            "values(@truckID, @clientID, @startDate, @endDate, @driverID, routeID)";
+
+                SqlCommand cmd = new SqlCommand(query, dbCon);
+                cmd.Parameters.AddWithValue("@truckID", trip.Truck.ID);
+                cmd.Parameters.AddWithValue("@clientID", trip.Customer.ID);
+                cmd.Parameters.AddWithValue("@startDate", trip.Start);
+                cmd.Parameters.AddWithValue("@endDate", trip.End);
+                cmd.Parameters.AddWithValue("@driverID", trip.Driver.ID);
+                cmd.Parameters.AddWithValue("@routeID", trip.Route.ID);
+
+
+                int id = -1;
+
+                dbCon.Open();
+                //do insert
+                cmd.ExecuteNonQuery();
+                //get ID
+                query = "select @@identity";
+                cmd.CommandText = query;
+                id = Convert.ToInt32(cmd.ExecuteScalar());
+                trip.ID = id;
+                dbCon.Close();
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+            return trip;
         }
 
         //get a list of all trips 
@@ -49,15 +169,17 @@ namespace SystemLogic
 
                     trips.Add(new Trip(ID, truck, customer, start, end, driver, route));
                 }
-            }
+           }
             catch (Exception ex)
             {
                 throw ex;
             }
-            return trips;
-        }
 
-        //get a list of all Trips
+
+            return trips;
+
+        }
+                //get a list of all Trips
         public List<Trip> GetTrips()
         {
             List<Trip> trips = new List<Trip>();
@@ -165,7 +287,7 @@ namespace SystemLogic
         }
 
         //log incidents from driverform
-        public void  logIncident(int incidentId , User driver)
+        public void logIncident(int incidentId, User driver)
         {
             int id = -1;
             Console.WriteLine(incidentId);
@@ -178,7 +300,7 @@ namespace SystemLogic
                 SqlCommand cmd = new SqlCommand(sql, dbCon);
                 cmd.Parameters.AddWithValue("@incidentType", incidentId);
                 cmd.Parameters.AddWithValue("@driverID", driver.ID);
-                
+
 
 
                 dbCon.Open();
@@ -200,7 +322,7 @@ namespace SystemLogic
 
             //return GetIncidentByID(id);
         }
-    
+
         //get specific incident type by ID
         public IncidentType GetIncidentTypeByID(int id)
         {
@@ -246,12 +368,12 @@ namespace SystemLogic
                     string description = row["Description"].ToString();
                     double cost = Convert.ToDouble(row["cost"]);
                     int hours = (int)row["repairTime"];
-     
+
 
 
                     incident.Add(new IncidentType(ID, description, cost, hours));
-                  
-                   
+
+
                 }
             }
             catch (Exception ex)
@@ -371,15 +493,15 @@ namespace SystemLogic
                 da.Fill(ds);
 
                 DataRow row = ds.Tables[0].Rows[0];
-                    int ID = (int)row["ID"];
-                    string username = row["username"].ToString();
-                    string password = row["pass"].ToString();
-                    UserType type = GetUserTypeById((int)row["userType"]);
-                    int hours = (int)row["hours"];
-                    string fname = row["fname"].ToString();
-                    string lname = row["lname"].ToString();
+                int ID = (int)row["ID"];
+                string username = row["username"].ToString();
+                string password = row["pass"].ToString();
+                UserType type = GetUserTypeById((int)row["userType"]);
+                int hours = (int)row["hours"];
+                string fname = row["fname"].ToString();
+                string lname = row["lname"].ToString();
 
-                    user = new User(ID, username, password, type, hours, fname, lname);
+                user = new User(ID, username, password, type, hours, fname, lname);
                 Console.WriteLine(user.ToString());
             }
             catch (Exception ex)
@@ -526,7 +648,7 @@ namespace SystemLogic
                 UserType type = GetUserTypeById((int)row["userType"]);
                 int hours = (int)row["hours"];
                 string fname = row["fname"].ToString();
-                string lname = row["lname"].ToString(); 
+                string lname = row["lname"].ToString();
 
                 user = new User(ID, username, password, type, hours, fname, lname);
             }
@@ -891,7 +1013,7 @@ namespace SystemLogic
                     int maxWeight = (int)row["maxWeight"];
                     int maxVol = (int)row["maxVol"];
 
-                    truckTypes.Add( new TruckType(typeID, type, manufacturor, engineSize,
+                    truckTypes.Add(new TruckType(typeID, type, manufacturor, engineSize,
                         serviceInterval, maxWeight, maxVol));
 
                 }
