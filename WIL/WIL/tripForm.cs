@@ -34,13 +34,7 @@ namespace WIL
 
         private void TripForm_Load(object sender, EventArgs e)
         {
-          
-            List<Trip> trips = new DBManager().GetTrips();
-            foreach (var item in trips)
-            {
-                dataGridView1.Rows.Add(item.Truck.ID,item.Customer.ID,item.Start, item.End,item.Route.Departure,item.Route.Destination );
-            }
-            
+            UpdateDGVTrips(dtpTrips.Value);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -56,5 +50,22 @@ namespace WIL
             viewPlannedTripsBtn.Visible = true;
             viewCompletedTripsBtn.Visible = true;
         }
+
+        private void dtpTrips_ValueChanged(object sender, EventArgs e)
+        {
+            UpdateDGVTrips(dtpTrips.Value);
+        }
+
+        private void UpdateDGVTrips(DateTime selected)
+        {
+            dataGridView1.Rows.Clear();
+            List<Trip> trips = new DBManager().GetTrips(selected);
+            foreach (var item in trips)
+            {
+                dataGridView1.Rows.Add(item.Truck.ID, item.Customer.ID, item.Start, item.End, item.Route.Departure, item.Route.Destination);
+            }
+
+        }
+
     }
 }

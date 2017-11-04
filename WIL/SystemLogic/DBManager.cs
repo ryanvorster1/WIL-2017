@@ -25,6 +25,38 @@ namespace SystemLogic
             }
         }
 
+        //get a list of all trips 
+        public List<Trip> GetTrips(DateTime selectedDate)
+        {
+            List<Trip> trips = new List<Trip>();
+
+            try
+            {
+                string sql = $"select * from trip where startDate <= '{selectedDate}' and endDate >= '{selectedDate}'";
+                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    int ID = (int)row["ID"];
+                    Truck truck = GetTruckByID((int)row["truckID"]);
+                    User customer = GetUserByID((int)row["clientID"]);
+                    User driver = GetUserByID((int)row["driverID"]);
+                    DateTime start = (DateTime)row["StartDate"];
+                    DateTime end = (DateTime)row["endDate"];
+                    Route route = GetRouteByID((int)row["routeID"]);
+
+                    trips.Add(new Trip(ID, truck, customer, start, end, driver, route));
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return trips;
+        }
+
         //get a list of all Trips
         public List<Trip> GetTrips()
         {
@@ -408,6 +440,39 @@ namespace SystemLogic
             user.ID = id;
 
             return id;
+        }
+
+        //get drivers that are not availible
+        public List<User> GetAvailibleDrivers()
+        {
+            List<User> users = new List<User>();
+
+            try
+            {
+                string sql = "select* from users join userType on users.userType = userType.ID where users.userType = 0 and avaliable = 1";
+                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    int ID = (int)row["ID"];
+                    string username = row["username"].ToString();
+                    string password = row["pass"].ToString();
+                    UserType type = GetUserTypeById((int)row["userType"]);
+                    int hours = (int)row["hours"];
+                    string fname = row["fname"].ToString();
+                    string lname = row["lname"].ToString();
+
+                    User u = new User(ID, username, password, type, hours, fname, lname);
+                    users.Add(u);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return users;
         }
 
         //get a list of all users

@@ -42,15 +42,15 @@
             this.destination = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.wILDBDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnlReportView = new System.Windows.Forms.Panel();
+            this.btnCloseReportView = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.dtpTrips = new System.Windows.Forms.DateTimePicker();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.viewReportsbtn = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.btnCloseReportView = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.wILDBDataSetBindingSource)).BeginInit();
             this.pnlReportView.SuspendLayout();
@@ -155,12 +155,50 @@
             this.pnlReportView.TabIndex = 6;
             this.pnlReportView.Visible = false;
             // 
+            // btnCloseReportView
+            // 
+            this.btnCloseReportView.Location = new System.Drawing.Point(237, 65);
+            this.btnCloseReportView.Name = "btnCloseReportView";
+            this.btnCloseReportView.Size = new System.Drawing.Size(129, 23);
+            this.btnCloseReportView.TabIndex = 8;
+            this.btnCloseReportView.Text = "Close Report View";
+            this.btnCloseReportView.UseVisualStyleBackColor = true;
+            this.btnCloseReportView.Click += new System.EventHandler(this.btnCloseReportView_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(492, 4);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(106, 13);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "Overall hours driving:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(257, 4);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(109, 13);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "Overall fuel expense: ";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(4, 4);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(132, 13);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Overall distance travelled: ";
+            // 
             // dtpTrips
             // 
             this.dtpTrips.Location = new System.Drawing.Point(12, 86);
             this.dtpTrips.Name = "dtpTrips";
             this.dtpTrips.Size = new System.Drawing.Size(200, 20);
             this.dtpTrips.TabIndex = 0;
+            this.dtpTrips.ValueChanged += new System.EventHandler(this.dtpTrips_ValueChanged);
             // 
             // comboBox1
             // 
@@ -203,43 +241,6 @@
             this.viewReportsbtn.Text = "View Reports";
             this.viewReportsbtn.UseVisualStyleBackColor = true;
             this.viewReportsbtn.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(4, 4);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(132, 13);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Overall distance travelled: ";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(257, 4);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(109, 13);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "Overall fuel expense: ";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(492, 4);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(106, 13);
-            this.label5.TabIndex = 2;
-            this.label5.Text = "Overall hours driving:";
-            // 
-            // btnCloseReportView
-            // 
-            this.btnCloseReportView.Location = new System.Drawing.Point(237, 65);
-            this.btnCloseReportView.Name = "btnCloseReportView";
-            this.btnCloseReportView.Size = new System.Drawing.Size(129, 23);
-            this.btnCloseReportView.TabIndex = 8;
-            this.btnCloseReportView.Text = "Close Report View";
-            this.btnCloseReportView.UseVisualStyleBackColor = true;
-            this.btnCloseReportView.Click += new System.EventHandler(this.btnCloseReportView_Click);
             // 
             // TripForm
             // 

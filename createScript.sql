@@ -205,7 +205,7 @@ values('Bartholomew', 'Simpson','bart@gmail.com','0845998047'),
 	  ('Arnold','Schwarzenegger','aschwarzenegger@gmail.com','0837810422')
 
 insert into trip(truckID, clientID, startDate, endDate, driverID, routeID)
-values(0,0,'2012-06-20 10:34:09.000','2012-06-22 10:34:09.000',0,0)
+values(0,0,'2017-11-20 10:34:09.000','2017-11-22 10:34:09.000',0,0)
 
 insert into customer(fname, lname, email, cell)
 values('jimbo', 'gregson', 'jimbogregsa@gmail.com','0845998047')
@@ -247,10 +247,14 @@ values(0,0),
 
 select * from users
 join userType on users.userType = userType.ID 
+where users.userType = 0 and avaliable = 1
 
 select * from Incident
 join incidentType on incident.incidentType = incidentType.ID
 select * from users
+
+select * from trip
+where startDate <= '2017/11/23' and endDate >= '2017/11/23'
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
