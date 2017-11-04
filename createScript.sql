@@ -250,3 +250,4 @@ select * from users
 join userType on users.userType = userType.ID 
 where users.userType = 0 and avaliable = 1
 
+--------------------------------------------------------------------------------

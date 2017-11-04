@@ -59,12 +59,12 @@ namespace WIL
 
         private void PopulateListBoxWithResults(List<Service> results)
         {
-            foreach (Service tServiceItem in results)
+            foreach (Service serviceItem in results)
             {
                 string[] tRowData = new string[3];
-                tRowData[0] = tServiceItem.Truck.ID.ToString();
+                tRowData[0] = $"{serviceItem.Truck.Type.Type} #{serviceItem.Truck.ID.ToString()}";
 
-                var services = dbm.GetServiceItems(tServiceItem);
+                var services = dbm.GetServiceItems(serviceItem);
                 string ser = "";
                 foreach (var item in services)
                 {
@@ -110,7 +110,7 @@ namespace WIL
 
         private void lvServiceList_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            //lvServiceList.SelectedItems.
         }
 
         private void ServiceForm_Load(object sender, EventArgs e)

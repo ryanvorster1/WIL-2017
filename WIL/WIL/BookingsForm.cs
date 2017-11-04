@@ -47,9 +47,7 @@ namespace WIL
             Truck truck = db.GetAvailiableTrucks(type)[0];
             User user = db.GetAvailibleDrivers()[0];
             Route route = db.GetRouteByID((int)destinationBox.SelectedValue);
-            User customer = db.GetUserByID(0);
-
-            Console.WriteLine(truck.Type.Type);
+            Customer customer = db.GetCustomerByID((int)cmbCustomers.SelectedValue);
 
             Trip trip = new Trip(truck, customer, (DateTime) dateTimePicker.Value, (DateTime)dateTimePicker.Value.AddDays(3),user ,route);
             
@@ -62,9 +60,9 @@ namespace WIL
 
         private void BookingsForm_Load(object sender, EventArgs e)
         {
-            slctCustBox.DataSource = db.GetCustomers();
-            slctCustBox.DisplayMember = "Fname";
-            slctCustBox.ValueMember = "ID";
+            cmbCustomers.DataSource = db.GetCustomers();
+            cmbCustomers.DisplayMember = "Fname";
+            cmbCustomers.ValueMember = "ID";
 
             slctTruckBox.DataSource = db.GetTruckType();
             slctTruckBox.DisplayMember = "Type";
@@ -73,6 +71,16 @@ namespace WIL
             destinationBox.DataSource = db.GetDepartments();
             destinationBox.DisplayMember = "Name";
             destinationBox.ValueMember = "ID";          
+
+        }
+
+        private void cmbCustomers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void slctTruckBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
         }
     }
