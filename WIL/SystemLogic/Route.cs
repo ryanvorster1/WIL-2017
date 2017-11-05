@@ -23,8 +23,7 @@ namespace SystemLogic
 
         public override string ToString()
         {
-            string result = $"depoID: {ID}\nDestination\n {Destination.ToString()}";
-            result += $"\nDeparture\n {Departure.ToString()}\n KMS: {Kms}";
+            string result = $"{Departure} > {Destination}";
             return result;
         }
 
@@ -43,8 +42,7 @@ namespace SystemLogic
 
         public override String ToString()
         {
-            string result = $"DepoID: {ID}\nDepoName: {Name}";
-            return result;
+            return Name;
         }
 
     }

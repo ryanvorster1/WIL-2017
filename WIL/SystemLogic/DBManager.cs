@@ -11,7 +11,7 @@ namespace SystemLogic
     public class DBManager
     {
 
-        private string connectionString = "Data Source=DESKTOP-IHUJDPR;Initial Catalog=WILDB;Integrated Security=True";
+        private string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=2017WIL;Integrated Security=True;Pooling=False";
         //private string connectionString = "Data Source=POKKOLS-PC;Initial Catalog=WIL;Integrated Security=True";
         //private string connectionString = "Data Source=RYAN;Initial Catalog=WILDB;Integrated Security=True;Pooling=False";
         //private string connectionString = "Data Source=DESKTOP-IHUJDPR;Initial Catalog=WILDB;Integrated Security=True";
@@ -158,7 +158,8 @@ namespace SystemLogic
 
             try
             {
-                string sql = $"select * from trip where startDate >= '{startDate}' and startdate <= '{endDate}' or enddate >= '{startDate}' and enddate <= '{endDate}'";
+                string sql = $"select * from trip where startDate >= '{startDate.ToShortDateString()}' and startdate <= '{endDate.ToShortDateString()}' or " +
+                    $"enddate >= '{startDate.ToShortDateString()}' and enddate <= '{endDate.ToShortDateString()}'";
                 SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
                 DataSet ds = new DataSet();
                 da.Fill(ds);
@@ -758,7 +759,7 @@ namespace SystemLogic
 
             try
             {
-                string sql = "select * from routes";
+                string sql = $"select * from routes where id = {id}";
                 SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
                 DataSet ds = new DataSet();
                 da.Fill(ds);
