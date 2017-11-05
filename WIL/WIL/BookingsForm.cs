@@ -20,7 +20,7 @@ namespace WIL
             db = new DBManager();
         }
 
-            private void cancelBtn_Click(object sender, EventArgs e)
+        private void cancelBtn_Click(object sender, EventArgs e)
         {
             //Open trip Form when cancel button is clicked
             this.Close();
@@ -32,7 +32,7 @@ namespace WIL
             //Open add customer form when add customer button is clicked
             AddCustomerForm acf = new AddCustomerForm();
             acf.ShowDialog();
-            
+
         }
 
         private void dateTimePicker_ValueChanged(object sender, EventArgs e)
@@ -47,12 +47,18 @@ namespace WIL
             Truck truck = db.GetAvailiableTrucks(type)[0];
             User user = db.GetAvailibleDrivers()[0];
             Route route = db.GetRouteByID((int)destinationBox.SelectedValue);
+            Console.WriteLine($"selected:{(int)destinationBox.SelectedValue}");
+            foreach (var item in db.GetRoutes())
+            {
+                Console.WriteLine(item.ToString());
+            }
+            MessageBox.Show(route.ToString());
             Customer customer = db.GetCustomerByID((int)cmbCustomers.SelectedValue);
 
-            Trip trip = new Trip(truck, customer, (DateTime) dateTimePicker.Value, (DateTime)dateTimePicker.Value.AddDays(3),user ,route);
-            
+            Trip trip = new Trip(truck, customer, (DateTime)dateTimePicker.Value, (DateTime)dateTimePicker.Value.AddDays(3), user, route);
+
             db.BookTrip(trip);
-            MessageBox.Show("Trip booked");
+            MessageBox.Show(trip.ToString());
             this.Close();
 
 
@@ -68,9 +74,9 @@ namespace WIL
             slctTruckBox.DisplayMember = "Type";
             slctTruckBox.ValueMember = "ID";
 
-            destinationBox.DataSource = db.GetDepartments();
-            destinationBox.DisplayMember = "Name";
-            destinationBox.ValueMember = "ID";          
+            destinationBox.DataSource = db.GetRoutes();
+            destinationBox.DisplayMember = "Destination";
+            destinationBox.ValueMember = "ID";
 
         }
     }
