@@ -33,14 +33,14 @@
             this.bttnExit = new System.Windows.Forms.Button();
             this.dtpDateTime = new System.Windows.Forms.DateTimePicker();
             this.pnlServiceReport = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.lblTotalServices = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.btnCloseReport = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.lblTotalHours = new System.Windows.Forms.Label();
-            this.btnCloseReport = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lblTotalServices = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.cmbViewType = new System.Windows.Forms.ComboBox();
             this.pnlServiceReport.SuspendLayout();
             this.SuspendLayout();
@@ -103,50 +103,15 @@
             this.pnlServiceReport.TabIndex = 37;
             this.pnlServiceReport.Visible = false;
             // 
-            // label1
+            // btnCloseReport
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 42);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(30, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Date";
-            // 
-            // lblTotalServices
-            // 
-            this.lblTotalServices.AutoSize = true;
-            this.lblTotalServices.Location = new System.Drawing.Point(107, 10);
-            this.lblTotalServices.Name = "lblTotalServices";
-            this.lblTotalServices.Size = new System.Drawing.Size(35, 13);
-            this.lblTotalServices.TabIndex = 2;
-            this.lblTotalServices.Text = "label2";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 10);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(75, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Total Services";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(107, 35);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(35, 13);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "label2";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(15, 35);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(55, 13);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Total Cost";
+            this.btnCloseReport.Location = new System.Drawing.Point(249, 59);
+            this.btnCloseReport.Name = "btnCloseReport";
+            this.btnCloseReport.Size = new System.Drawing.Size(75, 23);
+            this.btnCloseReport.TabIndex = 8;
+            this.btnCloseReport.Text = "Close";
+            this.btnCloseReport.UseVisualStyleBackColor = true;
+            this.btnCloseReport.Click += new System.EventHandler(this.btnCloseReport_Click);
             // 
             // label5
             // 
@@ -166,15 +131,50 @@
             this.lblTotalHours.TabIndex = 6;
             this.lblTotalHours.Text = "label2";
             // 
-            // btnCloseReport
+            // label3
             // 
-            this.btnCloseReport.Location = new System.Drawing.Point(249, 59);
-            this.btnCloseReport.Name = "btnCloseReport";
-            this.btnCloseReport.Size = new System.Drawing.Size(75, 23);
-            this.btnCloseReport.TabIndex = 8;
-            this.btnCloseReport.Text = "Close";
-            this.btnCloseReport.UseVisualStyleBackColor = true;
-            this.btnCloseReport.Click += new System.EventHandler(this.btnCloseReport_Click);
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(15, 35);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(55, 13);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Total Cost";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(107, 35);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(35, 13);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "label2";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(15, 10);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(75, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Total Services";
+            // 
+            // lblTotalServices
+            // 
+            this.lblTotalServices.AutoSize = true;
+            this.lblTotalServices.Location = new System.Drawing.Point(107, 10);
+            this.lblTotalServices.Name = "lblTotalServices";
+            this.lblTotalServices.Size = new System.Drawing.Size(35, 13);
+            this.lblTotalServices.TabIndex = 2;
+            this.lblTotalServices.Text = "label2";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 42);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(30, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Date";
             // 
             // cmbViewType
             // 
@@ -187,6 +187,7 @@
             this.cmbViewType.Name = "cmbViewType";
             this.cmbViewType.Size = new System.Drawing.Size(121, 21);
             this.cmbViewType.TabIndex = 9;
+            this.cmbViewType.SelectedIndexChanged += new System.EventHandler(this.cmbViewType_SelectedIndexChanged);
             // 
             // ServiceForm
             // 
