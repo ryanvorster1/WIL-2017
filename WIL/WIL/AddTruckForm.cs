@@ -41,9 +41,9 @@ namespace WIL
             int Kms = Convert.ToInt32(mileageBox.Text);
             TruckType type = db.GetTruckTypeById((int)typeComboBox.SelectedValue);
             
-            Truck truck = new Truck(Vin, Reg, Kms, type);
+            //Truck truck = new Truck(Vin, Reg, Kms, type);
 
-            db.AddTruck( ref truck);
+            //db.AddTruck( ref truck);
         }
     }
 }
