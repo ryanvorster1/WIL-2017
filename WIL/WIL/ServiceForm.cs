@@ -47,7 +47,25 @@ namespace WIL
         private void dtpDateTime_ValueChanged(object sender, EventArgs e)
         {
             DateTime theDate = dtpDateTime.Value;
-            List<Service> services = dbm.GetServices(theDate);
+            List<Service> services = new List<Service>(); 
+
+            switch (cmbViewType.SelectedItem)
+            {
+                case "Daily":
+                    services = dbm.GetServices(theDate);
+                    break;
+                case "Weekly":
+                    services = dbm.GetServices(theDate, theDate.AddDays(7));
+                    break;
+                case "Monthly":
+                    services = dbm.GetServices(theDate,theDate.AddMonths(1));
+                    break;
+            }
+
+            foreach (var item in services)
+            {
+                Console.WriteLine(item.ToString());
+            }
 
             lvServiceList.Clear();
             ListBoxHandle();
@@ -55,6 +73,7 @@ namespace WIL
             {
                 PopulateListBoxWithResults(services);
             }
+            lvServiceList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
         }
 
 
@@ -116,6 +135,13 @@ namespace WIL
 
         private void ServiceForm_Load(object sender, EventArgs e)
         {
+            dtpDateTime_ValueChanged(sender, e);
+            cmbViewType.SelectedIndex = 0;
+        }
+
+        private void cmbViewType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            dtpDateTime_ValueChanged(sender, e);
 
         }
     }

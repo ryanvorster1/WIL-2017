@@ -33,12 +33,14 @@
             this.btnTrucks = new System.Windows.Forms.Button();
             this.btnServices = new System.Windows.Forms.Button();
             this.btnUsers = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblUser
             // 
             this.lblUser.AutoSize = true;
-            this.lblUser.Location = new System.Drawing.Point(429, 18);
+            this.lblUser.Location = new System.Drawing.Point(1055, 46);
             this.lblUser.Name = "lblUser";
             this.lblUser.Size = new System.Drawing.Size(36, 13);
             this.lblUser.TabIndex = 0;
@@ -46,7 +48,7 @@
             // 
             // btnTrips
             // 
-            this.btnTrips.Location = new System.Drawing.Point(13, 13);
+            this.btnTrips.Location = new System.Drawing.Point(49, 36);
             this.btnTrips.Name = "btnTrips";
             this.btnTrips.Size = new System.Drawing.Size(75, 23);
             this.btnTrips.TabIndex = 1;
@@ -56,7 +58,7 @@
             // 
             // btnTrucks
             // 
-            this.btnTrucks.Location = new System.Drawing.Point(201, 13);
+            this.btnTrucks.Location = new System.Drawing.Point(237, 36);
             this.btnTrucks.Name = "btnTrucks";
             this.btnTrucks.Size = new System.Drawing.Size(75, 23);
             this.btnTrucks.TabIndex = 2;
@@ -66,7 +68,7 @@
             // 
             // btnServices
             // 
-            this.btnServices.Location = new System.Drawing.Point(105, 13);
+            this.btnServices.Location = new System.Drawing.Point(141, 36);
             this.btnServices.Name = "btnServices";
             this.btnServices.Size = new System.Drawing.Size(75, 23);
             this.btnServices.TabIndex = 3;
@@ -76,7 +78,7 @@
             // 
             // btnUsers
             // 
-            this.btnUsers.Location = new System.Drawing.Point(299, 13);
+            this.btnUsers.Location = new System.Drawing.Point(335, 36);
             this.btnUsers.Name = "btnUsers";
             this.btnUsers.Size = new System.Drawing.Size(75, 23);
             this.btnUsers.TabIndex = 4;
@@ -84,21 +86,31 @@
             this.btnUsers.UseVisualStyleBackColor = true;
             this.btnUsers.Click += new System.EventHandler(this.btnUsers_Click);
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.btnTrips);
+            this.panel1.Controls.Add(this.btnUsers);
+            this.panel1.Controls.Add(this.lblUser);
+            this.panel1.Controls.Add(this.btnServices);
+            this.panel1.Controls.Add(this.btnTrucks);
+            this.panel1.Location = new System.Drawing.Point(12, 12);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1122, 100);
+            this.panel1.TabIndex = 5;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(529, 261);
-            this.Controls.Add(this.btnUsers);
-            this.Controls.Add(this.btnServices);
-            this.Controls.Add(this.btnTrucks);
-            this.Controls.Add(this.btnTrips);
-            this.Controls.Add(this.lblUser);
+            this.ClientSize = new System.Drawing.Size(1165, 554);
+            this.Controls.Add(this.panel1);
             this.Name = "MainForm";
-            this.Text = "Form1";
+            this.Text = "Crazy Truck Services";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -109,6 +121,7 @@
         private System.Windows.Forms.Button btnTrucks;
         private System.Windows.Forms.Button btnServices;
         private System.Windows.Forms.Button btnUsers;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 

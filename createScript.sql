@@ -251,3 +251,17 @@ join userType on users.userType = userType.ID
 where users.userType = 0 and avaliable = 1
 
 --------------------------------------------------------------------------------
+select * 
+from service
+where startdate <= '2017/11/01' and enddate >= '2017/11/04'
+
+select * from service
+where startDate >= '2017-11-03' and startdate <= '2017/11/04'
+or enddate >= '2017-11-03' and enddate <= '2017/11/04'
+
+
+or endDate >= '2017/11/04' and enddate <= '2017-11-03'
+
+
+
+

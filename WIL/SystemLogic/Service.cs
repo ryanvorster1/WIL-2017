@@ -11,12 +11,16 @@ namespace SystemLogic
         public int ID { get; set; }
         public Truck Truck { get; set; }
         public User Mechanic { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
 
-        public Service(int id, Truck truck, User mechanic)
+        public Service(int id, Truck truck, User mechanic, DateTime start, DateTime end)
         {
             ID = id;
             Truck = truck;
             Mechanic = mechanic;
+            StartDate = start;
+            EndDate = end;
         }
 
         public Service(Truck truck, User mechanic)
@@ -24,6 +28,11 @@ namespace SystemLogic
             ID = -1;
             Truck = truck;
             Mechanic = mechanic;
+        }
+
+        public override string ToString()
+        {
+            return $"ID:{ID} Truck:{Truck.Type.Type} {StartDate} - {EndDate}";
         }
     }
 

@@ -1078,7 +1078,10 @@ namespace SystemLogic
                     int ID = (int)row["ID"];
                     Truck truck = GetTruckByID((int)row["truckID"]);
                     User mechanic = GetUserByID((int)row["mechanic"]);
-                    Service s = new Service(ID, truck, mechanic);
+                    DateTime start = (DateTime)row["startdate"];
+                    DateTime end = (DateTime)row["enddate"];
+
+                    Service s = new Service(ID, truck, mechanic, start, end);
                     services.Add(s);
 
                 }
@@ -1096,7 +1099,7 @@ namespace SystemLogic
 
             try
             {
-                string sql = $"select* from service where startDate <=  '{date.ToShortDateString()}' and endDate >= '{date.ToShortDateString()}'";
+                string sql = $"select * from service where startDate <=  '{date.ToShortDateString()}' and endDate >= '{date.ToShortDateString()}'";
                 SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
                 DataSet ds = new DataSet();
                 da.Fill(ds);
@@ -1106,7 +1109,10 @@ namespace SystemLogic
                     int ID = (int)row["ID"];
                     Truck truck = GetTruckByID((int)row["truckID"]);
                     User mechanic = GetUserByID((int)row["mechanic"]);
-                    Service s = new Service(ID, truck, mechanic);
+                    DateTime start = (DateTime)row["startdate"];
+                    DateTime end = (DateTime)row["enddate"];
+
+                    Service s = new Service(ID, truck, mechanic, start, end);
                     services.Add(s);
 
                 }
@@ -1117,6 +1123,38 @@ namespace SystemLogic
             }
             return services;
         }
+
+        public List<Service> GetServices(DateTime startDate, DateTime endDate)
+        {
+            List<Service> services = new List<Service>();
+
+            try
+            {
+                string sql = $"select * from service where startDate >= '{startDate}' and startdate <= '{endDate}' or enddate >= '{startDate}' and enddate <= '{endDate}'";
+                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    int ID = (int)row["ID"];
+                    Truck truck = GetTruckByID((int)row["truckID"]);
+                    User mechanic = GetUserByID((int)row["mechanic"]);
+                    DateTime start = (DateTime)row["startdate"];
+                    DateTime end = (DateTime)row["enddate"];
+
+                    Service s = new Service(ID, truck, mechanic, start, end);
+                    services.Add(s);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return services;
+        }
+
 
         public DataSet GetServicesDataSet()
         {
@@ -1151,9 +1189,10 @@ namespace SystemLogic
                 int ID = (int)row["ID"];
                 Truck truck = GetTruckByID((int)row["truckID"]);
                 User mechanic = GetUserByID((int)row["mechanic"]);
-                services = new Service(ID, truck, mechanic);
+                DateTime start = (DateTime)row["startdate"];
+                DateTime end = (DateTime)row["enddate"];
 
-
+                Service s = new Service(ID, truck, mechanic, start, end);
             }
             catch (Exception ex)
             {
