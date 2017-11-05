@@ -22,6 +22,8 @@ namespace WIL
             service  = new DBManager().GetServiceById(pSerivceId);
             InitializeComponent();
             PopulateFormWithResults(service);
+
+            //needs fixing check ID value
         }
 
         void DBManager()

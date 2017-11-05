@@ -30,7 +30,7 @@ namespace WIL
         private void cancelBtn_Click(object sender, EventArgs e)
         {
             //Open Truck Form when cancel button is clicked
-            this.Close();
+             this.Close();
         }
 
         private void AddTruckBtn_Click(object sender, EventArgs e)
@@ -41,9 +41,9 @@ namespace WIL
             int Kms = Convert.ToInt32(mileageBox.Text);
             TruckType type = db.GetTruckTypeById((int)typeComboBox.SelectedValue);
             
-            //Truck truck = new Truck(Vin, Reg, Kms, type);
+            Truck truck = new Truck(Vin, Reg, Kms,true, type);
 
-            //db.AddTruck( ref truck);
+            db.AddTruck(ref truck);
         }
     }
 }
