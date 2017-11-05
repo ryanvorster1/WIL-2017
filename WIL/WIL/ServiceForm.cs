@@ -31,13 +31,9 @@ namespace WIL
 
         private void ListBoxHandle()
         {
-]
-
             lvServiceList.Columns.Add("Truck #", 50);
             lvServiceList.Columns.Add("Truck Type", 200);
             lvServiceList.Columns.Add("Service #", 800);
-
-
         }
 
 
