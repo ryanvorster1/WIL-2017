@@ -33,7 +33,7 @@
             this.viewCompletedTripsBtn = new System.Windows.Forms.Button();
             this.addTripButton = new System.Windows.Forms.Button();
             this.exitButton = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgvTrips = new System.Windows.Forms.DataGridView();
             this.truckID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.customerID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.startDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -50,8 +50,8 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.viewReportsbtn = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.bentViewReport = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTrips)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.wILDBDataSetBindingSource)).BeginInit();
             this.pnlReportView.SuspendLayout();
             this.SuspendLayout();
@@ -96,22 +96,22 @@
             // 
             // dataGridView1
             // 
-            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvTrips.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
+            this.dgvTrips.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvTrips.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.truckID,
             this.customerID,
             this.startDate,
             this.endDate,
             this.departure,
             this.destination});
-            this.dataGridView1.GridColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 116);
-            this.dataGridView1.MultiSelect = false;
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.Size = new System.Drawing.Size(601, 289);
-            this.dataGridView1.TabIndex = 5;
+            this.dgvTrips.GridColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.dgvTrips.Location = new System.Drawing.Point(12, 116);
+            this.dgvTrips.MultiSelect = false;
+            this.dgvTrips.Name = "dataGridView1";
+            this.dgvTrips.RowHeadersVisible = false;
+            this.dgvTrips.Size = new System.Drawing.Size(601, 289);
+            this.dgvTrips.TabIndex = 5;
             // 
             // truckID
             // 
@@ -232,27 +232,27 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "Select daily/weekly/Monthly";
             // 
-            // viewReportsbtn
+            // bentViewReport
             // 
-            this.viewReportsbtn.Location = new System.Drawing.Point(322, 12);
-            this.viewReportsbtn.Name = "viewReportsbtn";
-            this.viewReportsbtn.Size = new System.Drawing.Size(136, 40);
-            this.viewReportsbtn.TabIndex = 7;
-            this.viewReportsbtn.Text = "View Reports";
-            this.viewReportsbtn.UseVisualStyleBackColor = true;
-            this.viewReportsbtn.Click += new System.EventHandler(this.button1_Click);
+            this.bentViewReport.Location = new System.Drawing.Point(322, 12);
+            this.bentViewReport.Name = "bentViewReport";
+            this.bentViewReport.Size = new System.Drawing.Size(136, 40);
+            this.bentViewReport.TabIndex = 7;
+            this.bentViewReport.Text = "View Reports";
+            this.bentViewReport.UseVisualStyleBackColor = true;
+            this.bentViewReport.Click += new System.EventHandler(this.btnViewReport_Click);
             // 
             // TripForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(631, 547);
-            this.Controls.Add(this.viewReportsbtn);
+            this.Controls.Add(this.bentViewReport);
             this.Controls.Add(this.pnlReportView);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dgvTrips);
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.addTripButton);
             this.Controls.Add(this.dtpTrips);
@@ -261,7 +261,7 @@
             this.Name = "TripForm";
             this.Text = "tripForm";
             this.Load += new System.EventHandler(this.TripForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTrips)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.wILDBDataSetBindingSource)).EndInit();
             this.pnlReportView.ResumeLayout(false);
             this.pnlReportView.PerformLayout();
@@ -276,7 +276,7 @@
         private System.Windows.Forms.Button viewCompletedTripsBtn;
         private System.Windows.Forms.Button addTripButton;
         private System.Windows.Forms.Button exitButton;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvTrips;
         private System.Windows.Forms.DataGridViewTextBoxColumn truckID;
         private System.Windows.Forms.DataGridViewTextBoxColumn customerID;
         private System.Windows.Forms.DataGridViewTextBoxColumn startDate;
@@ -289,7 +289,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.DateTimePicker dtpTrips;
-        private System.Windows.Forms.Button viewReportsbtn;
+        private System.Windows.Forms.Button bentViewReport;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;

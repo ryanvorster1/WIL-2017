@@ -37,7 +37,7 @@ namespace WIL
             UpdateDGVTrips(dtpTrips.Value);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnViewReport_Click(object sender, EventArgs e)
         {
             pnlReportView.Visible = true;
             viewPlannedTripsBtn.Visible = false;
@@ -58,11 +58,11 @@ namespace WIL
 
         private void UpdateDGVTrips(DateTime selected)
         {
-            dataGridView1.Rows.Clear();
+            dgvTrips.Rows.Clear();
             List<Trip> trips = new DBManager().GetTrips(selected);
             foreach (var item in trips)
             {
-                dataGridView1.Rows.Add(item.Truck.ID, item.Customer.ID, item.Start, item.End, item.Route.Departure, item.Route.Destination);
+                dgvTrips.Rows.Add(item.Truck.ID, item.Customer.ID, item.Start, item.End, item.Route.Departure, item.Route.Destination);
             }
 
         }
