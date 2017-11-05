@@ -110,7 +110,19 @@ namespace WIL
             if (lvServiceList.SelectedItems.Count >= 0)
             {
                 ListViewItem selecteditem = lvServiceList.SelectedItems[0];
-                int serviceID = Convert.ToInt32(selecteditem.SubItems[0].Text);
+                int truckID = Convert.ToInt32(selecteditem.SubItems[0].Text);
+                List<Service> services = new DBManager().GetServices();
+                int serviceID = -1;
+
+                foreach (var item in services)
+                {
+                    if(item.Truck.ID == truckID)
+                    {
+                        serviceID = item.ID;
+                            break;
+                    }
+                }
+                Console.WriteLine($"serviceID: {serviceID}");
                 ServiceDetailsForm svcDetailfrm = new ServiceDetailsForm(serviceID);
                 svcDetailfrm.ShowDialog();
             }
