@@ -47,5 +47,10 @@ namespace WIL
                 dgvTrucks.Rows.Add(item.ID, item.Vin, item.Reg, item.Kms, item.Type.Type);
             }
         }
+
+        private void exitBtn_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
