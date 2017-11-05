@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.viewPlannedTripsBtn = new System.Windows.Forms.Button();
             this.viewCompletedTripsBtn = new System.Windows.Forms.Button();
             this.addTripButton = new System.Windows.Forms.Button();
@@ -70,6 +70,7 @@
             this.viewPlannedTripsBtn.TabIndex = 0;
             this.viewPlannedTripsBtn.Text = "View Planned Trips";
             this.viewPlannedTripsBtn.UseVisualStyleBackColor = true;
+            this.viewPlannedTripsBtn.Click += new System.EventHandler(this.viewPlannedTripsBtn_Click);
             // 
             // viewCompletedTripsBtn
             // 
@@ -119,51 +120,52 @@
             this.dgvTrips.RowHeadersVisible = false;
             this.dgvTrips.Size = new System.Drawing.Size(601, 289);
             this.dgvTrips.TabIndex = 5;
+            this.dgvTrips.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTrips_CellContentClick);
             // 
             // truckID
             // 
             this.truckID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Plum;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.MediumAquamarine;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.truckID.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.Plum;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.MediumAquamarine;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.truckID.DefaultCellStyle = dataGridViewCellStyle7;
             this.truckID.HeaderText = "Truck ID";
             this.truckID.Name = "truckID";
             this.truckID.ToolTipText = "Double click to view details.";
             // 
             // customerID
             // 
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Plum;
-            this.customerID.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.Plum;
+            this.customerID.DefaultCellStyle = dataGridViewCellStyle8;
             this.customerID.HeaderText = "Customer ID";
             this.customerID.Name = "customerID";
             // 
             // startDate
             // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Plum;
-            this.startDate.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle9.BackColor = System.Drawing.Color.Plum;
+            this.startDate.DefaultCellStyle = dataGridViewCellStyle9;
             this.startDate.HeaderText = "Start Date";
             this.startDate.Name = "startDate";
             // 
             // endDate
             // 
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Plum;
-            this.endDate.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.Plum;
+            this.endDate.DefaultCellStyle = dataGridViewCellStyle10;
             this.endDate.HeaderText = "End Date";
             this.endDate.Name = "endDate";
             // 
             // departure
             // 
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.Plum;
-            this.departure.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle11.BackColor = System.Drawing.Color.Plum;
+            this.departure.DefaultCellStyle = dataGridViewCellStyle11;
             this.departure.HeaderText = "Departure";
             this.departure.Name = "departure";
             // 
             // destination
             // 
             this.destination.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.Plum;
-            this.destination.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle12.BackColor = System.Drawing.Color.Plum;
+            this.destination.DefaultCellStyle = dataGridViewCellStyle12;
             this.destination.HeaderText = "Destination";
             this.destination.Name = "destination";
             this.destination.Width = 85;
