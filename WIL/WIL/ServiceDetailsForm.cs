@@ -15,13 +15,20 @@ namespace WIL
     public partial class ServiceDetailsForm : Form
     {
         private Service service;
-        
+        int serviceiD;
+        private void ServiceDetailsForm_Load(object sender, EventArgs e)
+        {
+            service = new DBManager().GetServiceById(serviceiD);
+            Console.WriteLine(service.ToString());
+            Console.WriteLine(serviceiD);
+            PopulateFormWithResults(service);
+        }
 
         public ServiceDetailsForm(int pSerivceId)
         {
-            service  = new DBManager().GetServiceById(pSerivceId);
+            serviceiD = pSerivceId;
             InitializeComponent();
-            PopulateFormWithResults(service);
+            
         }
 
         void DBManager()
@@ -29,8 +36,10 @@ namespace WIL
            
         }
 
+      
         void PopulateFormWithResults(Service pData)
-        {            
+        {
+                   
             lblMName.Text = pData.Mechanic.Fname;
             lblMSurname.Text = pData.Mechanic.Lname;
             lblMenumanufacturor.Text = pData.Truck.Vin.ToString();
@@ -46,6 +55,8 @@ namespace WIL
         {
             this.Close();
         }
+
+  
     }
 }
 
