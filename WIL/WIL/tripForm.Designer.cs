@@ -70,6 +70,7 @@
             this.viewPlannedTripsBtn.TabIndex = 0;
             this.viewPlannedTripsBtn.Text = "View Planned Trips";
             this.viewPlannedTripsBtn.UseVisualStyleBackColor = true;
+           
             // 
             // viewCompletedTripsBtn
             // 
