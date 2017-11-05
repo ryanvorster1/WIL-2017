@@ -28,20 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.treeView1 = new System.Windows.Forms.TreeView();
             this.addTruckBtn = new System.Windows.Forms.Button();
+            this.dgvTrucks = new System.Windows.Forms.DataGridView();
+            this.exitBtn = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTrucks)).BeginInit();
             this.SuspendLayout();
-            // 
-            // treeView1
-            // 
-            this.treeView1.Location = new System.Drawing.Point(13, 240);
-            this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(629, 251);
-            this.treeView1.TabIndex = 0;
             // 
             // addTruckBtn
             // 
-            this.addTruckBtn.Location = new System.Drawing.Point(538, 12);
+            this.addTruckBtn.Location = new System.Drawing.Point(12, 12);
             this.addTruckBtn.Name = "addTruckBtn";
             this.addTruckBtn.Size = new System.Drawing.Size(104, 39);
             this.addTruckBtn.TabIndex = 1;
@@ -49,22 +44,43 @@
             this.addTruckBtn.UseVisualStyleBackColor = true;
             this.addTruckBtn.Click += new System.EventHandler(this.addTruckBtn_Click);
             // 
+            // dgvTrucks
+            // 
+            this.dgvTrucks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvTrucks.Location = new System.Drawing.Point(12, 129);
+            this.dgvTrucks.Name = "dgvTrucks";
+            this.dgvTrucks.Size = new System.Drawing.Size(560, 333);
+            this.dgvTrucks.TabIndex = 3;
+            // 
+            // exitBtn
+            // 
+            this.exitBtn.Location = new System.Drawing.Point(574, 470);
+            this.exitBtn.Name = "exitBtn";
+            this.exitBtn.Size = new System.Drawing.Size(75, 23);
+            this.exitBtn.TabIndex = 4;
+            this.exitBtn.Text = "Exit";
+            this.exitBtn.UseVisualStyleBackColor = true;
+            this.exitBtn.Click += new System.EventHandler(this.exitBtn_Click);
+            // 
             // TruckForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(654, 503);
+            this.ClientSize = new System.Drawing.Size(660, 505);
+            this.Controls.Add(this.exitBtn);
+            this.Controls.Add(this.dgvTrucks);
             this.Controls.Add(this.addTruckBtn);
-            this.Controls.Add(this.treeView1);
             this.Name = "TruckForm";
             this.Text = "TruckForm";
+            this.Load += new System.EventHandler(this.TruckForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTrucks)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.Button addTruckBtn;
-
+        private System.Windows.Forms.DataGridView dgvTrucks;
+        private System.Windows.Forms.Button exitBtn;
     }
 }

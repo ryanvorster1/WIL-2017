@@ -28,7 +28,10 @@ namespace WIL
         {
             serviceiD = pSerivceId;
             InitializeComponent();
-            
+            PopulateFormWithResults(service);
+
+            //needs fixing check ID value
+
         }
 
         void DBManager()
