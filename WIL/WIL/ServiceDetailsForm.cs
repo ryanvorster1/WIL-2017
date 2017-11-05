@@ -30,8 +30,7 @@ namespace WIL
         }
 
         void PopulateFormWithResults(Service pData)
-        {
-            
+        {            
             lblMName.Text = pData.Mechanic.Fname;
             lblMSurname.Text = pData.Mechanic.Lname;
             lblMenumanufacturor.Text = pData.Truck.Vin.ToString();
@@ -40,7 +39,6 @@ namespace WIL
             lblTruckType.Text = pData.Truck.Type.Type;
             lblengineSize.Text = pData.Truck.Type.EngineSize.ToString();
             lblserviceInterval.Text = pData.Truck.Type.ServiceInterval.ToString();
-         
         }
 
 

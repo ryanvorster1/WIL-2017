@@ -11,6 +11,8 @@ namespace SystemLogic
     public class DBManager
     {
         private string connectionString = "Data Source=RYAN;Initial Catalog=WILDB;Integrated Security=True;Pooling=False";
+      //  private string connectionString = "Data Source=POKKOLS-PC;Initial Catalog=WIL;Integrated Security=True";
+
         //private string connectionString = "Data Source=DESKTOP-IHUJDPR;Initial Catalog=WILDB;Integrated Security=True";
         private SqlConnection dbCon;
 
@@ -116,7 +118,8 @@ namespace SystemLogic
             try
             {
                 string query = "insert into trip(truckID, clientID, startDate, endDate, driverID, routeID) " +
-                            "values(@truckID, @clientID, @startDate, @endDate, @driverID, @routeID)";
+                    "values(@truckID, @clientID, @startDate, @endDate, @driverID, @routeID)";
+
 
                 SqlCommand cmd = new SqlCommand(query, dbCon);
                 cmd.Parameters.AddWithValue("@truckID", trip.Truck.ID);
