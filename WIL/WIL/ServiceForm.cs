@@ -49,30 +49,33 @@ namespace WIL
             DateTime theDate = dtpDateTime.Value;
             List<Service> services = new List<Service>();
 
-            switch (cmbViewType.SelectedItem)
+            if (cmbViewType.SelectedItem != null)
             {
-                case "Daily":
-                    services = dbm.GetServices(theDate);
-                    break;
-                case "Weekly":
-                    services = dbm.GetServices(theDate, theDate.AddDays(7));
-                    break;
-                case "Monthly":
-                    services = dbm.GetServices(theDate, theDate.AddMonths(1));
-                    break;
-            }
+                switch (cmbViewType.SelectedItem.ToString())
+                {
+                    case "Daily":
+                        services = dbm.GetServices(theDate);
+                        break;
+                    case "Weekly":
+                        services = dbm.GetServices(theDate, theDate.AddDays(7));
+                        break;
+                    case "Monthly":
+                        services = dbm.GetServices(theDate, theDate.AddMonths(1));
+                        break;
+                }
 
-            foreach (var item in services)
-            {
-                Console.WriteLine(item.ToString());
-            }
+                foreach (var item in services)
+                {
+                    Console.WriteLine(item.ToString());
+                }
 
-            lvServiceList.Clear();
-            ListBoxHandle();
-            if (services.Count > 0)
-            {
-                PopulateListBoxWithResults(services);
-                lvServiceList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+                lvServiceList.Clear();
+                ListBoxHandle();
+                if (services.Count > 0)
+                {
+                    PopulateListBoxWithResults(services);
+                    lvServiceList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+                }
             }
         }
 

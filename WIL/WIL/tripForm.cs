@@ -36,6 +36,7 @@ namespace WIL
         private void TripForm_Load(object sender, EventArgs e)
         {
             UpdateDGVTrips();
+            cmbViewType.SelectedIndex = 0;
         }
 
         private void btnViewReport_Click(object sender, EventArgs e)
@@ -97,23 +98,27 @@ namespace WIL
             DateTime start = dtpTrips.Value; ;
             DateTime end = start;
 
-            switch (cmbViewType.SelectedItem)
+            if (cmbViewType.SelectedItem != null)
             {
-                case "Daily":
-                    end = start.AddDays(1);
-                    break;
-                case "Weekly":
-                    end.AddDays(7);
-                    break;
-                case "Monthly":
-                    end.AddMonths(1);
-                    break;
-            }
 
-            List<Trip> trips = new DBManager().GetTrips();//start,end);
-            foreach (var item in trips)
-            {
-                dgvTrips.Rows.Add(item.Truck.ID, item.Customer.ID, item.Start, item.End, item.Route.Departure, item.Route.Destination);
+                switch (cmbViewType.SelectedItem.ToString())
+                {
+                    case "Daily":
+                        end = start.AddDays(1);
+                        break;
+                    case "Weekly":
+                        end.AddDays(7);
+                        break;
+                    case "Monthly":
+                        end.AddMonths(1);
+                        break;
+                }
+
+                List<Trip> trips = new DBManager().GetTrips();//start,end);
+                foreach (var item in trips)
+                {
+                    dgvTrips.Rows.Add(item.Truck.ID, item.Customer.ID, item.Start, item.End, item.Route.Departure, item.Route.Destination);
+                }
             }
 
         }
