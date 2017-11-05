@@ -28,11 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ServiceForm));
             this.btnServiceReport = new System.Windows.Forms.Button();
             this.lvServiceList = new System.Windows.Forms.ListView();
             this.bttnExit = new System.Windows.Forms.Button();
             this.dtpDateTime = new System.Windows.Forms.DateTimePicker();
             this.pnlServiceReport = new System.Windows.Forms.Panel();
+            this.lbServiceReport = new System.Windows.Forms.Label();
             this.btnCloseReport = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.lblTotalHours = new System.Windows.Forms.Label();
@@ -42,12 +44,14 @@
             this.lblTotalServices = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbViewType = new System.Windows.Forms.ComboBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pnlServiceReport.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnServiceReport
             // 
-            this.btnServiceReport.Location = new System.Drawing.Point(546, 22);
+            this.btnServiceReport.Location = new System.Drawing.Point(546, 40);
             this.btnServiceReport.Name = "btnServiceReport";
             this.btnServiceReport.Size = new System.Drawing.Size(124, 23);
             this.btnServiceReport.TabIndex = 0;
@@ -71,7 +75,7 @@
             // 
             // bttnExit
             // 
-            this.bttnExit.Location = new System.Drawing.Point(575, 459);
+            this.bttnExit.Location = new System.Drawing.Point(575, 447);
             this.bttnExit.Name = "bttnExit";
             this.bttnExit.Size = new System.Drawing.Size(95, 23);
             this.bttnExit.TabIndex = 35;
@@ -90,6 +94,8 @@
             // 
             // pnlServiceReport
             // 
+            this.pnlServiceReport.Controls.Add(this.pictureBox1);
+            this.pnlServiceReport.Controls.Add(this.lbServiceReport);
             this.pnlServiceReport.Controls.Add(this.btnCloseReport);
             this.pnlServiceReport.Controls.Add(this.label5);
             this.pnlServiceReport.Controls.Add(this.lblTotalHours);
@@ -97,9 +103,9 @@
             this.pnlServiceReport.Controls.Add(this.label4);
             this.pnlServiceReport.Controls.Add(this.label2);
             this.pnlServiceReport.Controls.Add(this.lblTotalServices);
-            this.pnlServiceReport.Location = new System.Drawing.Point(13, 459);
+            this.pnlServiceReport.Location = new System.Drawing.Point(712, 35);
             this.pnlServiceReport.Name = "pnlServiceReport";
-            this.pnlServiceReport.Size = new System.Drawing.Size(349, 97);
+            this.pnlServiceReport.Size = new System.Drawing.Size(701, 437);
             this.pnlServiceReport.TabIndex = 37;
             this.pnlServiceReport.Visible = false;
             // 
@@ -112,24 +118,75 @@
             this.btnCloseReport.Text = "Close";
             this.btnCloseReport.UseVisualStyleBackColor = true;
             this.btnCloseReport.Click += new System.EventHandler(this.btnCloseReport_Click);
+            // lbServiceReport
+            // 
+            this.lbServiceReport.AutoSize = true;
+            this.lbServiceReport.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbServiceReport.Location = new System.Drawing.Point(21, 145);
+            this.lbServiceReport.Name = "lbServiceReport";
+            this.lbServiceReport.Size = new System.Drawing.Size(194, 31);
+            this.lbServiceReport.TabIndex = 9;
+            this.lbServiceReport.Text = "Service Report";
+            // 
+            // btnCloseReport
+            // 
+            this.btnCloseReport.Location = new System.Drawing.Point(609, 412);
+            this.btnCloseReport.Name = "btnCloseReport";
+            this.btnCloseReport.Size = new System.Drawing.Size(75, 23);
+            this.btnCloseReport.TabIndex = 8;
+            this.btnCloseReport.Text = "Close";
+            this.btnCloseReport.UseVisualStyleBackColor = true;
+            this.btnCloseReport.Click += new System.EventHandler(this.btnCloseReport_Click);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(15, 59);
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(21, 321);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(62, 13);
+            this.label5.Size = new System.Drawing.Size(112, 24);
             this.label5.TabIndex = 7;
-            this.label5.Text = "Total Hours";
+            this.label5.Text = "Total Hours:";
             // 
             // lblTotalHours
             // 
             this.lblTotalHours.AutoSize = true;
-            this.lblTotalHours.Location = new System.Drawing.Point(107, 59);
+            this.lblTotalHours.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalHours.Location = new System.Drawing.Point(197, 329);
             this.lblTotalHours.Name = "lblTotalHours";
-            this.lblTotalHours.Size = new System.Drawing.Size(35, 13);
+            this.lblTotalHours.Size = new System.Drawing.Size(51, 20);
             this.lblTotalHours.TabIndex = 6;
             this.lblTotalHours.Text = "label2";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(21, 261);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(98, 24);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Total Cost:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(197, 264);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(51, 20);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "label2";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(21, 206);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(133, 24);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Total Services:";
             // 
             // label3
             // 
@@ -164,6 +221,13 @@
             this.lblTotalServices.Location = new System.Drawing.Point(107, 10);
             this.lblTotalServices.Name = "lblTotalServices";
             this.lblTotalServices.Size = new System.Drawing.Size(35, 13);
+            // lblTotalServices
+            // 
+            this.lblTotalServices.AutoSize = true;
+            this.lblTotalServices.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalServices.Location = new System.Drawing.Point(197, 209);
+            this.lblTotalServices.Name = "lblTotalServices";
+            this.lblTotalServices.Size = new System.Drawing.Size(51, 20);
             this.lblTotalServices.TabIndex = 2;
             this.lblTotalServices.Text = "label2";
             // 
@@ -185,15 +249,24 @@
             "Monthly"});
             this.cmbViewType.Location = new System.Drawing.Point(282, 42);
             this.cmbViewType.Name = "cmbViewType";
-            this.cmbViewType.Size = new System.Drawing.Size(121, 21);
+            this.cmbViewType.Size = new System.Drawing.Size(150, 21);
             this.cmbViewType.TabIndex = 9;
             this.cmbViewType.SelectedIndexChanged += new System.EventHandler(this.cmbViewType_SelectedIndexChanged);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(288, 33);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(396, 251);
+            this.pictureBox1.TabIndex = 10;
+            this.pictureBox1.TabStop = false;
             // 
             // ServiceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(703, 601);
+            this.ClientSize = new System.Drawing.Size(1447, 497);
             this.Controls.Add(this.cmbViewType);
             this.Controls.Add(this.pnlServiceReport);
             this.Controls.Add(this.dtpDateTime);
@@ -206,6 +279,7 @@
             this.Load += new System.EventHandler(this.ServiceForm_Load);
             this.pnlServiceReport.ResumeLayout(false);
             this.pnlServiceReport.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -227,5 +301,7 @@
         private System.Windows.Forms.Label lblTotalServices;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cmbViewType;
+        private System.Windows.Forms.Label lbServiceReport;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

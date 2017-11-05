@@ -73,15 +73,5 @@ namespace WIL
             destinationBox.ValueMember = "ID";          
 
         }
-
-        private void cmbCustomers_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void slctTruckBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }

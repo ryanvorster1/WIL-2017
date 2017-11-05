@@ -47,7 +47,7 @@ namespace WIL
         private void dtpDateTime_ValueChanged(object sender, EventArgs e)
         {
             DateTime theDate = dtpDateTime.Value;
-            List<Service> services = new List<Service>(); 
+            List<Service> services = new List<Service>();
 
             switch (cmbViewType.SelectedItem)
             {
@@ -58,7 +58,7 @@ namespace WIL
                     services = dbm.GetServices(theDate, theDate.AddDays(7));
                     break;
                 case "Monthly":
-                    services = dbm.GetServices(theDate,theDate.AddMonths(1));
+                    services = dbm.GetServices(theDate, theDate.AddMonths(1));
                     break;
             }
 
@@ -72,8 +72,8 @@ namespace WIL
             if (services.Count > 0)
             {
                 PopulateListBoxWithResults(services);
+                lvServiceList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             }
-            lvServiceList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
         }
 
 

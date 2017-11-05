@@ -28,29 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.lblUser = new System.Windows.Forms.Label();
             this.btnTrips = new System.Windows.Forms.Button();
             this.btnTrucks = new System.Windows.Forms.Button();
             this.btnServices = new System.Windows.Forms.Button();
             this.btnUsers = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel1.SuspendLayout();
+
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // lblUser
             // 
             this.lblUser.AutoSize = true;
             this.lblUser.Location = new System.Drawing.Point(1055, 46);
+            this.lblUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUser.Location = new System.Drawing.Point(534, 12);
             this.lblUser.Name = "lblUser";
-            this.lblUser.Size = new System.Drawing.Size(36, 13);
+            this.lblUser.Size = new System.Drawing.Size(118, 42);
             this.lblUser.TabIndex = 0;
             this.lblUser.Text = "trucks";
             // 
             // btnTrips
             // 
-            this.btnTrips.Location = new System.Drawing.Point(49, 36);
+            this.btnTrips.Location = new System.Drawing.Point(87, 337);
             this.btnTrips.Name = "btnTrips";
-            this.btnTrips.Size = new System.Drawing.Size(75, 23);
+            this.btnTrips.Size = new System.Drawing.Size(75, 42);
             this.btnTrips.TabIndex = 1;
             this.btnTrips.Text = "Trips";
             this.btnTrips.UseVisualStyleBackColor = true;
@@ -58,9 +62,9 @@
             // 
             // btnTrucks
             // 
-            this.btnTrucks.Location = new System.Drawing.Point(237, 36);
+            this.btnTrucks.Location = new System.Drawing.Point(315, 337);
             this.btnTrucks.Name = "btnTrucks";
-            this.btnTrucks.Size = new System.Drawing.Size(75, 23);
+            this.btnTrucks.Size = new System.Drawing.Size(75, 42);
             this.btnTrucks.TabIndex = 2;
             this.btnTrucks.Text = "Trucks";
             this.btnTrucks.UseVisualStyleBackColor = true;
@@ -68,9 +72,9 @@
             // 
             // btnServices
             // 
-            this.btnServices.Location = new System.Drawing.Point(141, 36);
+            this.btnServices.Location = new System.Drawing.Point(198, 337);
             this.btnServices.Name = "btnServices";
-            this.btnServices.Size = new System.Drawing.Size(75, 23);
+            this.btnServices.Size = new System.Drawing.Size(75, 42);
             this.btnServices.TabIndex = 3;
             this.btnServices.Text = "Services";
             this.btnServices.UseVisualStyleBackColor = true;
@@ -78,38 +82,41 @@
             // 
             // btnUsers
             // 
-            this.btnUsers.Location = new System.Drawing.Point(335, 36);
+            this.btnUsers.Location = new System.Drawing.Point(420, 337);
             this.btnUsers.Name = "btnUsers";
-            this.btnUsers.Size = new System.Drawing.Size(75, 23);
+            this.btnUsers.Size = new System.Drawing.Size(75, 42);
             this.btnUsers.TabIndex = 4;
             this.btnUsers.Text = "Users";
             this.btnUsers.UseVisualStyleBackColor = true;
             this.btnUsers.Click += new System.EventHandler(this.btnUsers_Click);
             // 
-            // panel1
+
+            // pictureBox1
             // 
-            this.panel1.Controls.Add(this.btnTrips);
-            this.panel1.Controls.Add(this.btnUsers);
-            this.panel1.Controls.Add(this.lblUser);
-            this.panel1.Controls.Add(this.btnServices);
-            this.panel1.Controls.Add(this.btnTrucks);
-            this.panel1.Location = new System.Drawing.Point(12, 12);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1122, 100);
-            this.panel1.TabIndex = 5;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(99, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(396, 267);
+            this.pictureBox1.TabIndex = 5;
+            this.pictureBox1.TabStop = false;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1165, 554);
-            this.Controls.Add(this.panel1);
+
+            this.ClientSize = new System.Drawing.Size(682, 434);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.btnUsers);
+            this.Controls.Add(this.btnServices);
+            this.Controls.Add(this.btnTrucks);
+            this.Controls.Add(this.btnTrips);
+            this.Controls.Add(this.lblUser);
             this.Name = "MainForm";
-            this.Text = "Crazy Truck Services";
+            this.Text = "Crazy Trucks Bookings";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -121,7 +128,7 @@
         private System.Windows.Forms.Button btnTrucks;
         private System.Windows.Forms.Button btnServices;
         private System.Windows.Forms.Button btnUsers;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 
