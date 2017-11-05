@@ -123,6 +123,9 @@ namespace WIL
             btnServiceReport.Visible = false;
             //update 
 
+           totalHoursLbl.Text = dbm.GetServices().Count.ToString();
+            //get services with startdate and enddate parameters
+
         }
 
         private void btnCloseReport_Click(object sender, EventArgs e)
