@@ -23,7 +23,6 @@ namespace WIL
             //Show add bookings form once add trip button is clicked
             BookingsForm bf = new BookingsForm();
             bf.ShowDialog();
-            //this.Close(); 
             UpdateDGVTrips();     
         }
 
@@ -35,8 +34,8 @@ namespace WIL
 
         private void TripForm_Load(object sender, EventArgs e)
         {
-            UpdateDGVTrips();
             cmbViewType.SelectedIndex = 0;
+            UpdateDGVTrips();
         }
 
         private void btnViewReport_Click(object sender, EventArgs e)
@@ -64,9 +63,7 @@ namespace WIL
             List<Trip> trips = new DBManager().GetTrips();
             foreach (var item in trips)
             {
-
                 dgvTrips.Rows.Add(item.Truck.ID, item.Driver.Username, item.Route.Kms, item.Route.Destination);
-               
                
             }
         
@@ -90,9 +87,12 @@ namespace WIL
         private void UpdateDGVTrips()
         {
             dgvTrips.Rows.Clear();
+            dgvTrips.Columns.Clear();
             dgvTrips.Columns.Add("ID", "Truck ID");
-            dgvTrips.Columns.Add("Username", "Driver");
+            dgvTrips.Columns.Add("CustomerID", "CustomerID");
             dgvTrips.Columns.Add("Kms", "Kiliometers Travelled");
+            dgvTrips.Columns.Add("startDate", "Start Date");
+            dgvTrips.Columns.Add("endDate", "End Date");
             dgvTrips.Columns.Add("Destination", "Destination");
 
             DateTime start = dtpTrips.Value; ;
@@ -100,30 +100,45 @@ namespace WIL
 
             if (cmbViewType.SelectedItem != null)
             {
-
                 switch (cmbViewType.SelectedItem.ToString())
                 {
                     case "Daily":
                         end = start.AddDays(1);
                         break;
                     case "Weekly":
-                        end.AddDays(7);
+                        end = end.AddDays(7);
                         break;
                     case "Monthly":
-                        end.AddMonths(1);
+                        end = end.AddMonths(1);
+                        break;
+                    case "Yearly":
+                        end = end.AddYears(1);
                         break;
                 }
 
-                List<Trip> trips = new DBManager().GetTrips();//start,end);
+                List<Trip> trips = new DBManager().GetTrips(start,end);
+                DataTable table = new DataTable();
+                
                 foreach (var item in trips)
                 {
-                    dgvTrips.Rows.Add(item.Truck.ID, item.Customer.ID, item.Start, item.End, item.Route.Departure, item.Route.Destination);
+                    Console.WriteLine(item.ToString());
+                    dgvTrips.Rows.Add(item.Truck.ID, item.Customer.ID, item.Route.Kms, item.Start, item.End, item.Route.Destination);
                 }
             }
 
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateDGVTrips();
+        }
+
+        private void dgvTrips_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void viewPlannedTripsBtn_Click(object sender, EventArgs e)
         {
             UpdateDGVTrips();
         }

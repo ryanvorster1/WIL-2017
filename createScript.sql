@@ -155,16 +155,8 @@ values('Cape Town'),
 insert into routes(departure, destination,kms)
 values(0,1,1400),
       (0,2,1636),
-	  (0,3,755),
-	  (1,0,1400),
-	  (1,2,568),
-	  (1,3,1047),
-	  (2,0,1636),
-	  (2,1,568),
-	  (2,3,909),
-	  (3,0,755),
-	  (3,1,1047),
-	  (3,2,909)
+	  (0,3,755)
+	 
 
 
 insert into userType(userType)
@@ -264,11 +256,11 @@ or endDate >= '2017/11/04' and enddate <= '2017-11-03'
 
 select * from trip
 
-declare @startDate datetime,
-	    @endDate datetime
+declare @startDate datetime2;
+declare @endDate datetime2;
 
-set @startDate =  '2017-11-01'
-set @endDate = '2017-11-31'
+set @startDate =  '2017-11-01';
+set @endDate = '2017-11-08';
 
 select * from trip 
 where startDate >= @startDate and startdate <= @endDate 
@@ -276,3 +268,7 @@ or
 enddate >= @startDate and enddate <= @endDate
 
 
+select * from trip 
+where startDate >= '{startDate}' and startdate <= '{endDate}' 
+or 
+enddate >= '{startDate}' and enddate <= '{endDate}
