@@ -34,7 +34,6 @@
             this.bttnExit = new System.Windows.Forms.Button();
             this.dtpDateTime = new System.Windows.Forms.DateTimePicker();
             this.pnlServiceReport = new System.Windows.Forms.Panel();
-            this.lbServiceReport = new System.Windows.Forms.Label();
             this.btnCloseReport = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.lblTotalHours = new System.Windows.Forms.Label();
@@ -109,6 +108,17 @@
             this.pnlServiceReport.TabIndex = 37;
             this.pnlServiceReport.Visible = false;
             // 
+
+            // btnCloseReport
+            // 
+            this.btnCloseReport.Location = new System.Drawing.Point(249, 59);
+            this.btnCloseReport.Name = "btnCloseReport";
+            this.btnCloseReport.Size = new System.Drawing.Size(75, 23);
+            this.btnCloseReport.TabIndex = 8;
+            this.btnCloseReport.Text = "Close";
+            this.btnCloseReport.UseVisualStyleBackColor = true;
+            this.btnCloseReport.Click += new System.EventHandler(this.btnCloseReport_Click);
+
             // lbServiceReport
             // 
             this.lbServiceReport.AutoSize = true;
@@ -158,6 +168,7 @@
             this.label3.Size = new System.Drawing.Size(98, 24);
             this.label3.TabIndex = 5;
             this.label3.Text = "Total Cost:";
+
             // 
             // label4
             // 
@@ -179,6 +190,41 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "Total Services:";
             // 
+
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(15, 35);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(55, 13);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Total Cost";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(107, 35);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(35, 13);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "label2";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(15, 10);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(75, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Total Services";
+            // 
+            // lblTotalServices
+            // 
+            this.lblTotalServices.AutoSize = true;
+            this.lblTotalServices.Location = new System.Drawing.Point(107, 10);
+            this.lblTotalServices.Name = "lblTotalServices";
+            this.lblTotalServices.Size = new System.Drawing.Size(35, 13);
+
             // lblTotalServices
             // 
             this.lblTotalServices.AutoSize = true;
@@ -209,6 +255,7 @@
             this.cmbViewType.Name = "cmbViewType";
             this.cmbViewType.Size = new System.Drawing.Size(150, 21);
             this.cmbViewType.TabIndex = 9;
+            this.cmbViewType.SelectedIndexChanged += new System.EventHandler(this.cmbViewType_SelectedIndexChanged);
             // 
             // pictureBox1
             // 

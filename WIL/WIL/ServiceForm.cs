@@ -115,6 +115,11 @@ namespace WIL
         {
 
         }
+
+        private void cmbViewType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 
