@@ -29,6 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.viewPlannedTripsBtn = new System.Windows.Forms.Button();
             this.viewCompletedTripsBtn = new System.Windows.Forms.Button();
             this.addTripButton = new System.Windows.Forms.Button();
@@ -47,7 +53,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.dtpTrips = new System.Windows.Forms.DateTimePicker();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cmbViewType = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.bentViewReport = new System.Windows.Forms.Button();
@@ -94,7 +100,7 @@
             this.exitButton.UseVisualStyleBackColor = true;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             // 
-            // dataGridView1
+            // dgvTrips
             // 
             this.dgvTrips.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.dgvTrips.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -106,42 +112,61 @@
             this.departure,
             this.destination});
             this.dgvTrips.GridColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.dgvTrips.Location = new System.Drawing.Point(12, 116);
+            this.dgvTrips.Location = new System.Drawing.Point(9, 116);
             this.dgvTrips.MultiSelect = false;
-            this.dgvTrips.Name = "dataGridView1";
+            this.dgvTrips.Name = "dgvTrips";
+            this.dgvTrips.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
             this.dgvTrips.RowHeadersVisible = false;
             this.dgvTrips.Size = new System.Drawing.Size(601, 289);
             this.dgvTrips.TabIndex = 5;
             // 
             // truckID
             // 
+            this.truckID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Plum;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.MediumAquamarine;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.truckID.DefaultCellStyle = dataGridViewCellStyle1;
             this.truckID.HeaderText = "Truck ID";
             this.truckID.Name = "truckID";
+            this.truckID.ToolTipText = "Double click to view details.";
             // 
             // customerID
             // 
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Plum;
+            this.customerID.DefaultCellStyle = dataGridViewCellStyle2;
             this.customerID.HeaderText = "Customer ID";
             this.customerID.Name = "customerID";
             // 
             // startDate
             // 
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Plum;
+            this.startDate.DefaultCellStyle = dataGridViewCellStyle3;
             this.startDate.HeaderText = "Start Date";
             this.startDate.Name = "startDate";
             // 
             // endDate
             // 
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Plum;
+            this.endDate.DefaultCellStyle = dataGridViewCellStyle4;
             this.endDate.HeaderText = "End Date";
             this.endDate.Name = "endDate";
             // 
             // departure
             // 
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.Plum;
+            this.departure.DefaultCellStyle = dataGridViewCellStyle5;
             this.departure.HeaderText = "Departure";
             this.departure.Name = "departure";
             // 
             // destination
             // 
+            this.destination.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.Plum;
+            this.destination.DefaultCellStyle = dataGridViewCellStyle6;
             this.destination.HeaderText = "Destination";
             this.destination.Name = "destination";
+            this.destination.Width = 85;
             // 
             // pnlReportView
             // 
@@ -200,19 +225,20 @@
             this.dtpTrips.TabIndex = 0;
             this.dtpTrips.ValueChanged += new System.EventHandler(this.dtpTrips_ValueChanged);
             // 
-            // comboBox1
+            // cmbViewType
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.cmbViewType.FormattingEnabled = true;
+            this.cmbViewType.Items.AddRange(new object[] {
             "Daily",
             "Weekly",
-            "Motnhly",
+            "Monthly",
             "Yearly"});
-            this.comboBox1.Location = new System.Drawing.Point(322, 89);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(165, 21);
-            this.comboBox1.TabIndex = 1;
-            this.comboBox1.Text = "Select here<";
+            this.cmbViewType.Location = new System.Drawing.Point(322, 89);
+            this.cmbViewType.Name = "cmbViewType";
+            this.cmbViewType.Size = new System.Drawing.Size(165, 21);
+            this.cmbViewType.TabIndex = 1;
+            this.cmbViewType.Text = "Select here<";
+            this.cmbViewType.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -249,7 +275,7 @@
             this.ClientSize = new System.Drawing.Size(631, 547);
             this.Controls.Add(this.bentViewReport);
             this.Controls.Add(this.pnlReportView);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cmbViewType);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.dgvTrips);
@@ -277,22 +303,23 @@
         private System.Windows.Forms.Button addTripButton;
         private System.Windows.Forms.Button exitButton;
         private System.Windows.Forms.DataGridView dgvTrips;
-        private System.Windows.Forms.DataGridViewTextBoxColumn truckID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn customerID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn startDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn endDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn departure;
-        private System.Windows.Forms.DataGridViewTextBoxColumn destination;
+
         private System.Windows.Forms.BindingSource wILDBDataSetBindingSource;
         private System.Windows.Forms.Panel pnlReportView;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cmbViewType;
         private System.Windows.Forms.DateTimePicker dtpTrips;
         private System.Windows.Forms.Button bentViewReport;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnCloseReportView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn truckID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn customerID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn startDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn endDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn departure;
+        private System.Windows.Forms.DataGridViewTextBoxColumn destination;
     }
 }

@@ -13,7 +13,9 @@ namespace SystemLogic
 
         private string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=2017WIL;Integrated Security=True;Pooling=False";
         //private string connectionString = "Data Source=POKKOLS-PC;Initial Catalog=WIL;Integrated Security=True";
+        //private string connectionString = "Data Source=RYAN;Initial Catalog=WILDB;Integrated Security=True;Pooling=False";
         //private string connectionString = "Data Source=DESKTOP-IHUJDPR;Initial Catalog=WILDB;Integrated Security=True";
+
         private SqlConnection dbCon;
 
         public DBManager()
@@ -148,6 +150,40 @@ namespace SystemLogic
             }
             return trip;
         }
+
+
+        public List<Trip> GetTrips(DateTime startDate, DateTime endDate)
+        {
+            List<Trip> trips = new List<Trip>();
+
+            try
+            {
+                string sql = $"select * from trip where startDate >= '{startDate}' and startdate <= '{endDate}' or enddate >= '{startDate}' and enddate <= '{endDate}'";
+                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    int ID = (int)row["ID"];
+                    Truck truck = GetTruckByID((int)row["truckID"]);
+                    Customer customer = GetCustomerByID((int)row["clientID"]);
+                    User driver = GetUserByID((int)row["driverID"]);
+                    DateTime start = (DateTime)row["StartDate"];
+                    DateTime end = (DateTime)row["endDate"];
+                    Route route = GetRouteByID((int)row["routeID"]);
+
+                    trips.Add(new Trip(ID, truck, customer, start, end, driver, route));
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return trips;
+        }
+
 
         //get a list of all trips 
         public List<Trip> GetTrips(DateTime selectedDate)

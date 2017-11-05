@@ -38,7 +38,7 @@ namespace WIL
 
         private void btnTrucks_Click(object sender, EventArgs e)
         {
-
+            new TruckForm().ShowDialog();
         }
 
         private void MainForm_Load(object sender, EventArgs e)

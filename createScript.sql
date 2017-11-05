@@ -262,6 +262,17 @@ or enddate >= '2017-11-03' and enddate <= '2017/11/04'
 
 or endDate >= '2017/11/04' and enddate <= '2017-11-03'
 
+select * from trip
 
+declare @startDate datetime,
+	    @endDate datetime
+
+set @startDate =  '2017-11-01'
+set @endDate = '2017-11-31'
+
+select * from trip 
+where startDate >= @startDate and startdate <= @endDate 
+or 
+enddate >= @startDate and enddate <= @endDate
 
 

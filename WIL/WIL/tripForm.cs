@@ -23,7 +23,8 @@ namespace WIL
             //Show add bookings form once add trip button is clicked
             BookingsForm bf = new BookingsForm();
             bf.ShowDialog();
-            //this.Close();      
+            //this.Close(); 
+            UpdateDGVTrips();     
         }
 
         private void exitButton_Click(object sender, EventArgs e)
@@ -34,7 +35,7 @@ namespace WIL
 
         private void TripForm_Load(object sender, EventArgs e)
         {
-            UpdateDGVTrips(dtpTrips.Value);
+            UpdateDGVTrips();
         }
 
         private void btnViewReport_Click(object sender, EventArgs e)
@@ -42,10 +43,39 @@ namespace WIL
             pnlReportView.Visible = true;
             viewPlannedTripsBtn.Visible = false;
             viewCompletedTripsBtn.Visible = false;
+            //clear cols
+            dgvTrips.Columns.Clear();
+            //add column headingname and text 
+            dgvTrips.Columns.Add("ID", "Truck ID");
+            dgvTrips.Columns.Add("Username", "Driver");
+            dgvTrips.Columns.Add("Kms", "Kiliometers Travelled");
+            dgvTrips.Columns.Add("Destination", "Destination");
+
+            //resize rows
+
+
+            // dataGridView1.AutoResizeColumns();// = DataGridViewAutoSizeColumnsMode.None;
+            // dataGridView1.AllowUserToResizeRows = false;
+            dgvTrips.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
+
+            //clear rows
+            dgvTrips.Rows.Clear();
+            List<Trip> trips = new DBManager().GetTrips();
+            foreach (var item in trips)
+            {
+
+                dgvTrips.Rows.Add(item.Truck.ID, item.Driver.Username, item.Route.Kms, item.Route.Destination);
+               
+               
+            }
+        
         }
 
         private void btnCloseReportView_Click(object sender, EventArgs e)
         {
+
+            UpdateDGVTrips();
+            
             pnlReportView.Visible = false;
             viewPlannedTripsBtn.Visible = true;
             viewCompletedTripsBtn.Visible = true;
@@ -53,13 +83,34 @@ namespace WIL
 
         private void dtpTrips_ValueChanged(object sender, EventArgs e)
         {
-            UpdateDGVTrips(dtpTrips.Value);
+            UpdateDGVTrips();
         }
 
-        private void UpdateDGVTrips(DateTime selected)
+        private void UpdateDGVTrips()
         {
             dgvTrips.Rows.Clear();
-            List<Trip> trips = new DBManager().GetTrips(selected);
+            dgvTrips.Columns.Add("ID", "Truck ID");
+            dgvTrips.Columns.Add("Username", "Driver");
+            dgvTrips.Columns.Add("Kms", "Kiliometers Travelled");
+            dgvTrips.Columns.Add("Destination", "Destination");
+
+            DateTime start = dtpTrips.Value; ;
+            DateTime end = start;
+
+            switch (cmbViewType.SelectedItem)
+            {
+                case "Daily":
+                    end = start.AddDays(1);
+                    break;
+                case "Weekly":
+                    end.AddDays(7);
+                    break;
+                case "Monthly":
+                    end.AddMonths(1);
+                    break;
+            }
+
+            List<Trip> trips = new DBManager().GetTrips();//start,end);
             foreach (var item in trips)
             {
                 dgvTrips.Rows.Add(item.Truck.ID, item.Customer.ID, item.Start, item.End, item.Route.Departure, item.Route.Destination);
@@ -67,5 +118,9 @@ namespace WIL
 
         }
 
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateDGVTrips();
+        }
     }
 }
