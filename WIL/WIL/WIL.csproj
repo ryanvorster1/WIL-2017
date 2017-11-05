@@ -55,6 +55,12 @@
     <Compile Include="AddCustomerForm.Designer.cs">
       <DependentUpon>AddCustomerForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="AddTruckForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddTruckForm.Designer.cs">
+      <DependentUpon>AddTruckForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="BookingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,6 +108,12 @@
     <Compile Include="TripForm.Designer.cs">
       <DependentUpon>TripForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="TruckForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TruckForm.Designer.cs">
+      <DependentUpon>TruckForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -110,6 +122,9 @@
     </Compile>
     <EmbeddedResource Include="AddCustomerForm.resx">
       <DependentUpon>AddCustomerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddTruckForm.resx">
+      <DependentUpon>AddTruckForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BookingsForm.resx">
       <DependentUpon>BookingsForm.cs</DependentUpon>
@@ -145,6 +160,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TripForm.resx">
       <DependentUpon>TripForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TruckForm.resx">
+      <DependentUpon>TruckForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserForm.resx">
       <DependentUpon>UserForm.cs</DependentUpon>

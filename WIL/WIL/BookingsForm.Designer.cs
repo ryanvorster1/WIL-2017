@@ -102,7 +102,7 @@
             this.slctTruckBox.Name = "slctTruckBox";
             this.slctTruckBox.Size = new System.Drawing.Size(146, 21);
             this.slctTruckBox.TabIndex = 17;
-            this.slctTruckBox.SelectedIndexChanged += new System.EventHandler(this.slctTruckBox_SelectedIndexChanged);
+            
             // 
             // label2
             // 
@@ -115,7 +115,7 @@
             // 
             // AddCustBtn
             // 
-            this.AddCustBtn.Location = new System.Drawing.Point(282, 66);
+            this.AddCustBtn.Location = new System.Drawing.Point(12, 26);
             this.AddCustBtn.Name = "AddCustBtn";
             this.AddCustBtn.Size = new System.Drawing.Size(146, 23);
             this.AddCustBtn.TabIndex = 15;
@@ -139,7 +139,7 @@
             this.cmbCustomers.Name = "cmbCustomers";
             this.cmbCustomers.Size = new System.Drawing.Size(146, 21);
             this.cmbCustomers.TabIndex = 13;
-            this.cmbCustomers.SelectedIndexChanged += new System.EventHandler(this.cmbCustomers_SelectedIndexChanged);
+            
             // 
             // BookingsForm
             // 
