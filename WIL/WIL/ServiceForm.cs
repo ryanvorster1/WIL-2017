@@ -64,6 +64,7 @@ namespace WIL
                 {
                     PopulateListBoxWithResults(services);
                     lvServiceList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+                    ServiceReport();
                 }
             }
         }
@@ -123,6 +124,7 @@ namespace WIL
             pnlServiceReport.Visible = true;
             btnServiceReport.Visible = false;
             //update 
+            ServiceReport();
 
         }
 
@@ -147,6 +149,48 @@ namespace WIL
         {
             dtpDateTime_ValueChanged(sender, e);
 
+        }
+
+        private void ServiceReport()
+        {
+            DateTime theDate = dtpDateTime.Value;
+            List<Service> services = new List<Service>();
+            List<Truck> trucks = new List<Truck>();
+
+            if (cmbViewType.SelectedItem != null)
+            {
+                switch (cmbViewType.SelectedItem.ToString())
+                {
+                    case "Daily":
+                        services = dbm.GetServices(theDate);
+
+                        break;
+                    case "Weekly":
+                        services = dbm.GetServices(theDate, theDate.AddDays(7));
+
+                        break;
+                    case "Monthly":
+                        services = dbm.GetServices(theDate, theDate.AddMonths(1));
+
+                        break;
+                }
+
+                double cost = 0;
+                double hours = 0;
+                foreach (var service in services)
+                {
+                    List<ServiceItem> serviceItems = dbm.GetServiceItems(service);
+                    foreach (var serviceItem in serviceItems)
+                    {
+                        cost += serviceItem.ServiceType.Cost;
+                        hours += serviceItem.ServiceType.Hours;
+                    }
+                }
+
+                lbltotalService.Text = services.Count.ToString();
+                lblTotalCost.Text = cost.ToString();
+                lblTotalHours.Text = hours.ToString();
+            }
         }
     }
 }
