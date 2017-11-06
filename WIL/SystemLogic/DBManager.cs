@@ -74,6 +74,11 @@ namespace SystemLogic
             return trip;
         }
 
+        //get awaiting trip for driver
+
+
+
+
         private async Task<Truck> UpdateTruckStatus(bool available, Truck truck)
         {
             return await Task.Run(() =>
@@ -198,6 +203,77 @@ namespace SystemLogic
             });
         }
 
+        public async Task<List<Trip>> GetCompleteTrips(DateTime startDate, DateTime endDate)
+        {
+            return await Task.Run(async () =>
+            {
+                List<Trip> trips = new List<Trip>();
+
+                try
+                {
+                    string sql = $"select * from trip where startDate >= '{startDate.ToShortDateString()}' and startdate <= '{endDate.ToShortDateString()}' or " +
+                        $"enddate >= '{startDate.ToShortDateString()}' and enddate <= '{endDate.ToShortDateString()}' and complete = 1";
+                    SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                    DataSet ds = new DataSet();
+                    da.Fill(ds);
+
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        int ID = (int)row["ID"];
+                        Truck truck = await GetTruckByID((int)row["truckID"]);
+                        Customer customer = GetCustomerByID((int)row["clientID"]);
+                        User driver = await GetUserByID((int)row["driverID"]);
+                        DateTime start = (DateTime)row["StartDate"];
+                        DateTime end = (DateTime)row["endDate"];
+                        Route route = GetRouteByID((int)row["routeID"]);
+
+                        trips.Add(new Trip(ID, truck, customer, start, end, driver, route));
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                return trips;
+            });
+        }
+
+        public async Task<List<Trip>> GetInCompleteTrips(DateTime startDate, DateTime endDate)
+        {
+            return await Task.Run(async () =>
+            {
+                List<Trip> trips = new List<Trip>();
+
+                try
+                {
+                    string sql = $"select * from trip where startDate >= '{startDate.ToShortDateString()}' and startdate <= '{endDate.ToShortDateString()}' or " +
+                        $"enddate >= '{startDate.ToShortDateString()}' and enddate <= '{endDate.ToShortDateString()}' and complete = 0";
+                    SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                    DataSet ds = new DataSet();
+                    da.Fill(ds);
+
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        int ID = (int)row["ID"];
+                        Truck truck = await GetTruckByID((int)row["truckID"]);
+                        Customer customer = GetCustomerByID((int)row["clientID"]);
+                        User driver = await GetUserByID((int)row["driverID"]);
+                        DateTime start = (DateTime)row["StartDate"];
+                        DateTime end = (DateTime)row["endDate"];
+                        Route route = GetRouteByID((int)row["routeID"]);
+
+                        trips.Add(new Trip(ID, truck, customer, start, end, driver, route));
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                return trips;
+            });
+        }
 
         //get a list of all trips 
         public async Task<List<Trip>> GetTrips(DateTime selectedDate)
@@ -619,7 +695,7 @@ namespace SystemLogic
         //get drivers that are not availible
         public async Task<List<User>> GetAvailibleDrivers()
         {
-            return await Task.Run(async() =>
+            return await Task.Run(async () =>
             {
                 List<User> users = new List<User>();
 
@@ -655,7 +731,7 @@ namespace SystemLogic
         //get a list of all users
         public async Task<List<User>> GetUsers()
         {
-            return await Task.Run(async() =>
+            return await Task.Run(async () =>
             {
                 List<User> users = new List<User>();
 
@@ -1228,6 +1304,43 @@ namespace SystemLogic
             return services;
         }
 
+        public async Task<List<Service>> GetIncompleteServices(DateTime startDate, DateTime endDate)
+        {
+            return await Task.Run(async () =>
+            {
+                List<Service> services = new List<Service>();
+
+                try
+                {
+                    string sql = $"select * from service where complete = 0 and " +
+                    $"startDate >= '{startDate}' and startdate <= '{endDate}' or " +
+                    $"enddate >= '{startDate}' and enddate <= '{endDate}'";
+                    SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                    DataSet ds = new DataSet();
+                    da.Fill(ds);
+
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        int ID = (int)row["ID"];
+                        Truck truck = await GetTruckByID((int)row["truckID"]);
+                        User mechanic = await GetUserByID((int)row["mechanic"]);
+                        DateTime start = (DateTime)row["startdate"];
+                        DateTime end = (DateTime)row["enddate"];
+                        bool complete = (bool)row["complete"];
+
+                        Service s = new Service(ID, truck, mechanic, start, end, complete);
+                        services.Add(s);
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                return services;
+            });
+        }
+
         public async Task<List<Service>> GetIncompleteServices()
         {
             return await Task.Run(async () =>
@@ -1250,7 +1363,7 @@ namespace SystemLogic
                         DateTime end = (DateTime)row["enddate"];
                         bool complete = (bool)row["complete"];
 
-                        Service s = new Service(ID, truck, mechanic, start, end,complete);
+                        Service s = new Service(ID, truck, mechanic, start, end, complete);
                         services.Add(s);
 
                     }
@@ -1272,6 +1385,43 @@ namespace SystemLogic
                 try
                 {
                     string sql = $"select * from service where complete = 1";
+                    SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                    DataSet ds = new DataSet();
+                    da.Fill(ds);
+
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        int ID = (int)row["ID"];
+                        Truck truck = await GetTruckByID((int)row["truckID"]);
+                        User mechanic = await GetUserByID((int)row["mechanic"]);
+                        DateTime start = (DateTime)row["startdate"];
+                        DateTime end = (DateTime)row["enddate"];
+                        bool complete = (bool)row["complete"];
+
+                        Service s = new Service(ID, truck, mechanic, start, end, complete);
+                        services.Add(s);
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                return services;
+            });
+        }
+
+        public async Task<List<Service>> GetCompleteServices(DateTime startDate, DateTime endDate)
+        {
+            return await Task.Run(async () =>
+            {
+                List<Service> services = new List<Service>();
+
+                try
+                {
+                    string sql = $"select * from service where complete = 1 and " +
+                    $"startDate >= '{startDate}' and startdate <= '{endDate}' or " +
+                    $"enddate >= '{startDate}' and enddate <= '{endDate}'";
                     SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
                     DataSet ds = new DataSet();
                     da.Fill(ds);

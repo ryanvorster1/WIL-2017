@@ -97,5 +97,5 @@ namespace SystemLogic
             return $"{Manufacturor} {Type}";
         }
     }
-    }
+}
 
