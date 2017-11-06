@@ -16,6 +16,7 @@ namespace WIL
         private DBManager dbm;
         public TripForm()
         {
+            dbm = new DBManager();
             InitializeComponent();
         }
 
@@ -52,10 +53,7 @@ namespace WIL
             dgvTrips.Columns.Add("Kms", "Kiliometers Travelled");
             dgvTrips.Columns.Add("Destination", "Destination");
 
-            //resize rows
-
-
-            // dataGridView1.AutoResizeColumns();// = DataGridViewAutoSizeColumnsMode.None;
+           
             // dataGridView1.AllowUserToResizeRows = false;
             dgvTrips.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
 
@@ -67,8 +65,10 @@ namespace WIL
                 dgvTrips.Rows.Add(item.Truck.ID, item.Driver.Username, item.Route.Kms, item.Route.Destination);
 
             }
+
             //get total kms method
-            getOverall();
+            //getOverall();
+            GetIncompltedTrips();
         }
 
         private void btnCloseReportView_Click(object sender, EventArgs e)
@@ -84,6 +84,8 @@ namespace WIL
         private void dtpTrips_ValueChanged(object sender, EventArgs e)
         {
             UpdateDGVTrips();
+            // getOverall();
+            GetIncompltedTrips();
         }
 
         private async void UpdateDGVTrips()
@@ -132,6 +134,8 @@ namespace WIL
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateDGVTrips();
+            //getOverall();
+            GetIncompltedTrips();
         }
 
         private void dgvTrips_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -143,65 +147,83 @@ namespace WIL
         {
             UpdateDGVTrips();
         }
-        private async void getOverall()
+        //private async void getOverall()
+        //{
+        //    DateTime theDate = dtpTrips.Value;
+        //    List<Trip> trips = new List<Trip>();
+           
+
+        //    if (cmbViewType.SelectedItem != null)
+        //    {
+        //        switch (cmbViewType.SelectedItem.ToString())
+        //        {
+        //            case "Daily":
+        //                trips = await dbm.GetCompleteTrips(theDate, theDate);
+
+        //                break;
+        //            case "Weekly":
+        //                trips = await dbm.GetCompleteTrips(theDate, theDate.AddDays(7));
+
+        //                break;
+        //            case "Monthly":
+        //                trips = await dbm.GetCompleteTrips(theDate, theDate.AddMonths(1));
+
+        //                break;
+        //        }
+
+        //        double totalKms = 0;
+        //        double totalTrips = trips.Count;
+
+        //        foreach (var Trips in trips)
+        //        { 
+        //            totalKms += Trips.Route.Kms;
+                   
+        //        }
+
+        //        lblTotalDistance.Text = totalKms.ToString();
+        //        lblTotalTrips.Text = totalTrips.ToString();
+
+        //    }
+        //}
+
+        private async void GetIncompltedTrips()
         {
             DateTime theDate = dtpTrips.Value;
             List<Trip> trips = new List<Trip>();
-           
+
 
             if (cmbViewType.SelectedItem != null)
             {
                 switch (cmbViewType.SelectedItem.ToString())
                 {
                     case "Daily":
-                        trips = await dbm.GetCompleteTrips(theDate, theDate);
+                        trips = await dbm.GetInCompleteTrips(theDate, theDate);
 
                         break;
-                    case "Weekly":
-                        trips = await dbm.GetCompleteTrips(theDate, theDate.AddDays(7));
+                    case "weekly":
+                        trips = await dbm.GetInCompleteTrips(theDate, theDate.AddDays(7));
 
                         break;
                     case "Monthly":
-                        trips = await dbm.GetCompleteTrips(theDate, theDate.AddMonths(1));
+                        trips = await dbm.GetInCompleteTrips(theDate, theDate.AddMonths(1));
 
                         break;
                 }
 
                 double totalKms = 0;
                 double totalTrips = trips.Count;
+
                 foreach (var Trips in trips)
                 {
                     totalKms += Trips.Route.Kms;
-                   
+
                 }
 
                 lblTotalDistance.Text = totalKms.ToString();
                 lblTotalTrips.Text = totalTrips.ToString();
-                
+
             }
         }
     }
-
-
-    ////for total distance
-    //double totalKms = 0;
-
-    //List<Route> routes = new DBManager().GetRoutes();
-    //foreach (var Route in routes)
-    //{
-    //    totalKms += Route.Kms;
-    //}
-    //lblTotalDistance.Text = totalKms.ToString();
-
-    ////for total number of trips
-    //double totalTrips = 0;
-
-    //foreach(var Route in routes)
-    //{
-
-    //    totalTrips += routes.Count();
-    //}
-    //lblTotalTrips.Text = totalTrips.ToString();
-
     
 }

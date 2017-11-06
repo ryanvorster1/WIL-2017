@@ -259,9 +259,12 @@ update service
 set complete = 1
 where id = 3
 
-declare @endDate, @startDate
-set @endDate = '11/06/2017'
-set @startDate ='01/06/2017'
+select * from trip
+
+
+declare @endDate datetime, @startDate datetime
+set @endDate = '2017/11/24'
+set @startDate ='2017/11/22'
 select * from trip
 where startDate >= @startdate and startdate <= @endDate or 
-                        endDate >= @startDate and endDate <= @endDate and complete = 1
+      endDate >= @startDate and endDate <= @endDate and statusID = 0

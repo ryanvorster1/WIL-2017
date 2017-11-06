@@ -212,7 +212,7 @@ namespace SystemLogic
                 try
                 {
                     string sql = $"select * from trip where startDate >= '{startDate.ToShortDateString()}' and startdate <= '{endDate.ToShortDateString()}' or " +
-                        $"enddate >= '{startDate.ToShortDateString()}' and enddate <= '{endDate.ToShortDateString()}' and complete = 1";
+                        $"enddate >= '{startDate.ToShortDateString()}' and enddate <= '{endDate.ToShortDateString()}' and statusID = 2";
                     SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
                     DataSet ds = new DataSet();
                     da.Fill(ds);
@@ -261,13 +261,14 @@ namespace SystemLogic
                         User driver = await GetUserByID((int)row["driverID"]);
                         DateTime start = (DateTime)row["StartDate"];
                         DateTime end = (DateTime)row["endDate"];
-                        Route route = GetRouteByID((int)row["routeID"]);
+                        Route route = GetRouteByID((int)row["routeID"]
+                        );
 
                         trips.Add(new Trip(ID, truck, customer, start, end, driver, route));
 
                     }
                 }
-                catch (Exception ex)
+                catch (Exception ex) 
                 {
                     throw ex;
                 }
