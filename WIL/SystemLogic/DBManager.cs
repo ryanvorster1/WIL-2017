@@ -203,6 +203,77 @@ namespace SystemLogic
             });
         }
 
+        public async Task<List<Trip>> GetCompleteTrips(DateTime startDate, DateTime endDate)
+        {
+            return await Task.Run(async () =>
+            {
+                List<Trip> trips = new List<Trip>();
+
+                try
+                {
+                    string sql = $"select * from trip where startDate >= '{startDate.ToShortDateString()}' and startdate <= '{endDate.ToShortDateString()}' or " +
+                        $"enddate >= '{startDate.ToShortDateString()}' and enddate <= '{endDate.ToShortDateString()}' and complete = 1";
+                    SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                    DataSet ds = new DataSet();
+                    da.Fill(ds);
+
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        int ID = (int)row["ID"];
+                        Truck truck = await GetTruckByID((int)row["truckID"]);
+                        Customer customer = GetCustomerByID((int)row["clientID"]);
+                        User driver = await GetUserByID((int)row["driverID"]);
+                        DateTime start = (DateTime)row["StartDate"];
+                        DateTime end = (DateTime)row["endDate"];
+                        Route route = GetRouteByID((int)row["routeID"]);
+
+                        trips.Add(new Trip(ID, truck, customer, start, end, driver, route));
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                return trips;
+            });
+        }
+
+        public async Task<List<Trip>> GetInCompleteTrips(DateTime startDate, DateTime endDate)
+        {
+            return await Task.Run(async () =>
+            {
+                List<Trip> trips = new List<Trip>();
+
+                try
+                {
+                    string sql = $"select * from trip where startDate >= '{startDate.ToShortDateString()}' and startdate <= '{endDate.ToShortDateString()}' or " +
+                        $"enddate >= '{startDate.ToShortDateString()}' and enddate <= '{endDate.ToShortDateString()}' and complete = 0";
+                    SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                    DataSet ds = new DataSet();
+                    da.Fill(ds);
+
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        int ID = (int)row["ID"];
+                        Truck truck = await GetTruckByID((int)row["truckID"]);
+                        Customer customer = GetCustomerByID((int)row["clientID"]);
+                        User driver = await GetUserByID((int)row["driverID"]);
+                        DateTime start = (DateTime)row["StartDate"];
+                        DateTime end = (DateTime)row["endDate"];
+                        Route route = GetRouteByID((int)row["routeID"]);
+
+                        trips.Add(new Trip(ID, truck, customer, start, end, driver, route));
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                return trips;
+            });
+        }
 
         //get a list of all trips 
         public async Task<List<Trip>> GetTrips(DateTime selectedDate)
