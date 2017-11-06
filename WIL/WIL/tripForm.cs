@@ -38,7 +38,7 @@ namespace WIL
             UpdateDGVTrips();
         }
 
-        private void btnViewReport_Click(object sender, EventArgs e)
+        private async void btnViewReport_Click(object sender, EventArgs e)
         {
             pnlReportView.Visible = true;
             viewPlannedTripsBtn.Visible = false;
@@ -60,7 +60,7 @@ namespace WIL
 
             //clear rows
             dgvTrips.Rows.Clear();
-            List<Trip> trips = new DBManager().GetTrips();
+            List<Trip> trips = await new DBManager().GetTrips();
             foreach (var item in trips)
             {
                 dgvTrips.Rows.Add(item.Truck.ID, item.Driver.Username, item.Route.Kms, item.Route.Destination);
@@ -84,7 +84,7 @@ namespace WIL
             UpdateDGVTrips();
         }
 
-        private void UpdateDGVTrips()
+        private async void UpdateDGVTrips()
         {
             dgvTrips.Rows.Clear();
             dgvTrips.Columns.Clear();
@@ -116,7 +116,7 @@ namespace WIL
                         break;
                 }
 
-                List<Trip> trips = new DBManager().GetTrips(start,end);
+                List<Trip> trips = await new DBManager().GetTrips(start,end);
                 DataTable table = new DataTable();
                 
                 foreach (var item in trips)
