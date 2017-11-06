@@ -55,6 +55,12 @@
     <Compile Include="AddCustomerForm.Designer.cs">
       <DependentUpon>AddCustomerForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="AddRouteForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddRouteForm.Designer.cs">
+      <DependentUpon>AddRouteForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="AddTruckForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,6 +93,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RouteForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RouteForm.Designer.cs">
+      <DependentUpon>RouteForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ServiceForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -123,6 +135,9 @@
     <EmbeddedResource Include="AddCustomerForm.resx">
       <DependentUpon>AddCustomerForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AddRouteForm.resx">
+      <DependentUpon>AddRouteForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AddTruckForm.resx">
       <DependentUpon>AddTruckForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -147,6 +162,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="RouteForm.resx">
+      <DependentUpon>RouteForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ServiceDetailsForm.resx">
       <DependentUpon>ServiceDetailsForm.cs</DependentUpon>
     </EmbeddedResource>

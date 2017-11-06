@@ -40,11 +40,12 @@ namespace WIL
             dgvTrucks.Columns.Add("Reg", "Registration Number");
             dgvTrucks.Columns.Add("Kms", "Mileage");
             dgvTrucks.Columns.Add("Type", "Vehicle Type");
+            dgvTrucks.Columns.Add("Fuel", "litersPerHundy");
             List<Truck> trucks = await db.GetTrucks();
 
             foreach (var item in trucks)
             {
-                dgvTrucks.Rows.Add(item.ID, item.Vin, item.Reg, item.Kms, item.Type.Type);
+                dgvTrucks.Rows.Add(item.ID, item.Vin, item.Reg, item.Kms, item.Type.Type, item.Type.LitersPerHundy);
             }
         }
 
