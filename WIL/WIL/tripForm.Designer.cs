@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.viewPlannedTripsBtn = new System.Windows.Forms.Button();
             this.viewCompletedTripsBtn = new System.Windows.Forms.Button();
             this.addTripButton = new System.Windows.Forms.Button();
@@ -57,6 +57,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.bentViewReport = new System.Windows.Forms.Button();
+            this.lblTotalDistance = new System.Windows.Forms.Label();
+            this.lblTotalTrips = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTrips)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.wILDBDataSetBindingSource)).BeginInit();
             this.pnlReportView.SuspendLayout();
@@ -125,53 +127,55 @@
             // truckID
             // 
             this.truckID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.Plum;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.MediumAquamarine;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.truckID.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Plum;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.MediumAquamarine;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.truckID.DefaultCellStyle = dataGridViewCellStyle1;
             this.truckID.HeaderText = "Truck ID";
             this.truckID.Name = "truckID";
             this.truckID.ToolTipText = "Double click to view details.";
             // 
             // customerID
             // 
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.Plum;
-            this.customerID.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Plum;
+            this.customerID.DefaultCellStyle = dataGridViewCellStyle2;
             this.customerID.HeaderText = "Customer ID";
             this.customerID.Name = "customerID";
             // 
             // startDate
             // 
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.Plum;
-            this.startDate.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Plum;
+            this.startDate.DefaultCellStyle = dataGridViewCellStyle3;
             this.startDate.HeaderText = "Start Date";
             this.startDate.Name = "startDate";
             // 
             // endDate
             // 
-            dataGridViewCellStyle10.BackColor = System.Drawing.Color.Plum;
-            this.endDate.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Plum;
+            this.endDate.DefaultCellStyle = dataGridViewCellStyle4;
             this.endDate.HeaderText = "End Date";
             this.endDate.Name = "endDate";
             // 
             // departure
             // 
-            dataGridViewCellStyle11.BackColor = System.Drawing.Color.Plum;
-            this.departure.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.Plum;
+            this.departure.DefaultCellStyle = dataGridViewCellStyle5;
             this.departure.HeaderText = "Departure";
             this.departure.Name = "departure";
             // 
             // destination
             // 
             this.destination.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle12.BackColor = System.Drawing.Color.Plum;
-            this.destination.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.Plum;
+            this.destination.DefaultCellStyle = dataGridViewCellStyle6;
             this.destination.HeaderText = "Destination";
             this.destination.Name = "destination";
             this.destination.Width = 85;
             // 
             // pnlReportView
             // 
+            this.pnlReportView.Controls.Add(this.lblTotalTrips);
+            this.pnlReportView.Controls.Add(this.lblTotalDistance);
             this.pnlReportView.Controls.Add(this.btnCloseReportView);
             this.pnlReportView.Controls.Add(this.label5);
             this.pnlReportView.Controls.Add(this.label4);
@@ -204,11 +208,11 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(257, 4);
+            this.label4.Location = new System.Drawing.Point(234, 4);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(109, 13);
+            this.label4.Size = new System.Drawing.Size(63, 13);
             this.label4.TabIndex = 1;
-            this.label4.Text = "Overall fuel expense: ";
+            this.label4.Text = "Total Trips: ";
             // 
             // label3
             // 
@@ -270,6 +274,24 @@
             this.bentViewReport.UseVisualStyleBackColor = true;
             this.bentViewReport.Click += new System.EventHandler(this.btnViewReport_Click);
             // 
+            // lblTotalDistance
+            // 
+            this.lblTotalDistance.AutoSize = true;
+            this.lblTotalDistance.Location = new System.Drawing.Point(28, 21);
+            this.lblTotalDistance.Name = "lblTotalDistance";
+            this.lblTotalDistance.Size = new System.Drawing.Size(35, 13);
+            this.lblTotalDistance.TabIndex = 9;
+            this.lblTotalDistance.Text = "label6";
+            // 
+            // lblTotalTrips
+            // 
+            this.lblTotalTrips.AutoSize = true;
+            this.lblTotalTrips.Location = new System.Drawing.Point(273, 21);
+            this.lblTotalTrips.Name = "lblTotalTrips";
+            this.lblTotalTrips.Size = new System.Drawing.Size(35, 13);
+            this.lblTotalTrips.TabIndex = 10;
+            this.lblTotalTrips.Text = "label6";
+            // 
             // TripForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -280,12 +302,12 @@
             this.Controls.Add(this.cmbViewType);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.dgvTrips);
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.addTripButton);
             this.Controls.Add(this.dtpTrips);
             this.Controls.Add(this.viewCompletedTripsBtn);
             this.Controls.Add(this.viewPlannedTripsBtn);
+            this.Controls.Add(this.dgvTrips);
             this.Name = "TripForm";
             this.Text = "tripForm";
             this.Load += new System.EventHandler(this.TripForm_Load);
@@ -323,5 +345,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn endDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn departure;
         private System.Windows.Forms.DataGridViewTextBoxColumn destination;
+        private System.Windows.Forms.Label lblTotalDistance;
+        private System.Windows.Forms.Label lblTotalTrips;
     }
 }
