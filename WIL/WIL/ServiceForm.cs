@@ -38,6 +38,39 @@ namespace WIL
             this.Close();
         }
 
+        private async void displayIncompleteServices()
+        {
+
+            DateTime theDate = dtpDateTime.Value;
+            List<Service> services = new List<Service>();
+
+            if (cmbViewType.SelectedItem != null)
+            {
+                switch (cmbViewType.SelectedItem.ToString())
+                {
+                    case "Daily":
+                        services = await dbm.GetIncompleteServices(theDate);
+                        break;
+                    case "Weekly":
+                        services = await dbm.GetServices(theDate, theDate.AddDays(7));
+                        break;
+                    case "Monthly":
+                        services = await dbm.GetServices(theDate, theDate.AddMonths(1));
+                        break;
+                }
+
+                lvServiceList.Clear();
+                ListBoxHandle();
+                if (services.Count > 0)
+                {
+                    UpdateListBox(services);
+                    lvServiceList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+                    //ServiceReport();
+                }
+            }
+
+        }
+
         private async void dtpDateTime_ValueChanged(object sender, EventArgs e)
         {
             DateTime theDate = dtpDateTime.Value;
@@ -64,7 +97,7 @@ namespace WIL
                 {
                     UpdateListBox(services);
                     lvServiceList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-                //    ServiceReport();
+                    //ServiceReport();
                 }
             }
         }
@@ -98,6 +131,7 @@ namespace WIL
                 lvServiceList.Items.Add(lvi);
             }
             lvServiceList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            ServiceReport();
         }
 
         //private async void PopulateListBoxWithResults(List<Service> results)
@@ -222,6 +256,8 @@ namespace WIL
                 totalHoursLbl.Text = hours.ToString();
             }
         }
+
+
     }
 }
 

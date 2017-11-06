@@ -39,11 +39,9 @@
             this.label5 = new System.Windows.Forms.Label();
             this.totalHoursLbl = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-
             this.lbltotalService = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lblTotalCost = new System.Windows.Forms.Label();
-
             this.label1 = new System.Windows.Forms.Label();
             this.cmbViewType = new System.Windows.Forms.ComboBox();
             this.pnlServiceReport.SuspendLayout();
@@ -100,11 +98,9 @@
             this.pnlServiceReport.Controls.Add(this.label5);
             this.pnlServiceReport.Controls.Add(this.totalHoursLbl);
             this.pnlServiceReport.Controls.Add(this.label3);
-
             this.pnlServiceReport.Controls.Add(this.lbltotalService);
             this.pnlServiceReport.Controls.Add(this.label2);
             this.pnlServiceReport.Controls.Add(this.lblTotalCost);
-
             this.pnlServiceReport.Location = new System.Drawing.Point(712, 35);
             this.pnlServiceReport.Name = "pnlServiceReport";
             this.pnlServiceReport.Size = new System.Drawing.Size(701, 437);
@@ -134,7 +130,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(15, 141);
+            this.label5.Location = new System.Drawing.Point(21, 147);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(112, 24);
             this.label5.TabIndex = 7;
@@ -142,23 +138,19 @@
             // 
             // totalHoursLbl
             // 
-
             this.totalHoursLbl.AutoSize = true;
             this.totalHoursLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.totalHoursLbl.Location = new System.Drawing.Point(197, 321);
-            this.totalHoursLbl.Name = "lblTotalHours";
+            this.totalHoursLbl.Location = new System.Drawing.Point(182, 147);
+            this.totalHoursLbl.Name = "totalHoursLbl";
             this.totalHoursLbl.Size = new System.Drawing.Size(65, 20);
             this.totalHoursLbl.TabIndex = 6;
             this.totalHoursLbl.Text = "T Hours";
-
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-
-            this.label3.Location = new System.Drawing.Point(21, 228);
-
+            this.label3.Location = new System.Drawing.Point(21, 84);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(93, 24);
             this.label3.TabIndex = 5;
@@ -168,20 +160,17 @@
             // 
             this.lbltotalService.AutoSize = true;
             this.lbltotalService.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbltotalService.Location = new System.Drawing.Point(197, 155);
+            this.lbltotalService.Location = new System.Drawing.Point(182, 37);
             this.lbltotalService.Name = "lbltotalService";
             this.lbltotalService.Size = new System.Drawing.Size(44, 20);
             this.lbltotalService.TabIndex = 4;
             this.lbltotalService.Text = "Total";
-
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-
-            this.label2.Location = new System.Drawing.Point(21, 151);
-
+            this.label2.Location = new System.Drawing.Point(21, 33);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(128, 24);
             this.label2.TabIndex = 3;
@@ -191,12 +180,11 @@
             // 
             this.lblTotalCost.AutoSize = true;
             this.lblTotalCost.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalCost.Location = new System.Drawing.Point(197, 228);
+            this.lblTotalCost.Location = new System.Drawing.Point(182, 88);
             this.lblTotalCost.Name = "lblTotalCost";
             this.lblTotalCost.Size = new System.Drawing.Size(55, 20);
             this.lblTotalCost.TabIndex = 2;
             this.lblTotalCost.Text = "T Cost";
-
             // 
             // label1
             // 
