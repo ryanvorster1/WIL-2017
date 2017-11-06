@@ -47,7 +47,7 @@ namespace WIL
             var serviceItems = new DBManager().GetServiceItems(pData);
 
             lsbServiceJobs.DataSource = serviceItems;
-            lsbServiceJobs.DisplayMember = "ServiceType.Job";
+            lsbServiceJobs.DisplayMember = "ServiceType";
             lsbServiceJobs.ValueMember = "ID";
             updating = false;
         }
