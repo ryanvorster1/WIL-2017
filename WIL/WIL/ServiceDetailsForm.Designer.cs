@@ -253,6 +253,7 @@
             this.lsbServiceJobs.Name = "lsbServiceJobs";
             this.lsbServiceJobs.Size = new System.Drawing.Size(120, 121);
             this.lsbServiceJobs.TabIndex = 19;
+            this.lsbServiceJobs.SelectedIndexChanged += new System.EventHandler(this.lsbServiceJobs_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -310,6 +311,7 @@
             this.Controls.Add(this.lblMenuTrucktype);
             this.Name = "ServiceDetailsForm";
             this.Text = "ServiceDetailsfrm";
+            this.Load += new System.EventHandler(this.ServiceDetailsForm_Load);
             this.pnlServiceDetails.ResumeLayout(false);
             this.pnlServiceDetails.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

@@ -13,6 +13,7 @@ namespace SystemLogic
         public User Mechanic { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+        public bool Complete { get; set; }
 
         public Service(int id, Truck truck, User mechanic, DateTime start, DateTime end)
         {
@@ -59,6 +60,11 @@ namespace SystemLogic
             Cost = cost;
             Hours = hours;
         }
+
+        public override string ToString()
+        {
+            return Job;
+        }
     }
 
     public class ServiceItem
@@ -81,5 +87,9 @@ namespace SystemLogic
             ServiceType = type;
         }
 
+        public override string ToString()
+        {
+            return ServiceType.Job;
+        }
     }
 }

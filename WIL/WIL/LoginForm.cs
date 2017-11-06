@@ -23,13 +23,12 @@ namespace WIL
 
         }
 
-        private void btnLogin_Click(object sender, EventArgs e)
+        private async void btnLogin_Click(object sender, EventArgs e)
         {
             if (txbPassword.Text.Length > 0 && txbUsername.Text.Length > 0){
                 User loggedIn = new DBManager().LogInUser(txbUsername.Text, txbPassword.Text);
                 if(loggedIn != null)
                 {
-                    Console.WriteLine(loggedIn.Type);
                     switch (loggedIn.Type.Type.ToLower())
                     {
                         case "driver":

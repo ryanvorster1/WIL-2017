@@ -75,7 +75,7 @@ namespace WIL
 
         }
 
-        private void btnOK_Click(object sender, EventArgs e)
+        private async void btnOK_Click(object sender, EventArgs e)
         {
             string name = txbName.Text;
             string surname = txbSurname.Text;
@@ -85,8 +85,6 @@ namespace WIL
 
             UserType type = dbm.GetUserTypeById(typeID);
 
-            Console.WriteLine(type.ToString());
-
             if (!name.Equals("") && !surname.Equals("") && !pass1.Equals("") && !pass2.Equals(""))
             {
                 if (pass1.Equals(pass2))
@@ -94,7 +92,7 @@ namespace WIL
                     User user = new User(name + surname, pass1, type, name, surname);
                     try
                     {
-                        dbm.AddUser(ref user);
+                        dbm.AddUser(user);
 
                         UpdateLsbUsers();
 

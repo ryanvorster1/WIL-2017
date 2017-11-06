@@ -43,8 +43,7 @@ namespace WIL
         private void sendIncidentReportButton_Click(object sender, EventArgs e)
         {
             DBManager db = new DBManager();
-            Console.WriteLine(loggedIn.ToString());
-           db.logIncident((int)cnbIncidents.SelectedValue,loggedIn);
+           db.LogIncident((int)cnbIncidents.SelectedValue,loggedIn);
 
             MessageBox.Show("Report succesful");
             pnlIncident.Visible = false;

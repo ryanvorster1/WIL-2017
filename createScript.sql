@@ -245,30 +245,9 @@ where users.userType = 0 and avaliable = 1
 --------------------------------------------------------------------------------
 select * 
 from service
-where startdate <= '2017/11/01' and enddate >= '2017/11/04'
+where complete = 1
 
-select * from service
-where startDate >= '2017-11-03' and startdate <= '2017/11/04'
-or enddate >= '2017-11-03' and enddate <= '2017/11/04'
+update service
+set complete = 1
+where id = 3
 
-
-or endDate >= '2017/11/04' and enddate <= '2017-11-03'
-
-select * from trip
-
-declare @startDate datetime2;
-declare @endDate datetime2;
-
-set @startDate =  '2017-11-01';
-set @endDate = '2017-11-08';
-
-select * from trip 
-where startDate >= @startDate and startdate <= @endDate 
-or 
-enddate >= @startDate and enddate <= @endDate
-
-
-select * from trip 
-where startDate >= '{startDate}' and startdate <= '{endDate}' 
-or 
-enddate >= '{startDate}' and enddate <= '{endDate}

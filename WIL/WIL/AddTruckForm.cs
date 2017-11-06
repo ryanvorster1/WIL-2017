@@ -33,7 +33,7 @@ namespace WIL
              this.Close();
         }
 
-        private void AddTruckBtn_Click(object sender, EventArgs e)
+        private async void AddTruckBtn_Click(object sender, EventArgs e)
         {
             
             string Vin = vinTxtBox.Text;
@@ -43,7 +43,7 @@ namespace WIL
             
             Truck truck = new Truck(Vin, Reg, Kms,true, type);
 
-            db.AddTruck(ref truck);
+            db.AddTruck(truck);
         }
     }
 }
