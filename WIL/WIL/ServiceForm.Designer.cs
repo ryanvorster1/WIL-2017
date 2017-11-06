@@ -39,9 +39,11 @@
             this.label5 = new System.Windows.Forms.Label();
             this.totalHoursLbl = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.totalServicesLbl = new System.Windows.Forms.Label();
+
+            this.lbltotalService = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.totalCostsLbl = new System.Windows.Forms.Label();
+            this.lblTotalCost = new System.Windows.Forms.Label();
+
             this.label1 = new System.Windows.Forms.Label();
             this.cmbViewType = new System.Windows.Forms.ComboBox();
             this.pnlServiceReport.SuspendLayout();
@@ -98,9 +100,11 @@
             this.pnlServiceReport.Controls.Add(this.label5);
             this.pnlServiceReport.Controls.Add(this.totalHoursLbl);
             this.pnlServiceReport.Controls.Add(this.label3);
-            this.pnlServiceReport.Controls.Add(this.totalServicesLbl);
+
+            this.pnlServiceReport.Controls.Add(this.lbltotalService);
             this.pnlServiceReport.Controls.Add(this.label2);
-            this.pnlServiceReport.Controls.Add(this.totalCostsLbl);
+            this.pnlServiceReport.Controls.Add(this.lblTotalCost);
+
             this.pnlServiceReport.Location = new System.Drawing.Point(712, 35);
             this.pnlServiceReport.Name = "pnlServiceReport";
             this.pnlServiceReport.Size = new System.Drawing.Size(701, 437);
@@ -138,53 +142,61 @@
             // 
             // totalHoursLbl
             // 
-            this.totalHoursLbl.AutoSize = true;
-            this.totalHoursLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.totalHoursLbl.Location = new System.Drawing.Point(171, 144);
-            this.totalHoursLbl.Name = "totalHoursLbl";
-            this.totalHoursLbl.Size = new System.Drawing.Size(51, 20);
-            this.totalHoursLbl.TabIndex = 6;
-            this.totalHoursLbl.Text = "label2";
+
+            this.lblTotalHours.AutoSize = true;
+            this.lblTotalHours.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalHours.Location = new System.Drawing.Point(197, 321);
+            this.lblTotalHours.Name = "lblTotalHours";
+            this.lblTotalHours.Size = new System.Drawing.Size(65, 20);
+            this.lblTotalHours.TabIndex = 6;
+            this.lblTotalHours.Text = "T Hours";
+
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(15, 80);
+
+            this.label3.Location = new System.Drawing.Point(21, 228);
+
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(93, 24);
             this.label3.TabIndex = 5;
             this.label3.Text = "Total Cost";
             // 
-            // totalServicesLbl
+            // lbltotalService
             // 
-            this.totalServicesLbl.AutoSize = true;
-            this.totalServicesLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.totalServicesLbl.Location = new System.Drawing.Point(171, 24);
-            this.totalServicesLbl.Name = "totalServicesLbl";
-            this.totalServicesLbl.Size = new System.Drawing.Size(51, 20);
-            this.totalServicesLbl.TabIndex = 4;
-            this.totalServicesLbl.Text = "label2";
+            this.lbltotalService.AutoSize = true;
+            this.lbltotalService.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbltotalService.Location = new System.Drawing.Point(197, 155);
+            this.lbltotalService.Name = "lbltotalService";
+            this.lbltotalService.Size = new System.Drawing.Size(44, 20);
+            this.lbltotalService.TabIndex = 4;
+            this.lbltotalService.Text = "Total";
+
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(15, 21);
+
+            this.label2.Location = new System.Drawing.Point(21, 151);
+
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(128, 24);
             this.label2.TabIndex = 3;
             this.label2.Text = "Total Services";
             // 
-            // totalCostsLbl
+            // lblTotalCost
             // 
-            this.totalCostsLbl.AutoSize = true;
-            this.totalCostsLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.totalCostsLbl.Location = new System.Drawing.Point(171, 83);
-            this.totalCostsLbl.Name = "totalCostsLbl";
-            this.totalCostsLbl.Size = new System.Drawing.Size(51, 20);
-            this.totalCostsLbl.TabIndex = 2;
-            this.totalCostsLbl.Text = "label2";
+            this.lblTotalCost.AutoSize = true;
+            this.lblTotalCost.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalCost.Location = new System.Drawing.Point(197, 228);
+            this.lblTotalCost.Name = "lblTotalCost";
+            this.lblTotalCost.Size = new System.Drawing.Size(55, 20);
+            this.lblTotalCost.TabIndex = 2;
+            this.lblTotalCost.Text = "T Cost";
+
             // 
             // label1
             // 
@@ -242,9 +254,9 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label totalHoursLbl;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label totalServicesLbl;
+        private System.Windows.Forms.Label lbltotalService;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label totalCostsLbl;
+        private System.Windows.Forms.Label lblTotalCost;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cmbViewType;
         private System.Windows.Forms.Label lbServiceReport;
