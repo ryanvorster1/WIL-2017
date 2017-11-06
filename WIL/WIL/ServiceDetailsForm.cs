@@ -16,41 +16,40 @@ namespace WIL
     {
         private Service service;
         int serviceiD;
+        private bool updating;
+
         private void ServiceDetailsForm_Load(object sender, EventArgs e)
         {
-            service = new DBManager().GetServiceById(serviceiD);
-            Console.WriteLine(service.ToString());
-            Console.WriteLine(serviceiD);
             PopulateFormWithResults(service);
         }
 
-        public ServiceDetailsForm(int pSerivceId)
+        public ServiceDetailsForm(Service service)
         {
-            serviceiD = pSerivceId;
             InitializeComponent();
-            PopulateFormWithResults(service);
+            this.service = service;
 
             //needs fixing check ID value
 
         }
 
-        void DBManager()
-        {
-           
-        }
-
-      
         void PopulateFormWithResults(Service pData)
         {
-                   
-            lblMName.Text = pData.Mechanic.Fname;
-            lblMSurname.Text = pData.Mechanic.Lname;
+                   //TODO
+            //lblMName.Text = pData.Mechanic.Fname;
+            //lblMSurname.Text = pData.Mechanic.Lname;
             lblMenumanufacturor.Text = pData.Truck.Vin.ToString();
             lblReg.Text = pData.Truck.Reg;
             lblManufacturor.Text = pData.Truck.Type.Manufacturor;
             lblTruckType.Text = pData.Truck.Type.Type;
             lblengineSize.Text = pData.Truck.Type.EngineSize.ToString();
             lblserviceInterval.Text = pData.Truck.Type.ServiceInterval.ToString();
+            updating = true;
+            var serviceItems = new DBManager().GetServiceItems(pData);
+
+            lsbServiceJobs.DataSource = serviceItems;
+            lsbServiceJobs.DisplayMember = "ServiceType.Job";
+            lsbServiceJobs.ValueMember = "ID";
+            updating = false;
         }
 
 
@@ -59,7 +58,17 @@ namespace WIL
             this.Close();
         }
 
-  
+        private void lsbServiceJobs_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!updating)
+            {
+                Console.WriteLine(lsbServiceJobs.SelectedValue);
+                ServiceType serviceType = new DBManager().GetServiceItemById((int)lsbServiceJobs.SelectedValue).ServiceType;
+
+                lblCost.Text = serviceType.Cost.ToString();
+                lblHours.Text = serviceType.Hours.ToString();
+            }
+        }
     }
 }
 

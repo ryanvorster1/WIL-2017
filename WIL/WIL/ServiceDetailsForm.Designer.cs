@@ -253,6 +253,7 @@
             this.lsbServiceJobs.Name = "lsbServiceJobs";
             this.lsbServiceJobs.Size = new System.Drawing.Size(120, 121);
             this.lsbServiceJobs.TabIndex = 19;
+            this.lsbServiceJobs.SelectedIndexChanged += new System.EventHandler(this.lsbServiceJobs_SelectedIndexChanged);
             // 
             // label1
             // 

@@ -18,7 +18,7 @@ namespace WIL
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //disable logins
+            //enable logins
             Application.Run(new LoginForm());
 
 

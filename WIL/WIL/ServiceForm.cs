@@ -115,14 +115,18 @@ namespace WIL
 
                 foreach (var item in services)
                 {
+                    Console.WriteLine(item.ToString());
                     if(item.Truck.ID == truckID)
                     {
                         serviceID = item.ID;
+                        Console.WriteLine($"match at {serviceID}");
                             break;
                     }
                 }
                 Console.WriteLine($"serviceID: {serviceID}");
-                ServiceDetailsForm svcDetailfrm = new ServiceDetailsForm(serviceID);
+                Service service = services[serviceID];
+                Console.WriteLine($"service: {service}");
+                ServiceDetailsForm svcDetailfrm = new ServiceDetailsForm(service);
                 svcDetailfrm.ShowDialog();
             }
 
