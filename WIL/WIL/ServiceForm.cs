@@ -64,22 +64,27 @@ namespace WIL
                 {
                     UpdateListBox(services);
                     lvServiceList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-                    ServiceReport();
+                //    ServiceReport();
                 }
             }
         }
 
 
-        private void UpdateListBox(List<Service> results)
+        private async void UpdateListBox(List<Service> results)
         {
             lvServiceList.Items.Clear();
 
             foreach (Service item in results)
             {
                 string serviceJobs = "";
-                foreach (ServiceItem i in dbm.GetServiceItems(item))
+                List<ServiceItem> serviceItems = await dbm.GetServiceItems(item);
+                foreach (ServiceItem i in serviceItems)
                 {
                     serviceJobs += i.ServiceType.Job + ",";
+                }
+                if (serviceJobs.Length > 80)
+                {
+                    serviceJobs = serviceJobs.Substring(0, 79) + "...";
                 }
                 String[] items = { item.Truck.ID.ToString(), item.Truck.Type.ToString(), serviceJobs};
                 ListViewItem lvi = new ListViewItem(items);
@@ -92,32 +97,33 @@ namespace WIL
                 }
                 lvServiceList.Items.Add(lvi);
             }
+            lvServiceList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
         }
 
-        private void PopulateListBoxWithResults(List<Service> results)
-        {
-               foreach (Service serviceItem in results)
-            {
-                string[] tRowData = new string[3];
-                tRowData[0] = $"{serviceItem.Truck.ID.ToString()}";
-                tRowData[1] = serviceItem.Truck.Type.Type;
-                List<ServiceItem> services = await dbm.GetServiceItems(serviceItem);
-                string ser = "";
-                foreach (var item in services)
-                {
-                    ser += item.ServiceType.Job + ",";
-                }
-                tRowData[2] = ser;
+        //private async void PopulateListBoxWithResults(List<Service> results)
+        //{
+        //       foreach (Service serviceItem in results)
+        //    {
+        //        string[] tRowData = new string[3];
+        //        tRowData[0] = $"{serviceItem.Truck.ID.ToString()}";
+        //        tRowData[1] = serviceItem.Truck.Type.Type;
+        //        List<ServiceItem> services = await dbm.GetServiceItems(serviceItem);
+        //        string ser = "";
+        //        foreach (var item in services)
+        //        {
+        //            ser += item.ServiceType.Job + ",";
+        //        }
+        //        tRowData[2] = ser;
 
-                InsertListBoxItem(tRowData);
-            }
-        }
+        //        InsertListBoxItem(tRowData);
+        //    }
+        //}
 
-        private void InsertListBoxItem(string[] row)
-        {
-            ListViewItem tRowItem = new ListViewItem(row);
-            lvServiceList.Items.Add(tRowItem);
-        }
+        //private void InsertListBoxItem(string[] row)
+        //{
+        //    ListViewItem tRowItem = new ListViewItem(row);
+        //    lvServiceList.Items.Add(tRowItem);
+        //}
 
         private async void lvServiceList_DoubleClick(object sender, EventArgs e)
         {
@@ -150,10 +156,6 @@ namespace WIL
             //update 
             ServiceReport();
 
-            List<Service> services = await dbm.GetServices(); 
-            totalHoursLbl.Text = services.Count.ToString();
-            //get services with startdate and enddate parameters
-
         }
 
         private void btnCloseReport_Click(object sender, EventArgs e)
@@ -179,7 +181,7 @@ namespace WIL
 
         }
 
-        private void ServiceReport()
+        private async void ServiceReport()
         {
             DateTime theDate = dtpDateTime.Value;
             List<Service> services = new List<Service>();
@@ -190,15 +192,15 @@ namespace WIL
                 switch (cmbViewType.SelectedItem.ToString())
                 {
                     case "Daily":
-                        services = dbm.GetServices(theDate);
+                        services = await dbm.GetServices(theDate);
 
                         break;
                     case "Weekly":
-                        services = dbm.GetServices(theDate, theDate.AddDays(7));
+                        services = await dbm.GetServices(theDate, theDate.AddDays(7));
 
                         break;
                     case "Monthly":
-                        services = dbm.GetServices(theDate, theDate.AddMonths(1));
+                        services = await dbm.GetServices(theDate, theDate.AddMonths(1));
 
                         break;
                 }
@@ -207,7 +209,7 @@ namespace WIL
                 double hours = 0;
                 foreach (var service in services)
                 {
-                    List<ServiceItem> serviceItems = dbm.GetServiceItems(service);
+                    List<ServiceItem> serviceItems = await dbm.GetServiceItems(service);
                     foreach (var serviceItem in serviceItems)
                     {
                         cost += serviceItem.ServiceType.Cost;
@@ -217,7 +219,7 @@ namespace WIL
 
                 lbltotalService.Text = services.Count.ToString();
                 lblTotalCost.Text = cost.ToString();
-                lblTotalHours.Text = hours.ToString();
+                totalHoursLbl.Text = hours.ToString();
             }
         }
     }

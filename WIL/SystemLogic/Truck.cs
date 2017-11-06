@@ -94,8 +94,8 @@ namespace SystemLogic
 
         public override string ToString()
         {
-            string result = $"\nTRUCKTYPE\nID: {ID}\nType: {Type}\nMan: {Manufacturor}\nEngine: {EngineSize}cc\nService: {ServiceInterval}\nMax Weight:{MaxWeight}\nMax Vol: {MaxVol}";
-            return result;
+            return $"{Manufacturor} {Type}";
         }
     }
-}
+    }
+

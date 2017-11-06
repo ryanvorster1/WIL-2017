@@ -13,8 +13,8 @@ namespace SystemLogic
 
 
 
-        //private string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=2017WIL;Integrated Security=True;Pooling=False";
-        private string connectionString = "Data Source=POKKOLS-PC;Initial Catalog=WIL;Integrated Security=True";
+        private string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=2017WIL;Integrated Security=True;Pooling=False";
+        //private string connectionString = "Data Source=POKKOLS-PC;Initial Catalog=WIL;Integrated Security=True";
 
         //private string connectionString = "Data Source=RYAN;Initial Catalog=WILDB;Integrated Security=True;Pooling=False";
         //private string connectionString = "Data Source=DESKTOP-IHUJDPR;Initial Catalog=WILDB;Integrated Security=True";
@@ -1181,8 +1181,9 @@ namespace SystemLogic
                         User mechanic = await GetUserByID((int)row["mechanic"]);
                         DateTime start = (DateTime)row["startdate"];
                         DateTime end = (DateTime)row["enddate"];
+                        bool complete = (bool)row["complete"];
 
-                        Service s = new Service(ID, truck, mechanic, start, end);
+                        Service s = new Service(ID, truck, mechanic, start, end, complete);
                         services.Add(s);
 
                     }
@@ -1213,8 +1214,9 @@ namespace SystemLogic
                     User mechanic = await GetUserByID((int)row["mechanic"]);
                     DateTime start = (DateTime)row["startdate"];
                     DateTime end = (DateTime)row["enddate"];
+                    bool complete = (bool)row["complete"];
 
-                    Service s = new Service(ID, truck, mechanic, start, end);
+                    Service s = new Service(ID, truck, mechanic, start, end, complete);
                     services.Add(s);
 
                 }
@@ -1246,8 +1248,9 @@ namespace SystemLogic
                         User mechanic = await GetUserByID((int)row["mechanic"]);
                         DateTime start = (DateTime)row["startdate"];
                         DateTime end = (DateTime)row["enddate"];
+                        bool complete = (bool)row["complete"];
 
-                        Service s = new Service(ID, truck, mechanic, start, end);
+                        Service s = new Service(ID, truck, mechanic, start, end,complete);
                         services.Add(s);
 
                     }
@@ -1280,8 +1283,9 @@ namespace SystemLogic
                         User mechanic = await GetUserByID((int)row["mechanic"]);
                         DateTime start = (DateTime)row["startdate"];
                         DateTime end = (DateTime)row["enddate"];
+                        bool complete = (bool)row["complete"];
 
-                        Service s = new Service(ID, truck, mechanic, start, end);
+                        Service s = new Service(ID, truck, mechanic, start, end, complete);
                         services.Add(s);
 
                     }
@@ -1314,8 +1318,9 @@ namespace SystemLogic
                         User mechanic = await GetUserByID((int)row["mechanic"]);
                         DateTime start = (DateTime)row["startdate"];
                         DateTime end = (DateTime)row["enddate"];
+                        bool complete = (bool)row["complete"];
 
-                        Service s = new Service(ID, truck, mechanic, start, end);
+                        Service s = new Service(ID, truck, mechanic, start, end, complete);
                         services.Add(s);
 
                     }
@@ -1365,8 +1370,9 @@ namespace SystemLogic
                     User mechanic = await GetUserByID((int)row["mechanic"]);
                     DateTime start = (DateTime)row["startdate"];
                     DateTime end = (DateTime)row["enddate"];
+                    bool complete = (bool)row["complete"];
 
-                    Service s = new Service(ID, truck, mechanic, start, end);
+                    Service s = new Service(ID, truck, mechanic, start, end, complete);
                 }
                 catch (Exception ex)
                 {

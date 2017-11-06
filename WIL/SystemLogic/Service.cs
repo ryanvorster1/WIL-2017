@@ -15,13 +15,14 @@ namespace SystemLogic
         public DateTime EndDate { get; set; }
         public bool Complete { get; set; }
 
-        public Service(int id, Truck truck, User mechanic, DateTime start, DateTime end)
+        public Service(int id, Truck truck, User mechanic, DateTime start, DateTime end, bool complete)
         {
             ID = id;
             Truck = truck;
             Mechanic = mechanic;
             StartDate = start;
             EndDate = end;
+            Complete = complete;
         }
 
         public Service(Truck truck, User mechanic)

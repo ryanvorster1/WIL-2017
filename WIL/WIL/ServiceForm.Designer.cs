@@ -143,13 +143,13 @@
             // totalHoursLbl
             // 
 
-            this.lblTotalHours.AutoSize = true;
-            this.lblTotalHours.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalHours.Location = new System.Drawing.Point(197, 321);
-            this.lblTotalHours.Name = "lblTotalHours";
-            this.lblTotalHours.Size = new System.Drawing.Size(65, 20);
-            this.lblTotalHours.TabIndex = 6;
-            this.lblTotalHours.Text = "T Hours";
+            this.totalHoursLbl.AutoSize = true;
+            this.totalHoursLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalHoursLbl.Location = new System.Drawing.Point(197, 321);
+            this.totalHoursLbl.Name = "lblTotalHours";
+            this.totalHoursLbl.Size = new System.Drawing.Size(65, 20);
+            this.totalHoursLbl.TabIndex = 6;
+            this.totalHoursLbl.Text = "T Hours";
 
             // 
             // label3
