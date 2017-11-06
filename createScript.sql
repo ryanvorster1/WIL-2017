@@ -77,6 +77,11 @@ create table routes (
 	kms			integer
 )
 
+create table tripStatus (
+	ID		integer identity(0,1) primary key,
+	status	varchar(30),
+)
+
 create table trip (
 	ID			integer identity(0,1) primary key,
 	truckID		integer foreign key references truck(ID),
@@ -84,7 +89,8 @@ create table trip (
 	startDate	datetime,
 	endDate		datetime,
 	driverID	integer foreign key references users(ID),
-	routeID		integer foreign key references routes(ID)
+	routeID		integer foreign key references routes(ID),
+	statusID	integer foreign key references tripStatus(ID)
 )
 
 create table incidentType (
@@ -157,8 +163,6 @@ values(0,1,1400),
       (0,2,1636),
 	  (0,3,755)
 	 
-
-
 insert into userType(userType)
 values('Driver'),
 	('Service Manager'),
@@ -187,8 +191,6 @@ values ('Burst tyre', 1000, 1),
 insert into incident(incidentType, driverID)
 values(0,0)
 
-select * from incident
-
 insert into customer(fname,lname,email,cell)
 values('Bartholomew', 'Simpson','bart@gmail.com','0845998047'),
 	  ('Stan','Marsh','smarsh@gmail.com','0832510799'),
@@ -196,8 +198,13 @@ values('Bartholomew', 'Simpson','bart@gmail.com','0845998047'),
 	  ('Will','Smith','wsmith@gmail.com','0813420944'),
 	  ('Arnold','Schwarzenegger','aschwarzenegger@gmail.com','0837810422')
 
-insert into trip(truckID, clientID, startDate, endDate, driverID, routeID)
-values(0,0,'2017-11-20 10:34:09.000','2017-11-22 10:34:09.000',0,0)
+insert into tripStatus(status)
+values('Awaiting Departure'),
+		('On Route'),
+		('Complete')
+
+insert into trip(truckID, clientID, startDate, endDate, driverID, routeID, statusID)
+values(0,0,'2017-11-20 10:34:09.000','2017-11-22 10:34:09.000',0,0, 0)
 
 insert into customer(fname, lname, email, cell)
 values('jimbo', 'gregson', 'jimbogregsa@gmail.com','0845998047')
