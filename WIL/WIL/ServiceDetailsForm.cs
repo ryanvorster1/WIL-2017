@@ -57,11 +57,11 @@ namespace WIL
             this.Close();
         }
 
-        private  void lsbServiceJobs_SelectedIndexChanged(object sender, EventArgs e)
+        private async void lsbServiceJobs_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (!updating)
             {
-                var serviceItem = dbm.GetServiceItemById((int)lsbServiceJobs.SelectedValue);
+                var serviceItem = await dbm.GetServiceItemById((int)lsbServiceJobs.SelectedValue);
 
                 ServiceType serviceType = serviceItem.ServiceType;
 

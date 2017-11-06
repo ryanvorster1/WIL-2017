@@ -29,7 +29,7 @@ namespace WIL
             UpdateDGVTrucks();
         }
 
-        private void UpdateDGVTrucks()
+        private async void UpdateDGVTrucks()
         {
             DBManager db = new DBManager();
 
@@ -40,7 +40,7 @@ namespace WIL
             dgvTrucks.Columns.Add("Reg", "Registration Number");
             dgvTrucks.Columns.Add("Kms", "Mileage");
             dgvTrucks.Columns.Add("Type", "Vehicle Type");
-            List<Truck> trucks = db.GetTrucks();
+            List<Truck> trucks = await db.GetTrucks();
 
             foreach (var item in trucks)
             {
