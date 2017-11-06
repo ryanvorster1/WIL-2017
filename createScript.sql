@@ -245,5 +245,9 @@ where users.userType = 0 and avaliable = 1
 --------------------------------------------------------------------------------
 select * 
 from service
-where id = 0
+where complete = 1
+
+update service
+set complete = 1
+where id = 3
 

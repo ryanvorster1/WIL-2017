@@ -40,25 +40,22 @@ namespace WIL
             DateTime startDate = dateTimePicker.Value;
         }
 
-        private void bookBtn_Click(object sender, EventArgs e)
+        private async void bookBtn_Click(object sender, EventArgs e)
         {
             TruckType type = db.GetTruckTypeById((int)slctTruckBox.SelectedValue);
 
-            Truck truck = db.GetAvailiableTrucks(type)[0];
-            User user = db.GetAvailibleDrivers()[0];
+            List<Truck> trucks = db.GetAvailiableTrucks(type);
+            Truck truck = trucks[0];
+            List<User> users = db.GetAvailibleDrivers();//[0];
+            User user = users[0];
             Route route = db.GetRouteByID((int)destinationBox.SelectedValue);
-            Console.WriteLine($"selected:{(int)destinationBox.SelectedValue}");
-            foreach (var item in db.GetRoutes())
-            {
-                Console.WriteLine(item.ToString());
-            }
-            MessageBox.Show(route.ToString());
+            
+            
             Customer customer = db.GetCustomerByID((int)cmbCustomers.SelectedValue);
 
             Trip trip = new Trip(truck, customer, (DateTime)dateTimePicker.Value, (DateTime)dateTimePicker.Value.AddDays(3), user, route);
-
-            db.BookTrip(trip);
-            MessageBox.Show(trip.ToString());
+            
+            await db.BookTrip(trip);
             this.Close();
 
 

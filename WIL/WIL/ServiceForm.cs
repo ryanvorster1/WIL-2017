@@ -25,11 +25,6 @@ namespace WIL
             dtpDateTime_ValueChanged(null, null);
         }
 
-        void DBManager()
-        {
-
-        }
-
         private void ListBoxHandle()
         {
             lvServiceList.Columns.Add("Truck #", 50);
@@ -43,7 +38,7 @@ namespace WIL
             this.Close();
         }
 
-        private void dtpDateTime_ValueChanged(object sender, EventArgs e)
+        private async void dtpDateTime_ValueChanged(object sender, EventArgs e)
         {
             DateTime theDate = dtpDateTime.Value;
             List<Service> services = new List<Service>();
@@ -63,11 +58,6 @@ namespace WIL
                         break;
                 }
 
-                foreach (var item in services)
-                {
-                    Console.WriteLine(item.ToString());
-                }
-
                 lvServiceList.Clear();
                 ListBoxHandle();
                 if (services.Count > 0)
@@ -79,14 +69,14 @@ namespace WIL
         }
 
 
-        private void PopulateListBoxWithResults(List<Service> results)
+        private async void PopulateListBoxWithResults(List<Service> results)
         {
             foreach (Service serviceItem in results)
             {
                 string[] tRowData = new string[3];
                 tRowData[0] = $"{serviceItem.Truck.ID.ToString()}";
                 tRowData[1] = serviceItem.Truck.Type.Type;
-                var services = dbm.GetServiceItems(serviceItem);
+                List<ServiceItem> services = dbm.GetServiceItems(serviceItem);
                 string ser = "";
                 foreach (var item in services)
                 {
@@ -104,28 +94,24 @@ namespace WIL
             lvServiceList.Items.Add(tRowItem);
         }
 
-        private void lvServiceList_DoubleClick(object sender, EventArgs e)
+        private async void lvServiceList_DoubleClick(object sender, EventArgs e)
         {
             if (lvServiceList.SelectedItems.Count >= 0)
             {
                 ListViewItem selecteditem = lvServiceList.SelectedItems[0];
                 int truckID = Convert.ToInt32(selecteditem.SubItems[0].Text);
-                List<Service> services = new DBManager().GetServices();
+                List<Service> services = dbm.GetServices();
                 int serviceID = -1;
 
                 foreach (var item in services)
                 {
-                    Console.WriteLine(item.ToString());
                     if(item.Truck.ID == truckID)
                     {
                         serviceID = item.ID;
-                        Console.WriteLine($"match at {serviceID}");
                             break;
                     }
                 }
-                Console.WriteLine($"serviceID: {serviceID}");
                 Service service = services[serviceID];
-                Console.WriteLine($"service: {service}");
                 ServiceDetailsForm svcDetailfrm = new ServiceDetailsForm(service);
                 svcDetailfrm.ShowDialog();
             }

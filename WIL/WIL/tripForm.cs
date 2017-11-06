@@ -121,7 +121,6 @@ namespace WIL
                 
                 foreach (var item in trips)
                 {
-                    Console.WriteLine(item.ToString());
                     dgvTrips.Rows.Add(item.Truck.ID, item.Customer.ID, item.Route.Kms, item.Start, item.End, item.Route.Destination);
                 }
             }

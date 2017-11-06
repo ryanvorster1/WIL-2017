@@ -23,7 +23,7 @@ namespace WIL
             if (txbFName.Text.Length > 0 && txbLname.Text.Length > 0 && txbEmail.Text.Length > 0 & txbCell.Text.Length > 0)
             {
                 Customer cus = new Customer(txbFName.Text, txbLname.Text, txbEmail.Text, txbCell.Text);
-                int cusID = new DBManager().AddCustomer(ref cus);
+                int cusID = new DBManager().AddCustomer(cus);
                 MessageBox.Show($"Customer {cusID} has been added sucsessfully.");
                 Close();
             }

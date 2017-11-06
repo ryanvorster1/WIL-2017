@@ -15,9 +15,8 @@ namespace WIL
     public partial class ServiceDetailsForm : Form
     {
         private Service service;
-        int serviceiD;
         private bool updating;
-
+        private DBManager dbm;
         private void ServiceDetailsForm_Load(object sender, EventArgs e)
         {
             PopulateFormWithResults(service);
@@ -27,7 +26,7 @@ namespace WIL
         {
             InitializeComponent();
             this.service = service;
-
+            dbm = new DBManager();
             //needs fixing check ID value
 
         }
@@ -44,7 +43,7 @@ namespace WIL
             lblengineSize.Text = pData.Truck.Type.EngineSize.ToString();
             lblserviceInterval.Text = pData.Truck.Type.ServiceInterval.ToString();
             updating = true;
-            var serviceItems = new DBManager().GetServiceItems(pData);
+            var serviceItems = dbm.GetServiceItems(pData);
 
             lsbServiceJobs.DataSource = serviceItems;
             lsbServiceJobs.DisplayMember = "ServiceType";
@@ -58,12 +57,13 @@ namespace WIL
             this.Close();
         }
 
-        private void lsbServiceJobs_SelectedIndexChanged(object sender, EventArgs e)
+        private  void lsbServiceJobs_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (!updating)
             {
-                Console.WriteLine(lsbServiceJobs.SelectedValue);
-                ServiceType serviceType = new DBManager().GetServiceItemById((int)lsbServiceJobs.SelectedValue).ServiceType;
+                var serviceItem = dbm.GetServiceItemById((int)lsbServiceJobs.SelectedValue);
+
+                ServiceType serviceType = serviceItem.ServiceType;
 
                 lblCost.Text = serviceType.Cost.ToString();
                 lblHours.Text = serviceType.Hours.ToString();

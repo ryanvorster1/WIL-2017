@@ -31,13 +31,13 @@ namespace SystemLogic
         }
 
 
-        public Trip BookTrip(Trip trip)
+        public async Task<Trip> BookTrip(Trip trip)
         {
             List<Truck> availableTrucks = GetAvailiableTrucks(trip.Truck.Type);
 
             if (availableTrucks.Count > 0)
             {
-                AddTrip(trip);
+               AddTrip(trip);
 
             }
             else
@@ -144,7 +144,7 @@ namespace SystemLogic
                 trip.ID = id;
                 dbCon.Close();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -210,17 +210,15 @@ namespace SystemLogic
 
                     trips.Add(new Trip(ID, truck, customer, start, end, driver, route));
                 }
-           }
+            }
             catch (Exception ex)
             {
                 throw ex;
             }
-
-
             return trips;
 
         }
-                //get a list of all Trips
+        //get a list of all Trips
         public List<Trip> GetTrips()
         {
             List<Trip> trips = new List<Trip>();
@@ -298,6 +296,7 @@ namespace SystemLogic
             }
             return incidents;
         }
+
         public Incident GetIncidentByID(int id)
         {
             Incident incidents = null;
@@ -314,9 +313,6 @@ namespace SystemLogic
                     int ID = (int)row["ID"];
                     IncidentType type = GetIncidentTypeByID((int)row["incidentType"]);
                     User driver = GetUserByID((int)row["driverID"]);
-                    Console.WriteLine(ID);
-                    Console.WriteLine(type);
-                    Console.WriteLine(driver.ToString());
                     //incidents = (new Incident(ID, type, driver));
                 }
             }
@@ -328,11 +324,9 @@ namespace SystemLogic
         }
 
         //log incidents from driverform
-        public void logIncident(int incidentId, User driver)
+        public void LogIncident(int incidentId, User driver)
         {
             int id = -1;
-            Console.WriteLine(incidentId);
-            Console.WriteLine(driver.ToString());
             try
             {
                 string sql = "insert into Incident(incidentType, driverID) " +
@@ -341,8 +335,6 @@ namespace SystemLogic
                 SqlCommand cmd = new SqlCommand(sql, dbCon);
                 cmd.Parameters.AddWithValue("@incidentType", incidentId);
                 cmd.Parameters.AddWithValue("@driverID", driver.ID);
-
-
 
                 dbCon.Open();
                 //do insert
@@ -410,11 +402,7 @@ namespace SystemLogic
                     double cost = Convert.ToDouble(row["cost"]);
                     int hours = (int)row["repairTime"];
 
-
-
                     incident.Add(new IncidentType(ID, description, cost, hours));
-
-
                 }
             }
             catch (Exception ex)
@@ -485,7 +473,7 @@ namespace SystemLogic
         }
 
         //return ID. ref type Customer so cus.ID is automatically assigned
-        public int AddCustomer(ref Customer cus)
+        public int AddCustomer(Customer cus)
         {
             int id = -1;
             try
@@ -498,7 +486,6 @@ namespace SystemLogic
                 cmd.Parameters.AddWithValue("@lname", cus.Lname);
                 cmd.Parameters.AddWithValue("@email", cus.Email);
                 cmd.Parameters.AddWithValue("@cell", cus.Cell);
-
 
                 dbCon.Open();
                 //do insert
@@ -515,8 +502,6 @@ namespace SystemLogic
             {
                 throw ex;
             }
-            cus.ID = id;
-
             return id;
         }
 
@@ -543,12 +528,11 @@ namespace SystemLogic
                 string lname = row["lname"].ToString();
 
                 user = new User(ID, username, password, type, hours, fname, lname);
-                Console.WriteLine(user.ToString());
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-                //throw ex;
+
+                throw ex;
             }
             return user;
         }
@@ -557,7 +541,7 @@ namespace SystemLogic
         //add user do DB
         //get ID in return
         //ref user object sets user.ID automatically
-        public int AddUser(ref User user)
+        public int AddUser(User user)
         {
             int id = -1;
             try
@@ -600,7 +584,6 @@ namespace SystemLogic
 
                 throw ex;
             }
-            user.ID = id;
 
             return id;
         }
@@ -865,7 +848,7 @@ namespace SystemLogic
         //save truck to DB and get ID in return
         //returns -1 for failure
         //ref type is used to set ID of passed object automatically
-        public int AddTruck(ref Truck truck)
+        public int AddTruck(Truck truck)
         {
             int id = -1;
             try
@@ -904,7 +887,7 @@ namespace SystemLogic
         //save truckType to DB 
         //recieve ID in return or -1 if failure
         //ref type is used to set ID of passed object automatically
-        public int AddTruckType(ref TruckType type)
+        public int AddTruckType(TruckType type)
         {
             int id = -1;
             try
@@ -931,8 +914,9 @@ namespace SystemLogic
                 dbCon.Close();
 
             }
-            catch (Exception ex) { 
-         
+            catch (Exception ex)
+            {
+
 
                 throw ex;
             }
@@ -1102,6 +1086,30 @@ namespace SystemLogic
         //TODO: getAvailiableTrucks(Type type, Trip trip?) 
 
         //////////////////////////////////////////////////////////////////////////////////services
+        public Service CompleteService(Service service)
+        {
+            try
+            {
+                string sql = $"update service set complete = 1 where id = @id";
+                SqlCommand cmd = new SqlCommand(sql, dbCon);
+                cmd.Parameters.AddWithValue("@id", service.ID);
+
+                dbCon.Open();
+                //do insert
+                cmd.ExecuteNonQuery();
+
+                dbCon.Close();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            return GetServiceById(service.ID);
+        }
+
         public List<Service> GetServices()
         {
             List<Service> services = new List<Service>();
@@ -1164,6 +1172,68 @@ namespace SystemLogic
             return services;
         }
 
+        public List<Service> GetIncompleteServices()
+        {
+            List<Service> services = new List<Service>();
+
+            try
+            {
+                string sql = $"select * from service where complete = 0";
+                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    int ID = (int)row["ID"];
+                    Truck truck = GetTruckByID((int)row["truckID"]);
+                    User mechanic = GetUserByID((int)row["mechanic"]);
+                    DateTime start = (DateTime)row["startdate"];
+                    DateTime end = (DateTime)row["enddate"];
+
+                    Service s = new Service(ID, truck, mechanic, start, end);
+                    services.Add(s);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return services;
+        }
+
+        public List<Service> GetCompleteServices()
+        {
+            List<Service> services = new List<Service>();
+
+            try
+            {
+                string sql = $"select * from service where complete = 1";
+                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    int ID = (int)row["ID"];
+                    Truck truck = GetTruckByID((int)row["truckID"]);
+                    User mechanic = GetUserByID((int)row["mechanic"]);
+                    DateTime start = (DateTime)row["startdate"];
+                    DateTime end = (DateTime)row["enddate"];
+
+                    Service s = new Service(ID, truck, mechanic, start, end);
+                    services.Add(s);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return services;
+        }
+
         public List<Service> GetServices(DateTime startDate, DateTime endDate)
         {
             List<Service> services = new List<Service>();
@@ -1194,7 +1264,6 @@ namespace SystemLogic
             }
             return services;
         }
-
 
         public DataSet GetServicesDataSet()
         {
@@ -1317,7 +1386,6 @@ namespace SystemLogic
 
                     ServiceItem si = new ServiceItem(ID, service, type);
                     serviceItems.Add(si);
-
                 }
             }
             catch (Exception ex)
