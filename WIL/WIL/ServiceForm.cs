@@ -149,7 +149,7 @@ namespace WIL
 
         }
 
-        private async void bttnServiceReport_Click(object sender, EventArgs e)
+        private void bttnServiceReport_Click(object sender, EventArgs e)
         {
             pnlServiceReport.Visible = true;
             btnServiceReport.Visible = false;
