@@ -48,7 +48,8 @@ create table service (
 	truckID		integer foreign key references truck(ID),
 	mechanic	integer foreign key references users(ID),
 	startdate	datetime,
-	enddate		datetime
+	enddate		datetime,
+	complete	bit
 )
 
 create table serviceItem (
@@ -215,14 +216,14 @@ values('Oil Leak. Repair Leak and Replace Oil',3000,2),
 	  ('High Damage to Truck, Repair Damage to Truck',1200000,120)
 
 
-insert into service(truckID,mechanic, startdate, enddate)
-values(0,1,'2017/11/2','2017/11/2'),
-      (1,2,'2017/11/3','2017/11/3'),
-	  (2,1,'2017/11/3','2017/11/3'),
-	  (4,2,'2017/11/4','2017/11/4'),
-	  (6,1,'2017/11/4','2017/11/4'),
-	  (3,2,'2017/11/5','2017/11/5'),
-	  (5,1,'2017/11/5','2017/11/5')
+insert into service(truckID,mechanic, startdate, enddate, complete)
+values(0,1,'2017/11/2','2017/11/2',1),
+      (1,2,'2017/11/3','2017/11/3',1),
+	  (2,1,'2017/11/3','2017/11/3',1),
+	  (4,2,'2017/11/4','2017/11/4',0),
+	  (6,1,'2017/11/4','2017/11/4',0),
+	  (3,2,'2017/11/5','2017/11/5',0),
+	  (5,1,'2017/11/5','2017/11/5',0)
 	  
 insert into serviceItem(serviceID, serviceJob)
 values(0,0),
