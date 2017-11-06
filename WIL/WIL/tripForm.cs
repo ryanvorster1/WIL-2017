@@ -147,39 +147,35 @@ namespace WIL
         {
             DateTime theDate = dtpTrips.Value;
             List<Trip> trips = new List<Trip>();
-           // List<Truck> trucks = new List<Truck>();
+           
 
             if (cmbViewType.SelectedItem != null)
             {
                 switch (cmbViewType.SelectedItem.ToString())
                 {
                     case "Daily":
-                        trips = await dbm.GetTrips(theDate);
+                        trips = await dbm.GetCompleteTrips(theDate, theDate);
 
                         break;
                     case "Weekly":
-                        trips = await dbm.GetTrips(theDate, theDate.AddDays(7));
+                        trips = await dbm.GetCompleteTrips(theDate, theDate.AddDays(7));
 
                         break;
                     case "Monthly":
-                        trips = await dbm.GetTrips(theDate, theDate.AddMonths(1));
+                        trips = await dbm.GetCompleteTrips(theDate, theDate.AddMonths(1));
 
                         break;
                 }
 
                 double totalKms = 0;
-                double totalTrips = 0;
+                double totalTrips = trips.Count;
                 foreach (var Trips in trips)
                 {
-                    //List<Trip> tripskms = await dbm.GetServiceItems;
-                    foreach (var Trip in trips)
-                    {
-                        totalKms += Trip.Route.Kms;
-                       // totalTrips += Trip.Route.
-                    }
+                    totalKms += Trips.Route.Kms;
+                   
                 }
 
-                //lblTotalDistance.Text = totalKms.ToString;
+                lblTotalDistance.Text = totalKms.ToString();
                 lblTotalTrips.Text = totalTrips.ToString();
                 
             }
