@@ -47,14 +47,14 @@
             // dgvTrucks
             // 
             this.dgvTrucks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvTrucks.Location = new System.Drawing.Point(12, 129);
+            this.dgvTrucks.Location = new System.Drawing.Point(12, 74);
             this.dgvTrucks.Name = "dgvTrucks";
             this.dgvTrucks.Size = new System.Drawing.Size(560, 333);
             this.dgvTrucks.TabIndex = 3;
             // 
             // exitBtn
             // 
-            this.exitBtn.Location = new System.Drawing.Point(574, 470);
+            this.exitBtn.Location = new System.Drawing.Point(573, 440);
             this.exitBtn.Name = "exitBtn";
             this.exitBtn.Size = new System.Drawing.Size(75, 23);
             this.exitBtn.TabIndex = 4;
@@ -66,7 +66,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(660, 505);
+            this.ClientSize = new System.Drawing.Size(660, 476);
             this.Controls.Add(this.exitBtn);
             this.Controls.Add(this.dgvTrucks);
             this.Controls.Add(this.addTruckBtn);

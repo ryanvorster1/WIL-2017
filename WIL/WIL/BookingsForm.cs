@@ -42,11 +42,11 @@ namespace WIL
 
         private async void bookBtn_Click(object sender, EventArgs e)
         {
-            TruckType type = db.GetTruckTypeById((int)slctTruckBox.SelectedValue);
+            TruckType type = await db.GetTruckTypeById((int)slctTruckBox.SelectedValue);
 
-            List<Truck> trucks = db.GetAvailiableTrucks(type);
+            List<Truck> trucks = await db.GetAvailiableTrucks(type);
             Truck truck = trucks[0];
-            List<User> users = db.GetAvailibleDrivers();//[0];
+            List<User> users = await db.GetAvailibleDrivers();//[0];
             User user = users[0];
             Route route = db.GetRouteByID((int)destinationBox.SelectedValue);
             

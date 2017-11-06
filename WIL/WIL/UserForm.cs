@@ -28,22 +28,22 @@ namespace WIL
         {
         }
 
-        private void UpdateLsbUsers()
+        private async void UpdateLsbUsers()
         {
             updating = true;
-            lsbUsers.DataSource = (List<User>)dbm.GetUsers();
+            lsbUsers.DataSource = await dbm.GetUsers();
             lsbUsers.DisplayMember = "Username";
             lsbUsers.ValueMember = "ID";
             updating = false;
         }
 
-        private void lsbUsers_SelectedIndexChanged(object sender, EventArgs e)
+        private async void lsbUsers_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (!updating)
             {
                 pnlAddUser.Visible = false;
                 int id = Convert.ToInt32( lsbUsers.SelectedValue.ToString());
-                User user = dbm.GetUserByID(id);
+                User user = await dbm.GetUserByID(id);
                 lblName.Text = user.Fname;
                 lblSurname.Text = user.Lname;
                 lblHours.Text = user.Hours + " hrs";
@@ -83,7 +83,7 @@ namespace WIL
             string pass2 = txbPass2.Text;
             int typeID = Convert.ToInt32(cmbUserType.SelectedValue);
 
-            UserType type = dbm.GetUserTypeById(typeID);
+            UserType type = await dbm.GetUserTypeById(typeID);
 
             if (!name.Equals("") && !surname.Equals("") && !pass1.Equals("") && !pass2.Equals(""))
             {

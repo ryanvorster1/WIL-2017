@@ -48,13 +48,13 @@ namespace WIL
                 switch (cmbViewType.SelectedItem.ToString())
                 {
                     case "Daily":
-                        services = dbm.GetServices(theDate);
+                        services = await dbm.GetServices(theDate);
                         break;
                     case "Weekly":
-                        services = dbm.GetServices(theDate, theDate.AddDays(7));
+                        services = await dbm.GetServices(theDate, theDate.AddDays(7));
                         break;
                     case "Monthly":
-                        services = dbm.GetServices(theDate, theDate.AddMonths(1));
+                        services = await dbm.GetServices(theDate, theDate.AddMonths(1));
                         break;
                 }
 
@@ -72,12 +72,12 @@ namespace WIL
 
         private async void PopulateListBoxWithResults(List<Service> results)
         {
-            foreach (Service serviceItem in results)
+               foreach (Service serviceItem in results)
             {
                 string[] tRowData = new string[3];
                 tRowData[0] = $"{serviceItem.Truck.ID.ToString()}";
                 tRowData[1] = serviceItem.Truck.Type.Type;
-                List<ServiceItem> services = dbm.GetServiceItems(serviceItem);
+                List<ServiceItem> services = await dbm.GetServiceItems(serviceItem);
                 string ser = "";
                 foreach (var item in services)
                 {
@@ -101,7 +101,7 @@ namespace WIL
             {
                 ListViewItem selecteditem = lvServiceList.SelectedItems[0];
                 int truckID = Convert.ToInt32(selecteditem.SubItems[0].Text);
-                List<Service> services = dbm.GetServices();
+                List<Service> services = await dbm.GetServices();
                 int serviceID = -1;
 
                 foreach (var item in services)
@@ -119,12 +119,16 @@ namespace WIL
 
         }
 
-        private void bttnServiceReport_Click(object sender, EventArgs e)
+        private async void bttnServiceReport_Click(object sender, EventArgs e)
         {
             pnlServiceReport.Visible = true;
             btnServiceReport.Visible = false;
             //update 
             ServiceReport();
+
+            List<Service> services = await dbm.GetServices(); 
+            totalHoursLbl.Text = services.Count.ToString();
+            //get services with startdate and enddate parameters
 
         }
 

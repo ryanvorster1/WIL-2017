@@ -26,7 +26,7 @@ namespace WIL
         private async void btnLogin_Click(object sender, EventArgs e)
         {
             if (txbPassword.Text.Length > 0 && txbUsername.Text.Length > 0){
-                User loggedIn = new DBManager().LogInUser(txbUsername.Text, txbPassword.Text);
+                User loggedIn = await new DBManager().LogInUser(txbUsername.Text, txbPassword.Text);
                 if(loggedIn != null)
                 {
                     switch (loggedIn.Type.Type.ToLower())

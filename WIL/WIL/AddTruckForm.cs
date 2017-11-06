@@ -39,7 +39,7 @@ namespace WIL
             string Vin = vinTxtBox.Text;
             string Reg = regTxtBox.Text;
             int Kms = Convert.ToInt32(mileageBox.Text);
-            TruckType type = db.GetTruckTypeById((int)typeComboBox.SelectedValue);
+            TruckType type = await db.GetTruckTypeById((int)typeComboBox.SelectedValue);
             
             Truck truck = new Truck(Vin, Reg, Kms,true, type);
 
