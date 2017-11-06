@@ -14,10 +14,14 @@ namespace SystemLogic
 
 
         //private string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=2017WIL;Integrated Security=True;Pooling=False";
+<<<<<<< HEAD
         private string connectionString = "Data Source=POKKOLS-PC;Initial Catalog=WIL;Integrated Security=True";
+=======
+        //private string connectionString = "Data Source=POKKOLS-PC;Initial Catalog=WIL;Integrated Security=True";
+>>>>>>> 7f7a00b4dcf257b611564e8bf3b8b3451cc78b7a
 
         //private string connectionString = "Data Source=RYAN;Initial Catalog=WILDB;Integrated Security=True;Pooling=False";
-        //private string connectionString = "Data Source=DESKTOP-IHUJDPR;Initial Catalog=WILDB;Integrated Security=True";
+        private string connectionString = "Data Source=DESKTOP-IHUJDPR;Initial Catalog=WILDB;Integrated Security=True";
 
         private SqlConnection dbCon;
 
@@ -868,8 +872,10 @@ namespace SystemLogic
                 Department deptart = GetDepartmentByID((int)row["departure"]);
                 Department dest = GetDepartmentByID((int)row["destination"]);
                 int kms = (int)row["kms"];
+                double cost = (double)row["cost"];
+                //get cost method
 
-                route = new Route(ID, deptart, dest, kms);
+                route = new Route(ID, deptart, dest, kms, cost);
             }
             catch (Exception ex)
             {
@@ -896,8 +902,10 @@ namespace SystemLogic
                     Department deptart = GetDepartmentByID((int)row["departure"]);
                     Department dest = GetDepartmentByID((int)row["destination"]);
                     int kms = (int)row["kms"];
+                    double cost = (double)row["cost"];
+                    //add cost method
 
-                    routes.Add(new Route(ID, deptart, dest, kms));
+                    routes.Add(new Route(ID, deptart, dest, kms, cost));
                 }
             }
             catch (Exception ex)
@@ -1124,9 +1132,10 @@ namespace SystemLogic
                     int serviceInterval = (int)row["serviceInterval"];
                     int maxWeight = (int)row["maxWeight"];
                     int maxVol = (int)row["maxVol"];
+                    double litersPerHundy = Convert.ToDouble(row["litersPerHundy"]);
 
                     truckType = new TruckType(typeID, type, manufacturor, engineSize,
-                        serviceInterval, maxWeight, maxVol);
+                        serviceInterval, maxWeight, (float)litersPerHundy, maxVol);
 
                 }
                 catch (Exception ex)
@@ -1160,10 +1169,11 @@ namespace SystemLogic
                     int engineSize = (int)row["engineSize"];
                     int serviceInterval = (int)row["serviceInterval"];
                     int maxWeight = (int)row["maxWeight"];
+                    float litersPerHundy = (float)row["litersPerHundy"];
                     int maxVol = (int)row["maxVol"];
 
                     truckTypes.Add(new TruckType(typeID, type, manufacturor, engineSize,
-                        serviceInterval, maxWeight, maxVol));
+                        serviceInterval, maxWeight, litersPerHundy, maxVol));
 
                 }
 
