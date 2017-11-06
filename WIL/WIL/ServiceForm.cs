@@ -62,14 +62,38 @@ namespace WIL
                 ListBoxHandle();
                 if (services.Count > 0)
                 {
-                    PopulateListBoxWithResults(services);
+                    UpdateListBox(services);
                     lvServiceList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
                 }
             }
         }
 
 
-        private async void PopulateListBoxWithResults(List<Service> results)
+        private void UpdateListBox(List<Service> results)
+        {
+            lvServiceList.Items.Clear();
+
+            foreach (Service item in results)
+            {
+                string serviceJobs = "";
+                foreach (ServiceItem i in dbm.GetServiceItems(item))
+                {
+                    serviceJobs += i.ServiceType.Job + ",";
+                }
+                String[] items = { item.Truck.ID.ToString(), item.Truck.Type.ToString(), serviceJobs};
+                ListViewItem lvi = new ListViewItem(items);
+                if (item.Complete)
+                {
+                    lvi.BackColor = Color.Green;
+                } else
+                {
+                    lvi.BackColor = Color.Red;
+                }
+                lvServiceList.Items.Add(lvi);
+            }
+        }
+
+        private void PopulateListBoxWithResults(List<Service> results)
         {
             foreach (Service serviceItem in results)
             {
