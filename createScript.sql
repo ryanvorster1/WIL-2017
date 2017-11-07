@@ -230,18 +230,18 @@ values(0,'2017/11/2','2017/11/2',1),
 	  (6,'2017/11/4','2017/11/4',0),
 	  (3,'2017/11/5','2017/11/5',0),
 	  (5,'2017/11/5','2017/11/5',0)
-	  
-insert into serviceItem(serviceID, serviceJob)
-values(0,0),
-      (1,1),
-	  (2,2),
-	  (3,3),
-	  (3,4),
-	  (5,5),
-	  (5,6),
-	  (5,7),
-	  (5,8),
-	  (2,9)
+--!--	  
+--insert into serviceItem(serviceID, serviceJob)
+--values(0,0),
+--      (1,1),
+--	  (2,2),
+--	  (3,3),
+--	  (3,4),
+--	  (5,5),
+--	  (5,6),
+--	  (5,7),
+--	  (5,8),
+--	  (2,9)
 
 
 	  --print list of usernames and password 
@@ -252,6 +252,8 @@ where users.userType = 0 and avaliable = 0
 --------------------------------------------------------------------------------
 select * from serviceItem
 join service on serviceItem.serviceID = service.ID
+join serviceType on serviceItem.serviceJob = serviceType.ID
+join truck on service.truckID = truck.ID
 
 
 

@@ -68,21 +68,20 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
-            // viewPlannedTripsBtn
+            // btnPlannedTrips
             // 
-
             this.btnPlannedTrips.Location = new System.Drawing.Point(12, 12);
-            this.btnPlannedTrips.Name = "viewPlannedTripsBtn";
+            this.btnPlannedTrips.Name = "btnPlannedTrips";
             this.btnPlannedTrips.Size = new System.Drawing.Size(117, 40);
             this.btnPlannedTrips.TabIndex = 0;
             this.btnPlannedTrips.Text = "View Planned Trips";
             this.btnPlannedTrips.UseVisualStyleBackColor = true;
             this.btnPlannedTrips.Click += new System.EventHandler(this.viewPlannedTripsBtn_Click);
             // 
-            // viewCompletedTripsBtn
+            // btnCompleteTrips
             // 
             this.btnCompleteTrips.Location = new System.Drawing.Point(154, 12);
-            this.btnCompleteTrips.Name = "viewCompletedTripsBtn";
+            this.btnCompleteTrips.Name = "btnCompleteTrips";
             this.btnCompleteTrips.Size = new System.Drawing.Size(121, 40);
             this.btnCompleteTrips.TabIndex = 2;
             this.btnCompleteTrips.Text = "View Completed Trips";
@@ -91,7 +90,7 @@
             // 
             // addTripButton
             // 
-            this.addTripButton.Location = new System.Drawing.Point(513, 190);
+            this.addTripButton.Location = new System.Drawing.Point(510, 12);
             this.addTripButton.Name = "addTripButton";
             this.addTripButton.Size = new System.Drawing.Size(136, 40);
             this.addTripButton.TabIndex = 3;
@@ -101,7 +100,7 @@
             // 
             // exitButton
             // 
-            this.exitButton.Location = new System.Drawing.Point(557, 746);
+            this.exitButton.Location = new System.Drawing.Point(554, 568);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(92, 38);
             this.exitButton.TabIndex = 4;
@@ -121,7 +120,7 @@
             this.departure,
             this.destination});
             this.dgvTrips.GridColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.dgvTrips.Location = new System.Drawing.Point(20, 333);
+            this.dgvTrips.Location = new System.Drawing.Point(17, 155);
             this.dgvTrips.MultiSelect = false;
             this.dgvTrips.Name = "dgvTrips";
             this.dgvTrips.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
@@ -186,7 +185,7 @@
             this.pnlReportView.Controls.Add(this.label5);
             this.pnlReportView.Controls.Add(this.label4);
             this.pnlReportView.Controls.Add(this.label3);
-            this.pnlReportView.Location = new System.Drawing.Point(18, 628);
+            this.pnlReportView.Location = new System.Drawing.Point(15, 450);
             this.pnlReportView.Name = "pnlReportView";
             this.pnlReportView.Size = new System.Drawing.Size(631, 112);
             this.pnlReportView.TabIndex = 6;
@@ -209,7 +208,6 @@
             this.lblTotalDistance.Location = new System.Drawing.Point(4, 31);
             this.lblTotalDistance.Name = "lblTotalDistance";
             this.lblTotalDistance.Size = new System.Drawing.Size(46, 17);
-
             this.lblTotalDistance.TabIndex = 9;
             this.lblTotalDistance.Text = "label6";
             // 
@@ -255,7 +253,7 @@
             // 
             // dtpTrips
             // 
-            this.dtpTrips.Location = new System.Drawing.Point(20, 294);
+            this.dtpTrips.Location = new System.Drawing.Point(17, 116);
             this.dtpTrips.Name = "dtpTrips";
             this.dtpTrips.Size = new System.Drawing.Size(200, 20);
             this.dtpTrips.TabIndex = 0;
@@ -269,7 +267,7 @@
             "Weekly",
             "Monthly",
             "Yearly"});
-            this.cmbViewType.Location = new System.Drawing.Point(458, 293);
+            this.cmbViewType.Location = new System.Drawing.Point(455, 115);
             this.cmbViewType.Name = "cmbViewType";
             this.cmbViewType.Size = new System.Drawing.Size(191, 21);
             this.cmbViewType.TabIndex = 1;
@@ -280,7 +278,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.label1.Location = new System.Drawing.Point(17, 263);
+            this.label1.Location = new System.Drawing.Point(14, 85);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(118, 18);
             this.label1.TabIndex = 2;
@@ -290,7 +288,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.label2.Location = new System.Drawing.Point(455, 263);
+            this.label2.Location = new System.Drawing.Point(452, 85);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(194, 18);
             this.label2.TabIndex = 3;
@@ -298,7 +296,7 @@
             // 
             // bentViewReport
             // 
-            this.bentViewReport.Location = new System.Drawing.Point(355, 190);
+            this.bentViewReport.Location = new System.Drawing.Point(352, 12);
             this.bentViewReport.Name = "bentViewReport";
             this.bentViewReport.Size = new System.Drawing.Size(125, 40);
             this.bentViewReport.TabIndex = 7;
@@ -314,9 +312,10 @@
             this.pictureBox1.Size = new System.Drawing.Size(275, 172);
             this.pictureBox1.TabIndex = 8;
             this.pictureBox1.TabStop = false;
+            // 
             // btnLogIncident
             // 
-            this.btnLogIncident.Location = new System.Drawing.Point(12, 508);
+            this.btnLogIncident.Location = new System.Drawing.Point(15, 584);
             this.btnLogIncident.Name = "btnLogIncident";
             this.btnLogIncident.Size = new System.Drawing.Size(108, 27);
             this.btnLogIncident.TabIndex = 8;
@@ -328,7 +327,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(631, 547);
+            this.ClientSize = new System.Drawing.Size(674, 623);
             this.Controls.Add(this.btnLogIncident);
             this.Controls.Add(this.bentViewReport);
             this.Controls.Add(this.pnlReportView);

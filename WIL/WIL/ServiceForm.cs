@@ -17,6 +17,7 @@ namespace WIL
 
         private DBManager dbm;
         private bool isReport;
+        private List<Service> displayedServices;
 
         public ServiceForm()
         {
@@ -26,7 +27,7 @@ namespace WIL
            // dtpDateTime_ValueChanged(null, null);
         }
 
-        private void ListBoxHandle()
+        private void DisplayServiceHeadings()
         {
             lvServiceList.Columns.Add("Truck ID", 100);
             lvServiceList.Columns.Add("Truck Type", 200);
@@ -61,7 +62,7 @@ namespace WIL
                 }
 
                 lvServiceList.Clear();
-                ListBoxHandle();
+                DisplayServiceHeadings();
                 if (services.Count > 0)
                 {
                     UpdateListBox(services);
@@ -100,12 +101,12 @@ namespace WIL
                 }
 
                 lvServiceList.Clear();
-                ListBoxHandle();
+                DisplayServiceHeadings();
+                displayedServices = services;
                 if (services.Count > 0)
                 {
                     UpdateListBox(services);
                     lvServiceList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-                    //ServiceReport();
                 }
             }
         }
@@ -185,14 +186,12 @@ namespace WIL
 
         private void lvServiceList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //lvServiceList.SelectedItems.
         }
 
         private void ServiceForm_Load(object sender, EventArgs e)
         {
             cmbViewType.SelectedIndex = 0;
             dtpDateTime_ValueChanged(sender, e);
-            //displayIncompleteServices();
             isReport = false;
         }
 
@@ -254,105 +253,3 @@ namespace WIL
 
     }
 }
-
-
-//DataSet GetSQLResults(string pSql)
-//{
-//    try
-//    {
-//        SqlDataAdapter da = new SqlDataAdapter(pSql, dbCon);
-//        DataSet ds = new DataSet();
-//        da.Fill(ds);
-//        return ds;
-//    }
-//    catch
-//    {
-//        DataSet ds = new DataSet();
-//        return ds;
-//    }
-//}
-
-//List<TruckService> MapSQLToList(DataSet pResults)
-//{
-//    List<TruckService> tResults = new List<TruckService>();
-//    TruckService tTruckService = null;
-//    foreach (DataRow row in pResults.Tables[0].Rows)
-//    {
-//        int tID = (int)row["ID"];
-//        int tTruckID = (int)row["truckID"];
-//        int tMechanicID = (int)row["mechanic"];
-//        tTruckService = new TruckService(tID, tTruckID, tMechanicID);
-
-//        tResults.Add(tTruckService);
-//    }
-//    return tResults;
-//}
-
-//  private void lvServiceList_SelectedIndexChanged(object sender, EventArgs e)
-//  {
-
-// }
-
-// int iUserSelectedServiceID = -1;
-
-//private void lvServiceList_SelectedIndexChanged(object sender, EventArgs e)
-//{
-//    iUserSelectedServiceID = lvServiceList.SelectedIndices[0];
-//}
-
-//private async void PopulateListBoxWithResults(List<Service> results)
-//{
-//       foreach (Service serviceItem in results)
-//    {
-//        string[] tRowData = new string[3];
-//        tRowData[0] = $"{serviceItem.Truck.ID.ToString()}";
-//        tRowData[1] = serviceItem.Truck.Type.Type;
-//        List<ServiceItem> services = await dbm.GetServiceItems(serviceItem);
-//        string ser = "";
-//        foreach (var item in services)
-//        {
-//            ser += item.ServiceType.Job + ",";
-//        }
-//        tRowData[2] = ser;
-
-//        InsertListBoxItem(tRowData);
-//    }
-//}
-
-//private void InsertListBoxItem(string[] row)
-//{
-//    ListViewItem tRowItem = new ListViewItem(row);
-//    lvServiceList.Items.Add(tRowItem);
-//}
-
-
-     //case "Daily":
-     //                   if (isReport)
-     //                   {
-     //                       services = await dbm.GetCompleteServices(theDate, theDate.AddDays(1));
-     //                   }
-     //                   else
-     //                   {
-     //                       services = await dbm.GetIncompleteServices(theDate, theDate.AddDays(1));
-     //                   }
-     //                   break;
-     //               case "Weekly":
-     //                   if (isReport)
-     //                   {
-     //                       services = await dbm.GetCompleteServices(theDate, theDate.AddDays(7));
-     //                   }
-     //                   else
-     //                   {
-     //                       services = await dbm.GetIncompleteServices(theDate, theDate.AddDays(7));
-     //                   }
-     //                   break;
-     //               case "Monthly":
-     //                   if (isReport)
-     //                   {
-     //                       services = await dbm.GetCompleteServices(theDate, theDate.AddMonths(1));
-     //                   }
-     //                   else
-     //                   {
-     //                       services = await dbm.GetIncompleteServices(theDate, theDate.AddMonths(1));
-     //                   }
-     //                   break;
