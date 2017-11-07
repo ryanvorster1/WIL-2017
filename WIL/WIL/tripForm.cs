@@ -16,6 +16,7 @@ namespace WIL
         private DBManager dbm;
         private List<Trip> displayedTrips;
         private bool isCurrentTrips;
+
         public TripForm()
         {
             dbm = new DBManager();
@@ -57,7 +58,7 @@ namespace WIL
             dgvTrips.Columns.Add("Destination", "Destination");
 
             // dataGridView1.AllowUserToResizeRows = false;
-           // dgvTrips.AutoResizeRows(DataGridViewAutoSizeRowsMode.DisplayedHeaders);
+            // dgvTrips.AutoResizeRows(DataGridViewAutoSizeRowsMode.DisplayedHeaders);
 
             //clear rows
             dgvTrips.Rows.Clear();
@@ -70,7 +71,26 @@ namespace WIL
             }
 
             //get total kms method
-            //getOverall();
+            GetOverall();
+        }
+
+        private async void GetOverall()
+        {
+
+            double totalKms = 0;
+            double totalTrips = displayedTrips.Count;
+            int totalHours = 0;
+
+            foreach (var trip in displayedTrips)
+            {
+                totalKms += trip.Route.Kms;
+                totalHours += trip.End.Subtract(trip.Start).Hours;
+            }
+
+            lblTotalDistance.Text = totalKms.ToString();
+            lblTotalTrips.Text = totalTrips.ToString();
+            lblHours.Text = totalHours.ToString();
+
         }
 
         private void btnCloseReportView_Click(object sender, EventArgs e)
@@ -123,7 +143,8 @@ namespace WIL
                 if (isCurrentTrips)
                 {
                     displayedTrips = await dbm.GetInCompleteTrips(start, end);
-                } else
+                }
+                else
                 {
                     displayedTrips = await dbm.GetCompleteTrips(start, end);
                 }
@@ -162,7 +183,7 @@ namespace WIL
             btnCompleteTrips.Visible = true;
             UpdateDGVTrips();
         }
-        
+
         private void btnLogIncident_Click(object sender, EventArgs e)
         {
             foreach (var item in dgvTrips.SelectedCells)
@@ -174,7 +195,7 @@ namespace WIL
 
         private void dgvTrips_DoubleClick(object sender, EventArgs e)
         {
-            if(dgvTrips.SelectedCells != null)
+            if (dgvTrips.SelectedCells != null)
             {
                 Trip selectedTrip = displayedTrips[dgvTrips.CurrentCell.RowIndex];
                 new LogIncidentForm(selectedTrip).ShowDialog();

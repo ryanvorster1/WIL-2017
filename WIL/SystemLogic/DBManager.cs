@@ -1515,7 +1515,7 @@ namespace SystemLogic
             });
         }
 
-        public async Task<List<TruckType>> GetTruckType()
+        public async Task<List<TruckType>> GetTruckTypes()
         {
             return await Task.Run(() =>
             {

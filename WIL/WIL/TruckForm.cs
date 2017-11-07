@@ -22,6 +22,7 @@ namespace WIL
         {
             AddTruckForm atf = new AddTruckForm();
             atf.ShowDialog();
+            UpdateDGVTrucks();
         }
 
         private void TruckForm_Load(object sender, EventArgs e)
