@@ -8,6 +8,9 @@ namespace SystemLogic
 {
     public class Route
     {
+        private Task<Department> task;
+        private Department dest;
+
         public int ID { get; set; }
         public Department Departure { get; set; }
         public Department Destination { get; set; }
@@ -29,7 +32,7 @@ namespace SystemLogic
             Destination = dest;
             this.Kms = kms;
         }
-
+        
         public override string ToString()
         {
             string result = $"{Departure} > {Destination}";

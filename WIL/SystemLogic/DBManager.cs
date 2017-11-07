@@ -10,9 +10,9 @@ namespace SystemLogic
 {
     public class DBManager
     {
-        private string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=2017WIL;Integrated Security=True;Pooling=False";
+        //private string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=2017WIL;Integrated Security=True;Pooling=False";
         //private string connectionString = "Data Source=POKKOLS-PC;Initial Catalog=WIL;Integrated Security=True";
-        //private string connectionString = "Data Source=DESKTOP-IHUJDPR;Initial Catalog=WILDB;Integrated Security=True";
+        private string connectionString = "Data Source=DESKTOP-IHUJDPR;Initial Catalog=WILDB;Integrated Security=True";
         //private string connectionString = "Data Source=RYAN;Initial Catalog=WILDB;Integrated Security=True;Pooling=False";
 
         private SqlConnection dbCon;
@@ -1250,6 +1250,7 @@ namespace SystemLogic
         public async Task<List<Route>> AddRoute(Route routes)
         {
             List<Route> route = new List<Route>();
+            int id = -1;
 
             return await Task.Run(() =>
                  {
@@ -1259,16 +1260,20 @@ namespace SystemLogic
                          "values(@dept, @dest, @kms)";
 
                          SqlCommand cmd = new SqlCommand(sql, dbCon);
-                         cmd.Parameters.AddWithValue("@dept", routes.Departure);
-                         cmd.Parameters.AddWithValue("@dest", routes.Destination);
+                         cmd.Parameters.AddWithValue("@dept", routes.Departure.ID);
+                         cmd.Parameters.AddWithValue("@dest", routes.Destination.ID);
                          cmd.Parameters.AddWithValue("@kms", routes.Kms);
 
+
                          dbCon.Open();
-                        //do update
-                        cmd.ExecuteNonQuery();
+                         //do insert
+                         cmd.ExecuteNonQuery();
+                         //get ID
+                         sql = "select @@identity";
+                         cmd.CommandText = sql;
+                         id = Convert.ToInt32(cmd.ExecuteScalar());
 
                          dbCon.Close();
-
                      }
                      catch (Exception ex)
                      {
@@ -1276,7 +1281,7 @@ namespace SystemLogic
                          throw ex;
                      }
                      return route;
-                 });
+                });
         }
         //get route by id
         public async Task<Route> GetRouteByID(int id)
@@ -1348,7 +1353,7 @@ namespace SystemLogic
         //get department by ID
          public async Task<Department> GetDepartmentByID(int id)
         {
-            return await Task.Run( () =>
+            return await Task.Run(() =>
             { 
                 Department depo;
                 try

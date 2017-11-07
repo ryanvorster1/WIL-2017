@@ -90,7 +90,6 @@ namespace WIL
 
         private async void UpdateDGVTrips()
         {
-            Console.WriteLine(isCurrentTrips);
             dgvTrips.Rows.Clear();
             dgvTrips.Columns.Clear();
             dgvTrips.Columns.Add("ID", "Truck ID");
