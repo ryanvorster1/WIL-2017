@@ -13,15 +13,10 @@ namespace SystemLogic
 
 
 
-        //private string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=2017WIL;Integrated Security=True;Pooling=False";
-<<<<<<< HEAD
-        private string connectionString = "Data Source=POKKOLS-PC;Initial Catalog=WIL;Integrated Security=True";
-=======
+        private string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=2017WIL;Integrated Security=True;Pooling=False";
         //private string connectionString = "Data Source=POKKOLS-PC;Initial Catalog=WIL;Integrated Security=True";
->>>>>>> 7f7a00b4dcf257b611564e8bf3b8b3451cc78b7a
-
+        //private string connectionString = "Data Source=DESKTOP-IHUJDPR;Initial Catalog=WILDB;Integrated Security=True";
         //private string connectionString = "Data Source=RYAN;Initial Catalog=WILDB;Integrated Security=True;Pooling=False";
-        private string connectionString = "Data Source=DESKTOP-IHUJDPR;Initial Catalog=WILDB;Integrated Security=True";
 
         private SqlConnection dbCon;
 
@@ -216,7 +211,7 @@ namespace SystemLogic
                 try
                 {
                     string sql = $"select * from trip where startDate >= '{startDate.ToShortDateString()}' and startdate <= '{endDate.ToShortDateString()}' or " +
-                        $"enddate >= '{startDate.ToShortDateString()}' and enddate <= '{endDate.ToShortDateString()}' and complete = 1";
+                        $"enddate >= '{startDate.ToShortDateString()}' and enddate <= '{endDate.ToShortDateString()}' and statusID = 2";
                     SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
                     DataSet ds = new DataSet();
                     da.Fill(ds);
@@ -265,13 +260,14 @@ namespace SystemLogic
                         User driver = await GetUserByID((int)row["driverID"]);
                         DateTime start = (DateTime)row["StartDate"];
                         DateTime end = (DateTime)row["endDate"];
-                        Route route = GetRouteByID((int)row["routeID"]);
+                        Route route = GetRouteByID((int)row["routeID"]
+                        );
 
                         trips.Add(new Trip(ID, truck, customer, start, end, driver, route));
 
                     }
                 }
-                catch (Exception ex)
+                catch (Exception ex) 
                 {
                     throw ex;
                 }
