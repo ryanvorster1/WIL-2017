@@ -72,8 +72,14 @@ namespace WIL
 
         private async void sendIncidentReportButton_Click(object sender, EventArgs e)
         {
-            Service service = await dbm.GetOrCreateLatestService(trip.Truck);
-            Console.WriteLine(service);
+            int serviceID = await dbm.GetOrCreateLatestServiceID(trip.Truck);
+            Console.WriteLine($"im using service id {serviceID}");
+            ServiceType type = await dbm.GetServiceTypeById((int)cnbIncidents.SelectedValue);
+            Service service = await dbm.GetServiceById(serviceID);
+            ServiceItem si = await dbm.AddServiceIem(service,type);
+            MessageBox.Show(si.ToString());
+
+
             //if(await dbm.AddServiceIem(service, await dbm.GetServiceTypeById((int)cnbIncidents.SelectedValue)) != null)
             //{
 

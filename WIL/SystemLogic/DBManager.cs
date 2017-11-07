@@ -665,33 +665,34 @@ namespace SystemLogic
             });
         }
 
-        public async Task<Service> GetOrCreateLatestService(Truck truck)
+        public async Task<int> GetOrCreateLatestServiceID(Truck truck)
         {
             return await Task.Run(async () =>
             {
-                Service service;
                 string sql = $"select * from serviceItem join service on serviceItem.serviceID = service.ID where truckID = {truck.ID} and complete = 0";
                 SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
                 DataSet ds = new DataSet();
                 da.Fill(ds);
 
                 int serviceID;
-                if (ds.Tables[0].Rows.Count > 0)
+                if (ds.Tables[0].Rows.Count >= 1)
                 { //use this id
                     DataRow row = ds.Tables[0].Rows[0];
+                    serviceID = (int)(row["ServiceID"]);
+                    Console.WriteLine($"current Service {serviceID}");
 
-                    serviceID = Convert.ToInt32(row["ID"]);
-                    service = await GetServiceById(serviceID);
                 }
                 else // no id yet...create a new service
                 {
-                    //TODO how to get start date for service abd enddate
-                    service = new Service(truck, null, DateTime.Now, DateTime.Now.AddDays(3), false);
-                    service = await AddService(service);
 
+                    //TODO how to get start date for service abd enddate
+                    Service service = new Service(truck, DateTime.Now, DateTime.Now.AddDays(3), false);
+                    serviceID = await AddService(service);
+
+                    Console.WriteLine($"new Service {service.ID}");
                 }
 
-                return service;
+                return serviceID;
             });
         }
 
@@ -735,7 +736,7 @@ namespace SystemLogic
 
         //add new service
         //log incidents from driverform
-        public async Task<Service> AddService(Service service)
+        public async Task<int> AddService(Service service)
         {
             return await Task.Run(async () =>
             {
@@ -760,17 +761,16 @@ namespace SystemLogic
                     id = Convert.ToInt32(cmd.ExecuteScalar());
 
                     dbCon.Close();
+                    return id;
 
                 }
                 catch (Exception ex)
                 {
                     throw ex;
                 }
-                return await GetServiceById(id);
+                return id;
             });
-            //naz.ID= id;
 
-            //return GetIncidentByID(id);
         }
 
         //log incidents from driverform
@@ -1431,7 +1431,7 @@ namespace SystemLogic
                     string vin = row["vin"].ToString();
                     string reg = row["reg"].ToString();
                     int kms = (int)row["kms"];
-                    bool availible = (bool)row["availible"];
+                    bool availible = Convert.ToBoolean(row["availible"]);
                     TruckType type = await GetTruckTypeById((int)row["truckType"]);
                     truck = new Truck(ID, vin, reg, kms, availible, type);
                 }
@@ -1499,10 +1499,10 @@ namespace SystemLogic
                     int serviceInterval = (int)row["serviceInterval"];
                     int maxWeight = (int)row["maxWeight"];
                     int maxVol = (int)row["maxVol"];
-                    double litersPerHundy = Convert.ToDouble(row["litersPerHundy"]);
+                    int litersPerHundy = (int)row["litersPerHundy"];
 
                     truckType = new TruckType(typeID, type, manufacturor, engineSize,
-                        serviceInterval, maxWeight, (float)litersPerHundy, maxVol);
+                        serviceInterval, maxWeight, litersPerHundy, maxVol);
 
                 }
                 catch (Exception ex)
@@ -1537,11 +1537,11 @@ namespace SystemLogic
                         int engineSize = (int)row["engineSize"];
                         int serviceInterval = (int)row["serviceInterval"];
                         int maxWeight = (int)row["maxWeight"];
-                        double litersPerHundy = Convert.ToDouble(row["litersPerHundy"]);
+                        int litersPerHundy = (int)row["litersPerHundy"];
                         int maxVol = (int)row["maxVol"];
 
                         truckTypes.Add(new TruckType(typeID, type, manufacturor, engineSize,
-                            serviceInterval, maxWeight, (float)litersPerHundy, maxVol));
+                            serviceInterval, maxWeight, litersPerHundy, maxVol));
 
                     }
 
@@ -1633,12 +1633,11 @@ namespace SystemLogic
                     {
                         int ID = (int)row["ID"];
                         Truck truck = await GetTruckByID((int)row["truckID"]);
-                        User mechanic = await GetUserByID((int)row["mechanic"]);
                         DateTime start = (DateTime)row["startdate"];
                         DateTime end = (DateTime)row["enddate"];
                         bool complete = (bool)row["complete"];
 
-                        Service s = new Service(ID, truck, mechanic, start, end, complete);
+                        Service s = new Service(ID, truck,  start, end, complete);
                         services.Add(s);
 
                     }
@@ -1666,12 +1665,11 @@ namespace SystemLogic
                 {
                     int ID = (int)row["ID"];
                     Truck truck = await GetTruckByID((int)row["truckID"]);
-                    User mechanic = await GetUserByID((int)row["mechanic"]);
                     DateTime start = (DateTime)row["startdate"];
                     DateTime end = (DateTime)row["enddate"];
                     bool complete = (bool)row["complete"];
 
-                    Service s = new Service(ID, truck, mechanic, start, end, complete);
+                    Service s = new Service(ID, truck, start, end, complete);
                     services.Add(s);
 
                 }
@@ -1702,12 +1700,11 @@ namespace SystemLogic
                     {
                         int ID = (int)row["ID"];
                         Truck truck = await GetTruckByID((int)row["truckID"]);
-                        User mechanic = await GetUserByID((int)row["mechanic"]);
                         DateTime start = (DateTime)row["startdate"];
                         DateTime end = (DateTime)row["enddate"];
                         bool complete = (bool)row["complete"];
 
-                        Service s = new Service(ID, truck, mechanic, start, end, complete);
+                        Service s = new Service(ID, truck,  start, end, complete);
                         services.Add(s);
 
                     }
@@ -1737,12 +1734,11 @@ namespace SystemLogic
                     {
                         int ID = (int)row["ID"];
                         Truck truck = await GetTruckByID((int)row["truckID"]);
-                        User mechanic = await GetUserByID((int)row["mechanic"]);
                         DateTime start = (DateTime)row["startdate"];
                         DateTime end = (DateTime)row["enddate"];
                         bool complete = (bool)row["complete"];
 
-                        Service s = new Service(ID, truck, mechanic, start, end, complete);
+                        Service s = new Service(ID, truck, start, end, complete);
                         services.Add(s);
 
                     }
@@ -1772,12 +1768,11 @@ namespace SystemLogic
                     {
                         int ID = (int)row["ID"];
                         Truck truck = await GetTruckByID((int)row["truckID"]);
-                        User mechanic = await GetUserByID((int)row["mechanic"]);
                         DateTime start = (DateTime)row["startdate"];
                         DateTime end = (DateTime)row["enddate"];
                         bool complete = (bool)row["complete"];
 
-                        Service s = new Service(ID, truck, mechanic, start, end, complete);
+                        Service s = new Service(ID, truck, start, end, complete);
                         services.Add(s);
 
                     }
@@ -1814,7 +1809,7 @@ namespace SystemLogic
                         DateTime end = (DateTime)row["enddate"];
                         bool complete = (bool)row["complete"];
 
-                        Service s = new Service(ID, truck, mechanic, start, end, complete);
+                        Service s = new Service(ID, truck, start, end, complete);
                         services.Add(s);
 
                     }
@@ -1844,18 +1839,18 @@ namespace SystemLogic
                     {
                         int ID = (int)row["ID"];
                         Truck truck = await GetTruckByID((int)row["truckID"]);
-                        User mechanic = await GetUserByID((int)row["mechanic"]);
-                        DateTime start = (DateTime)row["startdate"];
-                        DateTime end = (DateTime)row["enddate"];
-                        bool complete = (bool)row["complete"];
+                        DateTime start = Convert.ToDateTime(row["startdate"]);
+                        DateTime end = Convert.ToDateTime(row["enddate"]);
+                        bool complete = Convert.ToBoolean(row["complete"]);
 
-                        Service s = new Service(ID, truck, mechanic, start, end, complete);
+                        Service s = new Service(ID, truck, start, end, complete);
                         services.Add(s);
 
                     }
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine(ex.Message);
                     throw ex;
                 }
                 return services;
@@ -1896,12 +1891,11 @@ namespace SystemLogic
                     DataRow row = ds.Tables[0].Rows[0];
                     int ID = (int)row["ID"];
                     Truck truck = await GetTruckByID((int)row["truckID"]);
-                    User mechanic = await GetUserByID((int)row["mechanic"]);
-                    DateTime start = (DateTime)row["startdate"];
-                    DateTime end = (DateTime)row["enddate"];
-                    bool complete = (bool)row["complete"];
+                    DateTime start = Convert.ToDateTime(row["startdate"]);
+                    DateTime end = Convert.ToDateTime(row["enddate"]);
+                    bool complete = Convert.ToBoolean(row["complete"]);
 
-                    Service s = new Service(ID, truck, mechanic, start, end, complete);
+                    services = new Service(ID, truck, start, end, complete);
                 }
                 catch (Exception ex)
                 {

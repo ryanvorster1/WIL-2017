@@ -54,13 +54,6 @@ namespace WIL
             ActiveControl = txbUsername;
             txbUsername.Text = "Bart";
             txbPassword.Text = "simps";
-
-            TruckType tuype = await new DBManager().GetTruckTypeById(0);
-            Truck t = await new DBManager().GetTruckByID(0);
-            Console.WriteLine(t.Availible);
-            t = await new DBManager().UpdateTruckStatus(false, t);
-            Console.WriteLine(t.Availible);
-            Console.WriteLine(t.ToString());
         }
     }
 }

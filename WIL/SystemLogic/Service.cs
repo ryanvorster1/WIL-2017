@@ -10,36 +10,32 @@ namespace SystemLogic
     {
         public int ID { get; set; }
         public Truck Truck { get; set; }
-        public User Mechanic { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public bool Complete { get; set; }
 
-        public Service(int id, Truck truck, User mechanic, DateTime start, DateTime end, bool complete)
+        public Service(int id, Truck truck,  DateTime start, DateTime end, bool complete)
         {
             ID = id;
             Truck = truck;
-            Mechanic = mechanic;
             StartDate = start;
             EndDate = end;
             Complete = complete;
         }
 
-        public Service(Truck truck, User mechanic, DateTime start, DateTime end, bool complete)
+        public Service(Truck truck,  DateTime start, DateTime end, bool complete)
         {
             ID = -1;
             Truck = truck;
-            Mechanic = mechanic;
             StartDate = start;
             EndDate = end;
             Complete = complete;
         }
 
-        public Service(Truck truck, User mechanic)
+        public Service(Truck truck)
         {
             ID = -1;
             Truck = truck;
-            Mechanic = mechanic;
         }
 
         public override string ToString()
