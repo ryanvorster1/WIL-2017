@@ -13,9 +13,9 @@ namespace SystemLogic
 
 
 
-        private string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=2017WIL;Integrated Security=True;Pooling=False";
+        //private string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=2017WIL;Integrated Security=True;Pooling=False";
         //private string connectionString = "Data Source=POKKOLS-PC;Initial Catalog=WIL;Integrated Security=True";
-        //private string connectionString = "Data Source=DESKTOP-IHUJDPR;Initial Catalog=WILDB;Integrated Security=True";
+        private string connectionString = "Data Source=DESKTOP-IHUJDPR;Initial Catalog=WILDB;Integrated Security=True";
         //private string connectionString = "Data Source=RYAN;Initial Catalog=WILDB;Integrated Security=True;Pooling=False";
 
         private SqlConnection dbCon;
@@ -247,7 +247,7 @@ namespace SystemLogic
                 try
                 {
                     string sql = $"select * from trip where startDate >= '{startDate.ToShortDateString()}' and startdate <= '{endDate.ToShortDateString()}' or " +
-                        $"enddate >= '{startDate.ToShortDateString()}' and enddate <= '{endDate.ToShortDateString()}' and complete = 0";
+                        $"enddate >= '{startDate.ToShortDateString()}' and enddate <= '{endDate.ToShortDateString()}' and statusID = 0";
                     SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
                     DataSet ds = new DataSet();
                     da.Fill(ds);

@@ -147,44 +147,44 @@ namespace WIL
         {
             UpdateDGVTrips();
         }
-        //private async void getOverall()
-        //{
-        //    DateTime theDate = dtpTrips.Value;
-        //    List<Trip> trips = new List<Trip>();
-           
+        private async void getOverall()
+        {
+            DateTime theDate = dtpTrips.Value;
+            List<Trip> trips = new List<Trip>();
 
-        //    if (cmbViewType.SelectedItem != null)
-        //    {
-        //        switch (cmbViewType.SelectedItem.ToString())
-        //        {
-        //            case "Daily":
-        //                trips = await dbm.GetCompleteTrips(theDate, theDate);
 
-        //                break;
-        //            case "Weekly":
-        //                trips = await dbm.GetCompleteTrips(theDate, theDate.AddDays(7));
+            if (cmbViewType.SelectedItem != null)
+            {
+                switch (cmbViewType.SelectedItem.ToString())
+                {
+                    case "Daily":
+                        trips = await dbm.GetCompleteTrips(theDate, theDate);
 
-        //                break;
-        //            case "Monthly":
-        //                trips = await dbm.GetCompleteTrips(theDate, theDate.AddMonths(1));
+                        break;
+                    case "Weekly":
+                        trips = await dbm.GetCompleteTrips(theDate, theDate.AddDays(7));
 
-        //                break;
-        //        }
+                        break;
+                    case "Monthly":
+                        trips = await dbm.GetCompleteTrips(theDate, theDate.AddMonths(1));
 
-        //        double totalKms = 0;
-        //        double totalTrips = trips.Count;
+                        break;
+                }
 
-        //        foreach (var Trips in trips)
-        //        { 
-        //            totalKms += Trips.Route.Kms;
-                   
-        //        }
+                double totalKms = 0;
+                double totalTrips = trips.Count;
 
-        //        lblTotalDistance.Text = totalKms.ToString();
-        //        lblTotalTrips.Text = totalTrips.ToString();
+                foreach (var Trips in trips)
+                {
+                    totalKms += Trips.Route.Kms;
 
-        //    }
-        //}
+                }
+
+                lblTotalDistance.Text = totalKms.ToString();
+                lblTotalTrips.Text = totalTrips.ToString();
+
+            }
+        }
 
         private async void GetIncompltedTrips()
         {
