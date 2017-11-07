@@ -45,5 +45,11 @@ namespace WIL
         {
             lblUser.Text = LoggedIn.Fname;
         }
+
+        private void routeBtn_Click(object sender, EventArgs e)
+        {
+            RouteForm rf = new RouteForm();
+            rf.ShowDialog();
+        }
     }
 }

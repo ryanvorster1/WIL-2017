@@ -48,7 +48,7 @@ namespace WIL
             }
         }
 
-        private async void LoginForm_Load(object sender, EventArgs e)
+        private void LoginForm_Load(object sender, EventArgs e)
         {
             txbUsername.Visible = true;
             ActiveControl = txbUsername;

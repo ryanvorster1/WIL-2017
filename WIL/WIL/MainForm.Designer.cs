@@ -35,6 +35,7 @@
             this.btnServices = new System.Windows.Forms.Button();
             this.btnUsers = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.routeBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -50,7 +51,7 @@
             // 
             // btnTrips
             // 
-            this.btnTrips.Location = new System.Drawing.Point(101, 211);
+            this.btnTrips.Location = new System.Drawing.Point(67, 211);
             this.btnTrips.Name = "btnTrips";
             this.btnTrips.Size = new System.Drawing.Size(75, 42);
             this.btnTrips.TabIndex = 1;
@@ -60,7 +61,7 @@
             // 
             // btnTrucks
             // 
-            this.btnTrucks.Location = new System.Drawing.Point(309, 211);
+            this.btnTrucks.Location = new System.Drawing.Point(258, 211);
             this.btnTrucks.Name = "btnTrucks";
             this.btnTrucks.Size = new System.Drawing.Size(75, 42);
             this.btnTrucks.TabIndex = 2;
@@ -70,7 +71,7 @@
             // 
             // btnServices
             // 
-            this.btnServices.Location = new System.Drawing.Point(204, 211);
+            this.btnServices.Location = new System.Drawing.Point(163, 211);
             this.btnServices.Name = "btnServices";
             this.btnServices.Size = new System.Drawing.Size(75, 42);
             this.btnServices.TabIndex = 3;
@@ -80,7 +81,7 @@
             // 
             // btnUsers
             // 
-            this.btnUsers.Location = new System.Drawing.Point(411, 211);
+            this.btnUsers.Location = new System.Drawing.Point(354, 211);
             this.btnUsers.Name = "btnUsers";
             this.btnUsers.Size = new System.Drawing.Size(75, 42);
             this.btnUsers.TabIndex = 4;
@@ -91,17 +92,28 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(169, 12);
+            this.pictureBox1.Location = new System.Drawing.Point(163, 12);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(282, 174);
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
+            // 
+            // routeBtn
+            // 
+            this.routeBtn.Location = new System.Drawing.Point(450, 211);
+            this.routeBtn.Name = "routeBtn";
+            this.routeBtn.Size = new System.Drawing.Size(75, 42);
+            this.routeBtn.TabIndex = 6;
+            this.routeBtn.Text = "Routes";
+            this.routeBtn.UseVisualStyleBackColor = true;
+            this.routeBtn.Click += new System.EventHandler(this.routeBtn_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(599, 300);
+            this.Controls.Add(this.routeBtn);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btnUsers);
             this.Controls.Add(this.btnServices);
@@ -126,6 +138,7 @@
         private System.Windows.Forms.Button btnServices;
         private System.Windows.Forms.Button btnUsers;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button routeBtn;
     }
 }
 
