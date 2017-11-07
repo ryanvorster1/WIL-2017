@@ -40,38 +40,38 @@ namespace WIL
             this.Close();
         }
 
-        private async void displayIncompleteServices()
-        {
+        //private async void displayIncompleteServices()
+        //{
 
-            DateTime theDate = dtpDateTime.Value;
-            List<Service> services = new List<Service>();
+        //    DateTime theDate = dtpDateTime.Value;
+        //    List<Service> services = new List<Service>();
 
-            if (cmbViewType.SelectedItem != null)
-            {
-                switch (cmbViewType.SelectedItem.ToString())
-                {
-                    case "Daily":
-                        services = await dbm.GetIncompleteServices(theDate,theDate.AddDays(1));
-                        break;
-                    case "Weekly":
-                        services = await dbm.GetIncompleteServices(theDate, theDate.AddDays(7));
-                        break;
-                    case "Monthly":
-                        services = await dbm.GetIncompleteServices(theDate, theDate.AddMonths(1));
-                        break;
-                }
+        //    if (cmbViewType.SelectedItem != null)
+        //    {
+        //        switch (cmbViewType.SelectedItem.ToString())
+        //        {
+        //            case "Daily":
+        //                services = await dbm.GetIncompleteServices(theDate,theDate.AddDays(1));
+        //                break;
+        //            case "Weekly":
+        //                services = await dbm.GetIncompleteServices(theDate, theDate.AddDays(7));
+        //                break;
+        //            case "Monthly":
+        //                services = await dbm.GetIncompleteServices(theDate, theDate.AddMonths(1));
+        //                break;
+        //        }
 
-                lvServiceList.Clear();
-                DisplayServiceHeadings();
-                if (services.Count > 0)
-                {
-                    UpdateListBox(services);
-                    lvServiceList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-                    //ServiceReport();
-                }
-            }
+        //        lvServiceList.Clear();
+        //        DisplayServiceHeadings();
+        //        if (services.Count > 0)
+        //        {
+        //            UpdateListBox(services);
+        //            lvServiceList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+        //            //ServiceReport();
+        //        }
+        //    }
 
-        }
+        //}
 
         private async void dtpDateTime_ValueChanged(object sender, EventArgs e)
         {
@@ -83,7 +83,7 @@ namespace WIL
                 switch(cmbViewType.SelectedItem.ToString())
                 {
                     case "Daily":
-                        services = await dbm.GetServices(theDate);
+                        services = await dbm.GetServices(theDate, theDate.AddDays(1));
 
                     break;
                     case "Weekly":
@@ -108,6 +108,8 @@ namespace WIL
                     UpdateListBox(services);
                     lvServiceList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
                 }
+
+            
             }
         }
 
@@ -140,7 +142,7 @@ namespace WIL
                 lvServiceList.Items.Add(lvi);
             }
             lvServiceList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-            ServiceReport();
+          
         }
 
   
@@ -191,7 +193,7 @@ namespace WIL
         private void ServiceForm_Load(object sender, EventArgs e)
         {
             cmbViewType.SelectedIndex = 0;
-            dtpDateTime_ValueChanged(sender, e);
+           // dtpDateTime_ValueChanged(sender, e);
             isReport = false;
         }
 
@@ -212,7 +214,7 @@ namespace WIL
                 switch (cmbViewType.SelectedItem.ToString())
                 {
                     case "Daily":
-                        services = await dbm.GetServices(theDate);
+                        services = await dbm.GetServices(theDate, theDate.AddDays(1));
                         lblServiceReport.Text = "Daily Service Report";
 
                         break;

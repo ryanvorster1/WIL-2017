@@ -49,6 +49,7 @@
             this.destination = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.wILDBDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnlReportView = new System.Windows.Forms.Panel();
+            this.lblHours = new System.Windows.Forms.Label();
             this.lblTotalTrips = new System.Windows.Forms.Label();
             this.lblTotalDistance = new System.Windows.Forms.Label();
             this.btnCloseReportView = new System.Windows.Forms.Button();
@@ -61,8 +62,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.bentViewReport = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btnLogIncident = new System.Windows.Forms.Button();
-            this.lblHours = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTrips)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.wILDBDataSetBindingSource)).BeginInit();
             this.pnlReportView.SuspendLayout();
@@ -193,6 +192,16 @@
             this.pnlReportView.TabIndex = 6;
             this.pnlReportView.Visible = false;
             // 
+            // lblHours
+            // 
+            this.lblHours.AutoSize = true;
+            this.lblHours.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.lblHours.Location = new System.Drawing.Point(441, 31);
+            this.lblHours.Name = "lblHours";
+            this.lblHours.Size = new System.Drawing.Size(46, 17);
+            this.lblHours.TabIndex = 11;
+            this.lblHours.Text = "label6";
+            // 
             // lblTotalTrips
             // 
             this.lblTotalTrips.AutoSize = true;
@@ -315,32 +324,11 @@
             this.pictureBox1.TabIndex = 8;
             this.pictureBox1.TabStop = false;
             // 
-            // btnLogIncident
-            // 
-            this.btnLogIncident.Location = new System.Drawing.Point(15, 584);
-            this.btnLogIncident.Name = "btnLogIncident";
-            this.btnLogIncident.Size = new System.Drawing.Size(108, 27);
-            this.btnLogIncident.TabIndex = 8;
-            this.btnLogIncident.Text = "Log Incident";
-            this.btnLogIncident.UseVisualStyleBackColor = true;
-            this.btnLogIncident.Click += new System.EventHandler(this.btnLogIncident_Click);
-            // 
-            // lblHours
-            // 
-            this.lblHours.AutoSize = true;
-            this.lblHours.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.lblHours.Location = new System.Drawing.Point(441, 31);
-            this.lblHours.Name = "lblHours";
-            this.lblHours.Size = new System.Drawing.Size(46, 17);
-            this.lblHours.TabIndex = 11;
-            this.lblHours.Text = "label6";
-            // 
             // TripForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(674, 623);
-            this.Controls.Add(this.btnLogIncident);
             this.Controls.Add(this.bentViewReport);
             this.Controls.Add(this.pnlReportView);
             this.Controls.Add(this.cmbViewType);
@@ -393,7 +381,6 @@
         private System.Windows.Forms.Label lblTotalDistance;
         private System.Windows.Forms.Label lblTotalTrips;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button btnLogIncident;
         private System.Windows.Forms.Label lblHours;
     }
 }
