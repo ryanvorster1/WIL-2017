@@ -115,5 +115,9 @@ namespace WIL
 
         }
 
+        private void bttnExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

@@ -35,6 +35,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TripForm));
             this.viewPlannedTripsBtn = new System.Windows.Forms.Button();
             this.viewCompletedTripsBtn = new System.Windows.Forms.Button();
             this.addTripButton = new System.Windows.Forms.Button();
@@ -48,6 +49,8 @@
             this.destination = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.wILDBDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnlReportView = new System.Windows.Forms.Panel();
+            this.lblTotalTrips = new System.Windows.Forms.Label();
+            this.lblTotalDistance = new System.Windows.Forms.Label();
             this.btnCloseReportView = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -57,16 +60,16 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.bentViewReport = new System.Windows.Forms.Button();
-            this.lblTotalDistance = new System.Windows.Forms.Label();
-            this.lblTotalTrips = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTrips)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.wILDBDataSetBindingSource)).BeginInit();
             this.pnlReportView.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // viewPlannedTripsBtn
             // 
-            this.viewPlannedTripsBtn.Location = new System.Drawing.Point(12, 12);
+            this.viewPlannedTripsBtn.Location = new System.Drawing.Point(39, 190);
             this.viewPlannedTripsBtn.Name = "viewPlannedTripsBtn";
             this.viewPlannedTripsBtn.Size = new System.Drawing.Size(117, 40);
             this.viewPlannedTripsBtn.TabIndex = 0;
@@ -76,7 +79,7 @@
             // 
             // viewCompletedTripsBtn
             // 
-            this.viewCompletedTripsBtn.Location = new System.Drawing.Point(154, 12);
+            this.viewCompletedTripsBtn.Location = new System.Drawing.Point(205, 190);
             this.viewCompletedTripsBtn.Name = "viewCompletedTripsBtn";
             this.viewCompletedTripsBtn.Size = new System.Drawing.Size(121, 40);
             this.viewCompletedTripsBtn.TabIndex = 2;
@@ -85,7 +88,7 @@
             // 
             // addTripButton
             // 
-            this.addTripButton.Location = new System.Drawing.Point(483, 12);
+            this.addTripButton.Location = new System.Drawing.Point(513, 190);
             this.addTripButton.Name = "addTripButton";
             this.addTripButton.Size = new System.Drawing.Size(136, 40);
             this.addTripButton.TabIndex = 3;
@@ -95,9 +98,9 @@
             // 
             // exitButton
             // 
-            this.exitButton.Location = new System.Drawing.Point(511, 508);
+            this.exitButton.Location = new System.Drawing.Point(557, 746);
             this.exitButton.Name = "exitButton";
-            this.exitButton.Size = new System.Drawing.Size(108, 27);
+            this.exitButton.Size = new System.Drawing.Size(92, 38);
             this.exitButton.TabIndex = 4;
             this.exitButton.Text = "Exit ";
             this.exitButton.UseVisualStyleBackColor = true;
@@ -115,12 +118,12 @@
             this.departure,
             this.destination});
             this.dgvTrips.GridColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.dgvTrips.Location = new System.Drawing.Point(9, 116);
+            this.dgvTrips.Location = new System.Drawing.Point(20, 333);
             this.dgvTrips.MultiSelect = false;
             this.dgvTrips.Name = "dgvTrips";
             this.dgvTrips.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
             this.dgvTrips.RowHeadersVisible = false;
-            this.dgvTrips.Size = new System.Drawing.Size(601, 289);
+            this.dgvTrips.Size = new System.Drawing.Size(629, 289);
             this.dgvTrips.TabIndex = 5;
             this.dgvTrips.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTrips_CellContentClick);
             // 
@@ -180,15 +183,35 @@
             this.pnlReportView.Controls.Add(this.label5);
             this.pnlReportView.Controls.Add(this.label4);
             this.pnlReportView.Controls.Add(this.label3);
-            this.pnlReportView.Location = new System.Drawing.Point(12, 411);
+            this.pnlReportView.Location = new System.Drawing.Point(18, 628);
             this.pnlReportView.Name = "pnlReportView";
-            this.pnlReportView.Size = new System.Drawing.Size(601, 91);
+            this.pnlReportView.Size = new System.Drawing.Size(631, 112);
             this.pnlReportView.TabIndex = 6;
             this.pnlReportView.Visible = false;
             // 
+            // lblTotalTrips
+            // 
+            this.lblTotalTrips.AutoSize = true;
+            this.lblTotalTrips.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.lblTotalTrips.Location = new System.Drawing.Point(234, 31);
+            this.lblTotalTrips.Name = "lblTotalTrips";
+            this.lblTotalTrips.Size = new System.Drawing.Size(46, 17);
+            this.lblTotalTrips.TabIndex = 10;
+            this.lblTotalTrips.Text = "label6";
+            // 
+            // lblTotalDistance
+            // 
+            this.lblTotalDistance.AutoSize = true;
+            this.lblTotalDistance.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.lblTotalDistance.Location = new System.Drawing.Point(4, 31);
+            this.lblTotalDistance.Name = "lblTotalDistance";
+            this.lblTotalDistance.Size = new System.Drawing.Size(46, 17);
+            this.lblTotalDistance.TabIndex = 9;
+            this.lblTotalDistance.Text = "label6";
+            // 
             // btnCloseReportView
             // 
-            this.btnCloseReportView.Location = new System.Drawing.Point(237, 65);
+            this.btnCloseReportView.Location = new System.Drawing.Point(227, 86);
             this.btnCloseReportView.Name = "btnCloseReportView";
             this.btnCloseReportView.Size = new System.Drawing.Size(129, 23);
             this.btnCloseReportView.TabIndex = 8;
@@ -199,33 +222,36 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(492, 4);
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.label5.Location = new System.Drawing.Point(441, 9);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(106, 13);
+            this.label5.Size = new System.Drawing.Size(146, 18);
             this.label5.TabIndex = 2;
             this.label5.Text = "Overall hours driving:";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(234, 4);
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.label4.Location = new System.Drawing.Point(234, 9);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(63, 13);
+            this.label4.Size = new System.Drawing.Size(86, 18);
             this.label4.TabIndex = 1;
             this.label4.Text = "Total Trips: ";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.label3.Location = new System.Drawing.Point(4, 4);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(132, 13);
+            this.label3.Size = new System.Drawing.Size(179, 18);
             this.label3.TabIndex = 0;
             this.label3.Text = "Overall distance travelled: ";
             // 
             // dtpTrips
             // 
-            this.dtpTrips.Location = new System.Drawing.Point(12, 86);
+            this.dtpTrips.Location = new System.Drawing.Point(20, 294);
             this.dtpTrips.Name = "dtpTrips";
             this.dtpTrips.Size = new System.Drawing.Size(200, 20);
             this.dtpTrips.TabIndex = 0;
@@ -239,9 +265,9 @@
             "Weekly",
             "Monthly",
             "Yearly"});
-            this.cmbViewType.Location = new System.Drawing.Point(322, 89);
+            this.cmbViewType.Location = new System.Drawing.Point(458, 293);
             this.cmbViewType.Name = "cmbViewType";
-            this.cmbViewType.Size = new System.Drawing.Size(165, 21);
+            this.cmbViewType.Size = new System.Drawing.Size(191, 21);
             this.cmbViewType.TabIndex = 1;
             this.cmbViewType.Text = "Select here<";
             this.cmbViewType.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
@@ -249,54 +275,48 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 70);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.label1.Location = new System.Drawing.Point(17, 263);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(87, 13);
+            this.label1.Size = new System.Drawing.Size(118, 18);
             this.label1.TabIndex = 2;
             this.label1.Text = "Select start date:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(319, 70);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.label2.Location = new System.Drawing.Point(455, 263);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(141, 13);
+            this.label2.Size = new System.Drawing.Size(194, 18);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Select daily/weekly/Monthly";
+            this.label2.Text = "Select Daily/Weekly/Monthly";
             // 
             // bentViewReport
             // 
-            this.bentViewReport.Location = new System.Drawing.Point(322, 12);
+            this.bentViewReport.Location = new System.Drawing.Point(355, 190);
             this.bentViewReport.Name = "bentViewReport";
-            this.bentViewReport.Size = new System.Drawing.Size(136, 40);
+            this.bentViewReport.Size = new System.Drawing.Size(125, 40);
             this.bentViewReport.TabIndex = 7;
             this.bentViewReport.Text = "View Reports";
             this.bentViewReport.UseVisualStyleBackColor = true;
             this.bentViewReport.Click += new System.EventHandler(this.btnViewReport_Click);
             // 
-            // lblTotalDistance
+            // pictureBox1
             // 
-            this.lblTotalDistance.AutoSize = true;
-            this.lblTotalDistance.Location = new System.Drawing.Point(28, 21);
-            this.lblTotalDistance.Name = "lblTotalDistance";
-            this.lblTotalDistance.Size = new System.Drawing.Size(35, 13);
-            this.lblTotalDistance.TabIndex = 9;
-            this.lblTotalDistance.Text = "label6";
-            // 
-            // lblTotalTrips
-            // 
-            this.lblTotalTrips.AutoSize = true;
-            this.lblTotalTrips.Location = new System.Drawing.Point(273, 21);
-            this.lblTotalTrips.Name = "lblTotalTrips";
-            this.lblTotalTrips.Size = new System.Drawing.Size(35, 13);
-            this.lblTotalTrips.TabIndex = 10;
-            this.lblTotalTrips.Text = "label6";
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(205, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(275, 172);
+            this.pictureBox1.TabIndex = 8;
+            this.pictureBox1.TabStop = false;
             // 
             // TripForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(631, 547);
+            this.ClientSize = new System.Drawing.Size(677, 796);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.bentViewReport);
             this.Controls.Add(this.pnlReportView);
             this.Controls.Add(this.cmbViewType);
@@ -315,6 +335,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.wILDBDataSetBindingSource)).EndInit();
             this.pnlReportView.ResumeLayout(false);
             this.pnlReportView.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -347,5 +368,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn destination;
         private System.Windows.Forms.Label lblTotalDistance;
         private System.Windows.Forms.Label lblTotalTrips;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
