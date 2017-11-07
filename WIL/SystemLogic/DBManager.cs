@@ -851,6 +851,76 @@ namespace SystemLogic
 
         ////////////////////////////////////////////////////////////////////////////routes
 
+
+        public async Task<int> AddDepartment(Department department)
+        {
+
+
+            return await Task.Run(() =>
+            {
+                List<Route> route = new List<Route>();
+                int id = -1;
+                try
+                {
+
+                    string sql = $"insert into department(name)" +
+                    "values(@name)";
+
+                    SqlCommand cmd = new SqlCommand(sql, dbCon);
+                    cmd.Parameters.AddWithValue("@name", department.Name);
+
+
+                    dbCon.Open();
+                    //do insert
+                    cmd.ExecuteNonQuery();
+                    //get ID
+                    sql = "select @@identity";
+                    cmd.CommandText = sql;
+                    id = Convert.ToInt32(cmd.ExecuteScalar());
+
+                    dbCon.Close();
+                }
+                catch (Exception ex)
+                {
+
+                    throw ex;
+                }
+                return id;
+            });
+        }
+        //add Route
+
+        public async Task<List<Route>> AddRoute(Route routes)
+        {
+            List<Route> route = new List<Route>();
+
+            return await Task.Run(() =>
+                 {
+                     try
+                     {
+                         string sql = $"insert into routes(departure, destination ,kms)" +
+                         "values(@dept, @dest, @kms)";
+
+                         SqlCommand cmd = new SqlCommand(sql, dbCon);
+                         cmd.Parameters.AddWithValue("@dept", routes.Departure);
+                         cmd.Parameters.AddWithValue("@dest", routes.Destination);
+                         cmd.Parameters.AddWithValue("@kms", routes.Kms);
+
+                         dbCon.Open();
+                        //do update
+                        cmd.ExecuteNonQuery();
+
+                         dbCon.Close();
+
+                     }
+                     catch (Exception ex)
+                     {
+
+                         throw ex;
+                     }
+                     return route;
+                 });
+        }
         //get route by id
         public Route GetRouteByID(int id)
         {
@@ -868,10 +938,9 @@ namespace SystemLogic
                 Department deptart = GetDepartmentByID((int)row["departure"]);
                 Department dest = GetDepartmentByID((int)row["destination"]);
                 int kms = (int)row["kms"];
-                double cost = (double)row["cost"];
-                //get cost method
+                // double cost = (double)row["cost"];
 
-                route = new Route(ID, deptart, dest, kms, cost);
+                route = new Route(ID, deptart, dest, kms);
             }
             catch (Exception ex)
             {
@@ -895,13 +964,11 @@ namespace SystemLogic
                 foreach (DataRow row in ds.Tables[0].Rows)
                 {
                     int ID = (int)row["ID"];
-                    Department deptart = GetDepartmentByID((int)row["departure"]);
+                    Department depart = GetDepartmentByID((int)row["departure"]);
                     Department dest = GetDepartmentByID((int)row["destination"]);
                     int kms = (int)row["kms"];
-                    double cost = (double)row["cost"];
-                    //add cost method
 
-                    routes.Add(new Route(ID, deptart, dest, kms, cost));
+                    routes.Add(new Route(ID, depart, dest, kms));
                 }
             }
             catch (Exception ex)
@@ -1165,11 +1232,11 @@ namespace SystemLogic
                     int engineSize = (int)row["engineSize"];
                     int serviceInterval = (int)row["serviceInterval"];
                     int maxWeight = (int)row["maxWeight"];
-                    float litersPerHundy = (float)row["litersPerHundy"];
+                    double litersPerHundy = Convert.ToDouble(row["litersPerHundy"]);
                     int maxVol = (int)row["maxVol"];
 
                     truckTypes.Add(new TruckType(typeID, type, manufacturor, engineSize,
-                        serviceInterval, maxWeight, litersPerHundy, maxVol));
+                        serviceInterval, maxWeight, (float)litersPerHundy, maxVol));
 
                 }
 

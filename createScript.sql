@@ -11,8 +11,7 @@ create table truckType (
 	litersPerHundy	float, --fuel
 	maxVol			int --mm3
 )
-select * from truck
-join truckType on truck.trucktype = truckType.ID
+
 create table truck (
 	ID			integer identity(0,1) primary key,
 	vin			varchar(20),

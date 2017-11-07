@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.viewPlannedTripsBtn = new System.Windows.Forms.Button();
             this.viewCompletedTripsBtn = new System.Windows.Forms.Button();
             this.addTripButton = new System.Windows.Forms.Button();
@@ -125,47 +125,47 @@
             // truckID
             // 
             this.truckID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.Plum;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.MediumAquamarine;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.truckID.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Plum;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.MediumAquamarine;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.truckID.DefaultCellStyle = dataGridViewCellStyle1;
             this.truckID.HeaderText = "Truck ID";
             this.truckID.Name = "truckID";
             this.truckID.ToolTipText = "Double click to view details.";
             // 
             // customerID
             // 
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.Plum;
-            this.customerID.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Plum;
+            this.customerID.DefaultCellStyle = dataGridViewCellStyle2;
             this.customerID.HeaderText = "Customer ID";
             this.customerID.Name = "customerID";
             // 
             // startDate
             // 
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.Plum;
-            this.startDate.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Plum;
+            this.startDate.DefaultCellStyle = dataGridViewCellStyle3;
             this.startDate.HeaderText = "Start Date";
             this.startDate.Name = "startDate";
             // 
             // endDate
             // 
-            dataGridViewCellStyle10.BackColor = System.Drawing.Color.Plum;
-            this.endDate.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Plum;
+            this.endDate.DefaultCellStyle = dataGridViewCellStyle4;
             this.endDate.HeaderText = "End Date";
             this.endDate.Name = "endDate";
             // 
             // departure
             // 
-            dataGridViewCellStyle11.BackColor = System.Drawing.Color.Plum;
-            this.departure.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.Plum;
+            this.departure.DefaultCellStyle = dataGridViewCellStyle5;
             this.departure.HeaderText = "Departure";
             this.departure.Name = "departure";
             // 
             // destination
             // 
             this.destination.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle12.BackColor = System.Drawing.Color.Plum;
-            this.destination.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.Plum;
+            this.destination.DefaultCellStyle = dataGridViewCellStyle6;
             this.destination.HeaderText = "Destination";
             this.destination.Name = "destination";
             this.destination.Width = 85;
@@ -274,7 +274,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(631, 547);
+            this.ClientSize = new System.Drawing.Size(630, 547);
             this.Controls.Add(this.bentViewReport);
             this.Controls.Add(this.pnlReportView);
             this.Controls.Add(this.cmbViewType);
