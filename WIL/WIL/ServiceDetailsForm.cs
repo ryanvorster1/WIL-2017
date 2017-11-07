@@ -31,7 +31,7 @@ namespace WIL
 
         }
 
-        void PopulateFormWithResults(Service pData)
+        async void PopulateFormWithResults(Service pData)
         {
                    //TODO
             //lblMName.Text = pData.Mechanic.Fname;
@@ -43,7 +43,7 @@ namespace WIL
             lblengineSize.Text = pData.Truck.Type.EngineSize.ToString();
             lblserviceInterval.Text = pData.Truck.Type.ServiceInterval.ToString();
             updating = true;
-            var serviceItems = dbm.GetServiceItems(pData);
+            var serviceItems = await dbm.GetServiceItems(pData);
 
             lsbServiceJobs.DataSource = serviceItems;
             lsbServiceJobs.DisplayMember = "ServiceType";
