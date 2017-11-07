@@ -78,6 +78,41 @@ namespace SystemLogic
 
 
 
+        public async Task<Trip> GetAwaitingTrip(User _driver)
+        {
+            return await Task.Run(async () =>
+            {
+                Trip trip = null;
+
+                try
+                {
+                    string sql = $"select * from trip join tripStatus on trip.statusID = tripStatus.ID where statusID = 0 and driverID = {_driver.ID}";
+                    SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                    DataSet ds = new DataSet();
+                    da.Fill(ds);
+
+                    DataRow row = ds.Tables[0].Rows[0];
+                    int ID = (int)row["ID"];
+                    Truck truck = await GetTruckByID((int)row["truckID"]);
+                    Customer customer = GetCustomerByID((int)row["clientID"]);
+                    User driver = await GetUserByID((int)row["driverID"]);
+                    DateTime start = (DateTime)row["StartDate"];
+                    DateTime end = (DateTime)row["endDate"];
+                    Route route = GetRouteByID((int)row["routeID"]);
+                    TripStatus status = await GetTripStatusByID((int)row["statusID"]);
+
+                    trip = new Trip(ID, truck, customer, start, end, driver, route, status);
+                }
+
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                return trip;
+            });
+
+        }
+
 
         private async Task<Truck> UpdateTruckStatus(bool available, Truck truck)
         {
@@ -89,8 +124,8 @@ namespace SystemLogic
                     SqlCommand cmd = new SqlCommand(sql, dbCon);
 
                     dbCon.Open();
-                    //do update
-                    cmd.ExecuteNonQuery();
+                //do update
+                cmd.ExecuteNonQuery();
 
                     dbCon.Close();
 
@@ -114,8 +149,8 @@ namespace SystemLogic
                     SqlCommand cmd = new SqlCommand(sql, dbCon);
 
                     dbCon.Open();
-                    //do update
-                    cmd.ExecuteNonQuery();
+                //do update
+                cmd.ExecuteNonQuery();
 
                     dbCon.Close();
 
@@ -134,8 +169,8 @@ namespace SystemLogic
         {
             try
             {
-                string query = "insert into trip(truckID, clientID, startDate, endDate, driverID, routeID) " +
-                    "values(@truckID, @clientID, @startDate, @endDate, @driverID, @routeID)";
+                string query = "insert into trip(truckID, clientID, startDate, endDate, driverID, routeID, statusID) " +
+                    "values(@truckID, @clientID, @startDate, @endDate, @driverID, @routeID, @statusID)";
 
 
                 SqlCommand cmd = new SqlCommand(query, dbCon);
@@ -145,7 +180,7 @@ namespace SystemLogic
                 cmd.Parameters.AddWithValue("@endDate", trip.End);
                 cmd.Parameters.AddWithValue("@driverID", trip.Driver.ID);
                 cmd.Parameters.AddWithValue("@routeID", trip.Route.ID);
-
+                cmd.Parameters.AddWithValue("@statusID", trip.Status.Status);
 
                 int id = -1;
 
@@ -164,6 +199,64 @@ namespace SystemLogic
                 throw e;
             }
             return trip;
+        }
+
+        public async Task<List<TripStatus>> GetTripStatuses()
+        {
+            return await Task.Run(async () =>
+            {
+                List<TripStatus> tripStatuses = new List<TripStatus>();
+
+                try
+                {
+                    string sql = $"select * from tripStatus";
+                    SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                    DataSet ds = new DataSet();
+                    da.Fill(ds);
+
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        int ID = (int)row["ID"];
+                        string status = row["status"].ToString();
+                        tripStatuses.Add(new TripStatus(ID, status));
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                return tripStatuses;
+            });
+        }
+
+
+        public async Task<TripStatus> GetTripStatusByID(int id)
+        {
+            return await Task.Run(async () =>
+            {
+                TripStatus tripStatus = null;
+
+                try
+                {
+                    string sql = $"select * from tripStatus where id = {id}";
+                    SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                    DataSet ds = new DataSet();
+                    da.Fill(ds);
+
+                    DataRow row = ds.Tables[0].Rows[0];
+                    {
+                        int ID = (int)row["ID"];
+                        string status = row["status"].ToString();
+                        tripStatus = new TripStatus(ID, status);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                return tripStatus;
+            });
         }
 
 
@@ -190,8 +283,9 @@ namespace SystemLogic
                         DateTime start = (DateTime)row["StartDate"];
                         DateTime end = (DateTime)row["endDate"];
                         Route route = GetRouteByID((int)row["routeID"]);
+                        TripStatus status = await GetTripStatusByID((int)row["statusID"]);
 
-                        trips.Add(new Trip(ID, truck, customer, start, end, driver, route));
+                        trips.Add(new Trip(ID, truck, customer, start, end, driver, route, status));
 
                     }
                 }
@@ -227,8 +321,9 @@ namespace SystemLogic
                         DateTime start = (DateTime)row["StartDate"];
                         DateTime end = (DateTime)row["endDate"];
                         Route route = GetRouteByID((int)row["routeID"]);
+                        TripStatus status = await GetTripStatusByID((int)row["statusID"]);
 
-                        trips.Add(new Trip(ID, truck, customer, start, end, driver, route));
+                        trips.Add(new Trip(ID, truck, customer, start, end, driver, route, status));
                     }
                 }
                 catch (Exception ex)
@@ -262,8 +357,9 @@ namespace SystemLogic
                         DateTime start = (DateTime)row["StartDate"];
                         DateTime end = (DateTime)row["endDate"];
                         Route route = GetRouteByID((int)row["routeID"]);
+                        TripStatus status = await GetTripStatusByID((int)row["statusID"]);
 
-                        trips.Add(new Trip(ID, truck, customer, start, end, driver, route));
+                        trips.Add(new Trip(ID, truck, customer, start, end, driver, route, status));
                     }
                 }
                 catch (Exception ex)
@@ -342,8 +438,8 @@ namespace SystemLogic
                         int ID = (int)row["ID"];
                         IncidentType type = GetIncidentTypeByID((int)row["incidentType"]);
                         User driver = await GetUserByID((int)row["driverID"]);
-                        //incidents = (new Incident(ID, type, driver));
-                    }
+                    //incidents = (new Incident(ID, type, driver));
+                }
                 }
                 catch (Exception ex)
                 {
@@ -1150,8 +1246,8 @@ namespace SystemLogic
                     cmd.Parameters.AddWithValue("@id", service.ID);
 
                     dbCon.Open();
-                    //do insert
-                    cmd.ExecuteNonQuery();
+                //do insert
+                cmd.ExecuteNonQuery();
 
                     dbCon.Close();
 

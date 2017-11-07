@@ -41,6 +41,8 @@
             this.completedTripsbtn = new System.Windows.Forms.Button();
             this.btnLogIncident = new System.Windows.Forms.Button();
             this.pnlIncident = new System.Windows.Forms.Panel();
+            this.lblTrip = new System.Windows.Forms.Label();
+            this.lblTruck = new System.Windows.Forms.Label();
             this.panelIncidentDetails.SuspendLayout();
             this.pnlIncident.SuspendLayout();
             this.SuspendLayout();
@@ -89,6 +91,8 @@
             // 
             // panelIncidentDetails
             // 
+            this.panelIncidentDetails.Controls.Add(this.lblTruck);
+            this.panelIncidentDetails.Controls.Add(this.lblTrip);
             this.panelIncidentDetails.Controls.Add(this.label2);
             this.panelIncidentDetails.Controls.Add(this.startbtn);
             this.panelIncidentDetails.Controls.Add(this.currentTripLabel);
@@ -177,6 +181,24 @@
             this.pnlIncident.TabIndex = 8;
             this.pnlIncident.Visible = false;
             // 
+            // lblTrip
+            // 
+            this.lblTrip.AutoSize = true;
+            this.lblTrip.Location = new System.Drawing.Point(78, 4);
+            this.lblTrip.Name = "lblTrip";
+            this.lblTrip.Size = new System.Drawing.Size(68, 13);
+            this.lblTrip.TabIndex = 3;
+            this.lblTrip.Text = "Current Trip: ";
+            // 
+            // lblTruck
+            // 
+            this.lblTruck.AutoSize = true;
+            this.lblTruck.Location = new System.Drawing.Point(325, 4);
+            this.lblTruck.Name = "lblTruck";
+            this.lblTruck.Size = new System.Drawing.Size(52, 13);
+            this.lblTruck.TabIndex = 4;
+            this.lblTruck.Text = "Truck ID:";
+            // 
             // LogIncidentForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -212,5 +234,7 @@
         private System.Windows.Forms.Button completedTripsbtn;
         private System.Windows.Forms.Button btnLogIncident;
         private System.Windows.Forms.Panel pnlIncident;
+        private System.Windows.Forms.Label lblTruck;
+        private System.Windows.Forms.Label lblTrip;
     }
 }

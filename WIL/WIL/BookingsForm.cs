@@ -53,7 +53,7 @@ namespace WIL
             
             Customer customer = db.GetCustomerByID((int)cmbCustomers.SelectedValue);
 
-            Trip trip = new Trip(truck, customer, (DateTime)dateTimePicker.Value, (DateTime)dateTimePicker.Value.AddDays(3), user, route);
+            Trip trip = new Trip(truck, customer, (DateTime)dateTimePicker.Value, (DateTime)dateTimePicker.Value.AddDays(3), user, route, await db.GetTripStatusByID(0));
             
             await db.BookTrip(trip);
             this.Close();

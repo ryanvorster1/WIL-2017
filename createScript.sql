@@ -247,14 +247,16 @@ values(0,0),
 	  --print list of usernames and password 
 select * from users
 join userType on users.userType = userType.ID 
-where users.userType = 0 and avaliable = 1
+where users.userType = 0 and avaliable = 0
 
 --------------------------------------------------------------------------------
-select * 
-from service
-where complete = 1
+
 
 update service
 set complete = 1
 where id = 3
+
+select * from trip
+join tripStatus on trip.statusID = tripStatus.ID
+where statusID = 0 and driverID = 0
 

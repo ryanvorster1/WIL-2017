@@ -15,19 +15,52 @@ namespace WIL
     {
         private User loggedIn;
         private bool updating;
+        private DBManager dbm;
+        private bool isCurrentTrip;
         public LogIncidentForm(User user)
         {
             loggedIn = user;
             InitializeComponent();
-
+            dbm = new DBManager();
         }
 
-        private void LogIncidentForm_Load(object sender, EventArgs e)
+        private async void LogIncidentForm_Load(object sender, EventArgs e)
         {
             cnbIncidents.Items.Clear();
             cnbIncidents.Items.Add("Select item here>");
             updating = true;
             cnbIncidents.SelectedIndex = 0;
+
+            Trip awaitingTrip = await dbm.GetAwaitingTrip(loggedIn);
+
+            if(awaitingTrip != null)
+            {//show in trip
+                switch (awaitingTrip.Status.ID)//awaiting
+                {
+                    case 0:
+                        MessageBox.Show("Awaiting " + awaitingTrip.ToString());
+
+                        break;
+                    case 1: // on way
+                        MessageBox.Show("On way " + awaitingTrip.ToString());
+                        break;
+                    case 2:
+                        MessageBox.Show("Complete" + awaitingTrip.ToString());
+                        break;
+                }
+                isCurrentTrip = false;
+                startbtn.Text = "Start Trip";
+            }else// if() trip on way
+            {
+                if()
+                isCurrentTrip = true;
+                startbtn.Text = "Complete Trip";
+            }
+
+            lblTrip.Text = awaitingTrip.ToString();
+            lblTruck.Text = awaitingTrip.Truck.ToString() + " " + awaitingTrip.Truck.ID;
+
+
         }
 
         private void btnLogIncident_Click(object sender, EventArgs e)
@@ -42,8 +75,7 @@ namespace WIL
 
         private void sendIncidentReportButton_Click(object sender, EventArgs e)
         {
-            DBManager db = new DBManager();
-           db.LogIncident((int)cnbIncidents.SelectedValue,loggedIn);
+           dbm.LogIncident((int)cnbIncidents.SelectedValue,loggedIn);
 
             MessageBox.Show("Report succesful");
             pnlIncident.Visible = false;
