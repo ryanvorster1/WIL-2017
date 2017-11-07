@@ -8,9 +8,11 @@ create table truckType (
 	engineSize		int, --cc
 	serviceInterval	int, --km
 	maxWeight		int, --kg
+	litersPerHundy	float, --fuel
 	maxVol			int --mm3
 )
-
+select * from truck
+join truckType on truck.trucktype = truckType.ID
 create table truck (
 	ID			integer identity(0,1) primary key,
 	vin			varchar(20),
@@ -107,18 +109,18 @@ create table incident (
 	driverID		integer foreign key references users(ID)
 )
 
-insert into truckType(type, manufacturor, engineSize, serviceInterval, maxWeight, maxVol)
-values('Bakkie','Isuzu',2500,15000,1174,1564557280),
-    ('Panel Van','Isuzu',2500,15000,3300,1564557280),
-	('Container Truck','Isuzu',2500,15000,1174,1564557280),
-	('Flat Bed Truck', 'Isuzu',2500, 15000, 13995, 1653668391),
-	('Drop Side Truck','Isuzu',2500,15000,3520,1653668391),
-	('Refrigerated Truck','Isuzu',2500, 15000, 2780, 1653668391),
-	('Crane Truck', 'Isuzu', 2500, 15000,5620,1653668391)
+insert into truckType(type, manufacturor, engineSize, serviceInterval, maxWeight, litersPerHundy, maxVol)
+values('Bakkie','Isuzu',2500,15000,1174,7.9,1564557280),
+    ('Panel Van','Isuzu',2500,15000,3300,4.5,1564557280),
+	('Container Truck','Volvo',2500,15000,1174,9,1564557280),
+	('Flat Bed Truck', 'Scania',2500, 15000,13995,7,1653668391),
+	('Drop Side Truck','Mercedez',2500,15000,3520,15,1653668391),
+	('Refrigerated Truck','Volvo',2500, 15000,2780,20,1653668391),
+	('Crane Truck', 'Scania', 2500, 15000,5620,45,1653668391)
 
 insert into truck(vin,reg,kms,availible,truckType)
 values('98765432','Bak-1',200,5,0),
-    ('3217589', 'Panel-1', 300,5, 1),
+    ('3217589', 'Panel-1', 300,5,1),
 	('9873492','Container-1',250,5,2),
 	('8743785','FlatBed-1',400,5,3),
 	('9837475','DropSide-1',550,5,4),
