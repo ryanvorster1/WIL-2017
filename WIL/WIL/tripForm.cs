@@ -110,7 +110,6 @@ namespace WIL
 
         private async void UpdateDGVTrips()
         {
-            Console.WriteLine(isCurrentTrips);
             dgvTrips.Rows.Clear();
             dgvTrips.Columns.Clear();
             dgvTrips.Columns.Add("ID", "Truck ID");
@@ -183,7 +182,46 @@ namespace WIL
             btnCompleteTrips.Visible = true;
             UpdateDGVTrips();
         }
+        private async void getOverall()
+        {
+            DateTime theDate = dtpTrips.Value;
+            List<Trip> trips = new List<Trip>();
 
+
+            if (cmbViewType.SelectedItem != null)
+            {
+                switch (cmbViewType.SelectedItem.ToString())
+                {
+                    case "Daily":
+                        trips = await dbm.GetCompleteTrips(theDate, theDate);
+
+                        break;
+                    case "Weekly":
+                        trips = await dbm.GetCompleteTrips(theDate, theDate.AddDays(7));
+
+                        break;
+                    case "Monthly":
+                        trips = await dbm.GetCompleteTrips(theDate, theDate.AddMonths(1));
+
+                        break;
+                }
+
+                double totalKms = 0;
+                double totalTrips = trips.Count;
+
+                foreach (var Trips in trips)
+                {
+                    totalKms += Trips.Route.Kms;
+
+                }
+
+                lblTotalDistance.Text = totalKms.ToString();
+                lblTotalTrips.Text = totalTrips.ToString();
+
+            }
+        }
+
+               
         private void btnLogIncident_Click(object sender, EventArgs e)
         {
             foreach (var item in dgvTrips.SelectedCells)

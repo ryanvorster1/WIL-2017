@@ -23,7 +23,7 @@ namespace WIL
             this.trip = trip;
         }
 
-        private async void LogIncidentForm_Load(object sender, EventArgs e)
+        private void LogIncidentForm_Load(object sender, EventArgs e)
         {
             cnbIncidents.Items.Clear();
             cnbIncidents.Items.Add("Select item here>");

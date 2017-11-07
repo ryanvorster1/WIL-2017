@@ -10,12 +10,9 @@ namespace SystemLogic
 {
     public class DBManager
     {
-
-
-
-        private string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=2017WIL;Integrated Security=True;Pooling=False";
+        //private string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=2017WIL;Integrated Security=True;Pooling=False";
         //private string connectionString = "Data Source=POKKOLS-PC;Initial Catalog=WIL;Integrated Security=True";
-        //private string connectionString = "Data Source=DESKTOP-IHUJDPR;Initial Catalog=WILDB;Integrated Security=True";
+        private string connectionString = "Data Source=DESKTOP-IHUJDPR;Initial Catalog=WILDB;Integrated Security=True";
         //private string connectionString = "Data Source=RYAN;Initial Catalog=WILDB;Integrated Security=True;Pooling=False";
 
         private SqlConnection dbCon;
@@ -310,7 +307,7 @@ namespace SystemLogic
 
         public async Task<List<TripStatus>> GetTripStatuses()
         {
-            return await Task.Run(async () =>
+            return await Task.Run(() =>
             {
                 List<TripStatus> tripStatuses = new List<TripStatus>();
 
@@ -325,7 +322,7 @@ namespace SystemLogic
                     {
                         int ID = (int)row["ID"];
                         string status = row["status"].ToString();
-                        tripStatuses.Add(new TripStatus(ID, status));
+                        tripStatuses.Add (new TripStatus(ID, status));
 
                     }
                 }
@@ -339,7 +336,7 @@ namespace SystemLogic
 
         public async Task<TripStatus> GetTripStatusByID(int id)
         {
-            return await Task.Run(async () =>
+            return await Task.Run(() =>
             {
                 TripStatus tripStatus = null;
 
@@ -485,7 +482,9 @@ namespace SystemLogic
                 try
                 {
                     string sql = $"select * from trip where startDate >= '{startDate.ToShortDateString()}' and startdate <= '{endDate.ToShortDateString()}' or " +
-                        $"enddate >= '{startDate.ToShortDateString()}' and enddate <= '{endDate.ToShortDateString()}' and statusID = 0 or statusID = 1";
+                        $"enddate >= '{startDate.ToShortDateString()}' and enddate <= '{endDate.ToShortDateString()}' and statusID = 0";
+                        //$"enddate >= '{startDate.ToShortDateString()}' and enddate <= '{endDate.ToShortDateString()}' and statusID = 0 or statusID = 1";
+
                     SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
                     DataSet ds = new DataSet();
                     da.Fill(ds);
@@ -738,13 +737,12 @@ namespace SystemLogic
         //log incidents from driverform
         public async Task<int> AddService(Service service)
         {
-            return await Task.Run(async () =>
+            return await Task.Run( () =>
             {
                 int id = -1;
                 try
                 {
-                    string sql = "insert into Service(truckID, startDate, endDate, complete) " +
-                                "values(@truckID, @startDate, @endDate, @complete)";
+                    string sql = "insert into Service(truckID, startDate, endDate, complete) " + "values(@truckID, @startDate, @endDate, @complete)";
 
                     SqlCommand cmd = new SqlCommand(sql, dbCon);
                     cmd.Parameters.AddWithValue("@truckID", service.Truck.ID);
@@ -761,9 +759,7 @@ namespace SystemLogic
                     id = Convert.ToInt32(cmd.ExecuteScalar());
 
                     dbCon.Close();
-                    return id;
-
-                }
+                                   }
                 catch (Exception ex)
                 {
                     throw ex;
@@ -873,7 +869,7 @@ namespace SystemLogic
         //getcustomer by ID
         public async Task<Customer> GetCustomerByID(int id)
         {
-            return await Task.Run(async () =>
+            return await Task.Run(() =>
             {
                 Customer customer = null;
                 try
@@ -1212,6 +1208,81 @@ namespace SystemLogic
 
         ////////////////////////////////////////////////////////////////////////////routes
 
+
+        public async Task<int> AddDepartment(Department department)
+        {
+
+
+            return await Task.Run(() =>
+            {
+                List<Route> route = new List<Route>();
+                int id = -1;
+                try
+                {
+
+                    string sql = $"insert into department(name)" +
+                    "values(@name)";
+
+                    SqlCommand cmd = new SqlCommand(sql, dbCon);
+                    cmd.Parameters.AddWithValue("@name", department.Name);
+
+
+                    dbCon.Open();
+                    //do insert
+                    cmd.ExecuteNonQuery();
+                    //get ID
+                    sql = "select @@identity";
+                    cmd.CommandText = sql;
+                    id = Convert.ToInt32(cmd.ExecuteScalar());
+
+                    dbCon.Close();
+                }
+                catch (Exception ex)
+                {
+
+                    throw ex;
+                }
+                return id;
+            });
+        }
+        //add Route
+
+        public async Task<List<Route>> AddRoute(Route routes)
+        {
+            List<Route> route = new List<Route>();
+            int id = -1;
+
+            return await Task.Run(() =>
+                 {
+                     try
+                     {
+                         string sql = $"insert into routes(departure, destination ,kms)" +
+                         "values(@dept, @dest, @kms)";
+
+                         SqlCommand cmd = new SqlCommand(sql, dbCon);
+                         cmd.Parameters.AddWithValue("@dept", routes.Departure.ID);
+                         cmd.Parameters.AddWithValue("@dest", routes.Destination.ID);
+                         cmd.Parameters.AddWithValue("@kms", routes.Kms);
+
+
+                         dbCon.Open();
+                         //do insert
+                         cmd.ExecuteNonQuery();
+                         //get ID
+                         sql = "select @@identity";
+                         cmd.CommandText = sql;
+                         id = Convert.ToInt32(cmd.ExecuteScalar());
+
+                         dbCon.Close();
+                     }
+                     catch (Exception ex)
+                     {
+
+                         throw ex;
+                     }
+                     return route;
+                });
+        }
         //get route by id
         public async Task<Route> GetRouteByID(int id)
         {
@@ -1219,29 +1290,32 @@ namespace SystemLogic
             {
                 Route route = null;
 
-                try
-                {
-                    string sql = $"select * from routes where id = {id}";
-                    SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
-                    DataSet ds = new DataSet();
-                    da.Fill(ds);
+            try
+            {
+                string sql = $"select * from routes where id = {id}";
+                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
 
-                    DataRow row = ds.Tables[0].Rows[0];
-                    int ID = (int)row["ID"];
-                    Department deptart = await GetDepartmentByID((int)row["departure"]);
-                    Department dest = await GetDepartmentByID((int)row["destination"]);
-                    int kms = (int)row["kms"];
-                    //get cost method
+                DataRow row = ds.Tables[0].Rows[0];
+                int ID = (int)row["ID"];
+                Department deptart = await GetDepartmentByID((int)row["departure"]);
+                Department dest = await GetDepartmentByID((int)row["destination"]);
+                int kms = (int)row["kms"];
+                // double cost = (double)row["cost"];
 
-                    route = new Route(ID, deptart, dest, kms);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                return route;
+                route = new Route(ID, deptart, dest, kms);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return route;
             });
         }
+
+        ////////////////////////////////////////////////////////////////////////////routes
+
 
         //get a list of all routes
         public async Task<List<Route>> GetRoutes()
@@ -1277,10 +1351,10 @@ namespace SystemLogic
         }
 
         //get department by ID
-        public async Task<Department> GetDepartmentByID(int id)
+         public async Task<Department> GetDepartmentByID(int id)
         {
-            return await Task.Run(async () =>
-            {
+            return await Task.Run(() =>
+            { 
                 Department depo;
                 try
                 {
@@ -1293,14 +1367,14 @@ namespace SystemLogic
                     int ID = (int)row["ID"];
                     string name = row["name"].ToString();
 
-                    depo = new Department(ID, name);
+                    depo =  new Department(ID, name);
                 }
                 catch (Exception ex)
                 {
                     throw ex;
                 }
                 return depo;
-            });
+           });
         }
 
         //get a list of all departments
@@ -1523,25 +1597,26 @@ namespace SystemLogic
 
                 try
                 {
+
                     string sql = $"select * from trucktype";
                     SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
                     DataSet ds = new DataSet();
                     da.Fill(ds);
 
+                   
                     foreach (DataRow row in ds.Tables[0].Rows)
                     {
-
                         int typeID = (int)row["ID"];
                         string type = row["type"].ToString();
                         string manufacturor = row["manufacturor"].ToString();
                         int engineSize = (int)row["engineSize"];
                         int serviceInterval = (int)row["serviceInterval"];
                         int maxWeight = (int)row["maxWeight"];
-                        int litersPerHundy = (int)row["litersPerHundy"];
+                        int litersPerHundy = Convert.ToInt32(row["litersPerHundy"]);
                         int maxVol = (int)row["maxVol"];
 
                         truckTypes.Add(new TruckType(typeID, type, manufacturor, engineSize,
-                            serviceInterval, maxWeight, litersPerHundy, maxVol));
+                        serviceInterval, maxWeight, litersPerHundy, maxVol));
 
                     }
 
@@ -1907,7 +1982,7 @@ namespace SystemLogic
 
         public async Task<List<ServiceType>> GetServiceTypes()
         {
-            return await Task.Run(async () =>
+            return await Task.Run(() =>
             {
                 List<ServiceType> serviceTypes = new List<ServiceType>();
 
@@ -1940,7 +2015,7 @@ namespace SystemLogic
 
         public async Task<ServiceType> GetServiceTypeById(int id)
         {
-            return await Task.Run(async () =>
+            return await Task.Run(() =>
             {
                 ServiceType serviceType = null;
 
