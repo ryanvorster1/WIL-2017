@@ -46,11 +46,11 @@
             this.lsbServiceJobs = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.pnlServiceDetails = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblR = new System.Windows.Forms.Label();
             this.lblVin = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pnlServiceDetails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -59,7 +59,7 @@
             // 
             this.lblMenuTrucktype.AutoSize = true;
             this.lblMenuTrucktype.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMenuTrucktype.Location = new System.Drawing.Point(21, 309);
+            this.lblMenuTrucktype.Location = new System.Drawing.Point(21, 239);
             this.lblMenuTrucktype.Name = "lblMenuTrucktype";
             this.lblMenuTrucktype.Size = new System.Drawing.Size(111, 24);
             this.lblMenuTrucktype.TabIndex = 0;
@@ -69,7 +69,7 @@
             // 
             this.lblTruckType.AutoSize = true;
             this.lblTruckType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTruckType.Location = new System.Drawing.Point(179, 313);
+            this.lblTruckType.Location = new System.Drawing.Point(179, 239);
             this.lblTruckType.Name = "lblTruckType";
             this.lblTruckType.Size = new System.Drawing.Size(139, 20);
             this.lblTruckType.TabIndex = 5;
@@ -79,7 +79,7 @@
             // 
             this.lblManufacturor.AutoSize = true;
             this.lblManufacturor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblManufacturor.Location = new System.Drawing.Point(179, 351);
+            this.lblManufacturor.Location = new System.Drawing.Point(178, 287);
             this.lblManufacturor.Name = "lblManufacturor";
             this.lblManufacturor.Size = new System.Drawing.Size(108, 20);
             this.lblManufacturor.TabIndex = 7;
@@ -89,7 +89,7 @@
             // 
             this.lblengineSize.AutoSize = true;
             this.lblengineSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblengineSize.Location = new System.Drawing.Point(178, 467);
+            this.lblengineSize.Location = new System.Drawing.Point(178, 426);
             this.lblengineSize.Name = "lblengineSize";
             this.lblengineSize.Size = new System.Drawing.Size(40, 20);
             this.lblengineSize.TabIndex = 8;
@@ -99,7 +99,7 @@
             // 
             this.lblESize.AutoSize = true;
             this.lblESize.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblESize.Location = new System.Drawing.Point(21, 464);
+            this.lblESize.Location = new System.Drawing.Point(22, 426);
             this.lblESize.Name = "lblESize";
             this.lblESize.Size = new System.Drawing.Size(117, 24);
             this.lblESize.TabIndex = 9;
@@ -109,7 +109,7 @@
             // 
             this.lblserviceInterval.AutoSize = true;
             this.lblserviceInterval.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblserviceInterval.Location = new System.Drawing.Point(179, 515);
+            this.lblserviceInterval.Location = new System.Drawing.Point(178, 467);
             this.lblserviceInterval.Name = "lblserviceInterval";
             this.lblserviceInterval.Size = new System.Drawing.Size(113, 20);
             this.lblserviceInterval.TabIndex = 10;
@@ -119,7 +119,7 @@
             // 
             this.lblserInterval.AutoSize = true;
             this.lblserInterval.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblserInterval.Location = new System.Drawing.Point(22, 511);
+            this.lblserInterval.Location = new System.Drawing.Point(22, 467);
             this.lblserInterval.Name = "lblserInterval";
             this.lblserInterval.Size = new System.Drawing.Size(142, 24);
             this.lblserInterval.TabIndex = 11;
@@ -139,21 +139,19 @@
             // 
             this.lblCost.AutoSize = true;
             this.lblCost.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCost.Location = new System.Drawing.Point(170, 25);
+            this.lblCost.Location = new System.Drawing.Point(170, 26);
             this.lblCost.Name = "lblCost";
-            this.lblCost.Size = new System.Drawing.Size(98, 20);
+            this.lblCost.Size = new System.Drawing.Size(0, 20);
             this.lblCost.TabIndex = 13;
-            this.lblCost.Text = "Service Cost";
             // 
             // lblHours
             // 
             this.lblHours.AutoSize = true;
             this.lblHours.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblHours.Location = new System.Drawing.Point(157, 72);
+            this.lblHours.Location = new System.Drawing.Point(170, 71);
             this.lblHours.Name = "lblHours";
-            this.lblHours.Size = new System.Drawing.Size(52, 20);
+            this.lblHours.Size = new System.Drawing.Size(0, 20);
             this.lblHours.TabIndex = 14;
-            this.lblHours.Text = "Hours";
             // 
             // lblmenuHours
             // 
@@ -169,7 +167,7 @@
             // 
             this.lblMenumanufacturor.AutoSize = true;
             this.lblMenumanufacturor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.lblMenumanufacturor.Location = new System.Drawing.Point(179, 387);
+            this.lblMenumanufacturor.Location = new System.Drawing.Point(178, 333);
             this.lblMenumanufacturor.Name = "lblMenumanufacturor";
             this.lblMenumanufacturor.Size = new System.Drawing.Size(73, 20);
             this.lblMenumanufacturor.TabIndex = 16;
@@ -189,7 +187,7 @@
             // 
             this.lblReg.AutoSize = true;
             this.lblReg.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.lblReg.Location = new System.Drawing.Point(179, 426);
+            this.lblReg.Location = new System.Drawing.Point(178, 383);
             this.lblReg.Name = "lblReg";
             this.lblReg.Size = new System.Drawing.Size(82, 20);
             this.lblReg.TabIndex = 18;
@@ -198,7 +196,7 @@
             // lsbServiceJobs
             // 
             this.lsbServiceJobs.FormattingEnabled = true;
-            this.lsbServiceJobs.Location = new System.Drawing.Point(350, 309);
+            this.lsbServiceJobs.Location = new System.Drawing.Point(350, 239);
             this.lsbServiceJobs.Name = "lsbServiceJobs";
             this.lsbServiceJobs.Size = new System.Drawing.Size(373, 238);
             this.lsbServiceJobs.TabIndex = 19;
@@ -208,7 +206,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(346, 277);
+            this.label1.Location = new System.Drawing.Point(346, 203);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(118, 24);
             this.label1.TabIndex = 20;
@@ -221,19 +219,10 @@
             this.pnlServiceDetails.Controls.Add(this.lblCost);
             this.pnlServiceDetails.Controls.Add(this.lblHours);
             this.pnlServiceDetails.Controls.Add(this.lblmenuHours);
-            this.pnlServiceDetails.Location = new System.Drawing.Point(745, 329);
+            this.pnlServiceDetails.Location = new System.Drawing.Point(745, 239);
             this.pnlServiceDetails.Name = "pnlServiceDetails";
-            this.pnlServiceDetails.Size = new System.Drawing.Size(274, 159);
+            this.pnlServiceDetails.Size = new System.Drawing.Size(274, 109);
             this.pnlServiceDetails.TabIndex = 21;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(332, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(391, 245);
-            this.pictureBox1.TabIndex = 22;
-            this.pictureBox1.TabStop = false;
             // 
             // lblR
             // 
@@ -249,7 +238,7 @@
             // 
             this.lblVin.AutoSize = true;
             this.lblVin.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.lblVin.Location = new System.Drawing.Point(21, 383);
+            this.lblVin.Location = new System.Drawing.Point(21, 333);
             this.lblVin.Name = "lblVin";
             this.lblVin.Size = new System.Drawing.Size(43, 24);
             this.lblVin.TabIndex = 23;
@@ -259,7 +248,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.label2.Location = new System.Drawing.Point(22, 422);
+            this.label2.Location = new System.Drawing.Point(22, 383);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(50, 24);
             this.label2.TabIndex = 24;
@@ -269,21 +258,30 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.label3.Location = new System.Drawing.Point(21, 347);
+            this.label3.Location = new System.Drawing.Point(22, 287);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(125, 24);
             this.label3.TabIndex = 25;
             this.label3.Text = "Manufacturor:";
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(398, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(279, 176);
+            this.pictureBox1.TabIndex = 26;
+            this.pictureBox1.TabStop = false;
+            // 
             // ServiceDetailsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1077, 562);
+            this.ClientSize = new System.Drawing.Size(1031, 562);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lblVin);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.pnlServiceDetails);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lsbServiceJobs);
@@ -327,10 +325,10 @@
         private System.Windows.Forms.ListBox lsbServiceJobs;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel pnlServiceDetails;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label lblR;
         private System.Windows.Forms.Label lblVin;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

@@ -64,15 +64,16 @@
             // label5
             // 
             this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.label5.Location = new System.Drawing.Point(9, 216);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(116, 13);
+            this.label5.Size = new System.Drawing.Size(157, 18);
             this.label5.TabIndex = 23;
             this.label5.Text = "Select Departure Date:";
             // 
             // dateTimePicker
             // 
-            this.dateTimePicker.Location = new System.Drawing.Point(141, 216);
+            this.dateTimePicker.Location = new System.Drawing.Point(182, 216);
             this.dateTimePicker.Name = "dateTimePicker";
             this.dateTimePicker.Size = new System.Drawing.Size(200, 20);
             this.dateTimePicker.TabIndex = 22;
@@ -81,43 +82,44 @@
             // destinationBox
             // 
             this.destinationBox.FormattingEnabled = true;
-            this.destinationBox.Location = new System.Drawing.Point(130, 160);
+            this.destinationBox.Location = new System.Drawing.Point(184, 161);
             this.destinationBox.Name = "destinationBox";
-            this.destinationBox.Size = new System.Drawing.Size(146, 21);
+            this.destinationBox.Size = new System.Drawing.Size(198, 21);
             this.destinationBox.TabIndex = 21;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.label4.Location = new System.Drawing.Point(11, 160);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(96, 13);
+            this.label4.Size = new System.Drawing.Size(131, 18);
             this.label4.TabIndex = 20;
             this.label4.Text = "Select Destination:";
             // 
             // slctTruckBox
             // 
             this.slctTruckBox.FormattingEnabled = true;
-            this.slctTruckBox.Location = new System.Drawing.Point(130, 109);
+            this.slctTruckBox.Location = new System.Drawing.Point(184, 114);
             this.slctTruckBox.Name = "slctTruckBox";
-            this.slctTruckBox.Size = new System.Drawing.Size(146, 21);
+            this.slctTruckBox.Size = new System.Drawing.Size(198, 21);
             this.slctTruckBox.TabIndex = 17;
-            
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(11, 109);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.label2.Location = new System.Drawing.Point(11, 113);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(98, 13);
+            this.label2.Size = new System.Drawing.Size(131, 18);
             this.label2.TabIndex = 16;
             this.label2.Text = "Select Truck Type:";
             // 
             // AddCustBtn
             // 
-            this.AddCustBtn.Location = new System.Drawing.Point(12, 26);
+            this.AddCustBtn.Location = new System.Drawing.Point(12, 12);
             this.AddCustBtn.Name = "AddCustBtn";
-            this.AddCustBtn.Size = new System.Drawing.Size(146, 23);
+            this.AddCustBtn.Size = new System.Drawing.Size(146, 37);
             this.AddCustBtn.TabIndex = 15;
             this.AddCustBtn.Text = "Add Customer";
             this.AddCustBtn.UseVisualStyleBackColor = true;
@@ -126,20 +128,20 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.label1.Location = new System.Drawing.Point(11, 76);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(87, 13);
+            this.label1.Size = new System.Drawing.Size(123, 18);
             this.label1.TabIndex = 14;
             this.label1.Text = "Select Customer:";
             // 
             // cmbCustomers
             // 
             this.cmbCustomers.FormattingEnabled = true;
-            this.cmbCustomers.Location = new System.Drawing.Point(130, 68);
+            this.cmbCustomers.Location = new System.Drawing.Point(184, 76);
             this.cmbCustomers.Name = "cmbCustomers";
-            this.cmbCustomers.Size = new System.Drawing.Size(146, 21);
+            this.cmbCustomers.Size = new System.Drawing.Size(198, 21);
             this.cmbCustomers.TabIndex = 13;
-            
             // 
             // BookingsForm
             // 
