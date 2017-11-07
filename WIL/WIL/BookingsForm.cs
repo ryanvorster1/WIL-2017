@@ -80,7 +80,7 @@ namespace WIL
             cmbCustomers.DisplayMember = "Fname";
             cmbCustomers.ValueMember = "ID";
 
-            slctTruckBox.DataSource = await db.GetTruckType();
+            slctTruckBox.DataSource = await db.GetTruckTypes();
             slctTruckBox.DisplayMember = "Type";
             slctTruckBox.ValueMember = "ID";
 

@@ -95,7 +95,7 @@ namespace WIL
                         dbm.AddUser(user);
 
                         UpdateLsbUsers();
-
+                        MessageBox.Show(name + " added.");
                     }
                     catch (Exception ex)
                     {
