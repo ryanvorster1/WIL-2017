@@ -8,7 +8,7 @@ create table truckType (
 	engineSize		int, --cc
 	serviceInterval	int, --km
 	maxWeight		int, --kg
-	litersPerHundy	float, --fuel
+	litersPerHundy	int, --fuel
 	maxVol			int --mm3
 )
 
@@ -47,7 +47,6 @@ create table serviceType (
 create table service (
 	ID			integer identity(0,1) primary key,
 	truckID		integer foreign key references truck(ID),
-	mechanic	integer foreign key references users(ID),
 	startdate	datetime,
 	enddate		datetime,
 	complete	bit
@@ -109,8 +108,8 @@ create table incident (
 )
 
 insert into truckType(type, manufacturor, engineSize, serviceInterval, maxWeight, litersPerHundy, maxVol)
-values('Bakkie','Isuzu',2500,15000,1174,7.9,1564557280),
-    ('Panel Van','Isuzu',2500,15000,3300,4.5,1564557280),
+values('Bakkie','Isuzu',2500,15000,1174,8,1564557280),
+    ('Panel Van','Isuzu',2500,15000,3300,5,1564557280),
 	('Container Truck','Volvo',2500,15000,1174,9,1564557280),
 	('Flat Bed Truck', 'Scania',2500, 15000,13995,7,1653668391),
 	('Drop Side Truck','Mercedez',2500,15000,3520,15,1653668391),
@@ -168,14 +167,13 @@ values(0,1,1400),
 insert into userType(userType)
 values('Driver'),
 	('Service Manager'),
-	('General Manager'),
-	('Mechanic')
+	('General Manager')
 
 insert into users(username, pass, userType, hours, fname, lname,avaliable)
 values('jonny', 'walks', 0, 0, 'Johnny', 'Walker',1),
 		('Bart', 'simps', 1, 0, 'Bartholomew', 'Simpson',1),
-		('MechBob', '1234', 3, 0,'Billy', 'Bob',1),
-		('Carlos', 'lostcar',3,0,'Carlos','Taco',1),
+		('MechBob', '1234', 1, 0,'Billy', 'Bob',1),
+		('Carlos', 'lostcar',1,0,'Carlos','Taco',1),
 		('Suzaan','4321',2,0,'Suzaan','Du Preez',1)
 
 insert into incidentType (description, cost, repairTime)
@@ -224,14 +222,14 @@ values('Oil Leak. Repair Leak and Replace Oil',3000,2),
 	  ('High Damage to Truck, Repair Damage to Truck',1200000,120)
 
 
-insert into service(truckID,mechanic, startdate, enddate, complete)
-values(0,1,'2017/11/2','2017/11/2',1),
-      (1,2,'2017/11/3','2017/11/3',1),
-	  (2,1,'2017/11/3','2017/11/3',1),
-	  (4,2,'2017/11/4','2017/11/4',0),
-	  (6,1,'2017/11/4','2017/11/4',0),
-	  (3,2,'2017/11/5','2017/11/5',0),
-	  (5,1,'2017/11/5','2017/11/5',0)
+insert into service(truckID,startdate, enddate, complete)
+values(0,'2017/11/2','2017/11/2',1),
+      (1,'2017/11/3','2017/11/3',1),
+	  (2,'2017/11/3','2017/11/3',1),
+	  (4,'2017/11/4','2017/11/4',0),
+	  (6,'2017/11/4','2017/11/4',0),
+	  (3,'2017/11/5','2017/11/5',0),
+	  (5,'2017/11/5','2017/11/5',0)
 	  
 insert into serviceItem(serviceID, serviceJob)
 values(0,0),
@@ -249,23 +247,14 @@ values(0,0),
 	  --print list of usernames and password 
 select * from users
 join userType on users.userType = userType.ID 
-where users.userType = 0 and avaliable = 1
+where users.userType = 0 and avaliable = 0
 
 --------------------------------------------------------------------------------
-select * 
-from service
-where complete = 1
-
-update service
-set complete = 1
-where id = 3
-
-select * from trip
+select * from serviceItem
+join service on serviceItem.serviceID = service.ID
 
 
-declare @endDate datetime, @startDate datetime
-set @endDate = '2017/11/24'
-set @startDate ='2017/11/22'
-select * from trip
-where startDate >= @startdate and startdate <= @endDate or 
-      endDate >= @startDate and endDate <= @endDate and statusID = 0
+
+
+select * from truck
+join truckType on truck.truckType = truckType.ID

@@ -33,8 +33,8 @@ namespace WIL
 
             int kms = Convert.ToInt32(kmsTxt.Text);
             int destID = await db.AddDepartment(new Department(name));
-
-            Department dest = db.GetDepartmentByID(destID);
+                     
+            Department dest = await db.GetDepartmentByID(destID);
 
             Route routes = new Route(db.GetDepartmentByID(0), dest, kms);
 

@@ -13,14 +13,13 @@ namespace SystemLogic
         public Department Destination { get; set; }
         public int Kms { get; set; }
         //public double Cost { get; set; }
-
         public Route(int id, Department depart, Department dest, int kms) //, double cost)
         {
             ID = id;
             Departure = depart;
             Destination = dest;
             this.Kms = kms;
-           
+         
         }
 
         public Route(Department depart, Department dest, int kms)

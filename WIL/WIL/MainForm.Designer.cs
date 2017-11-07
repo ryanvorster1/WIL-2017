@@ -34,7 +34,6 @@
             this.btnTrucks = new System.Windows.Forms.Button();
             this.btnServices = new System.Windows.Forms.Button();
             this.btnUsers = new System.Windows.Forms.Button();
-
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -42,17 +41,16 @@
             // lblUser
             // 
             this.lblUser.AutoSize = true;
-            this.lblUser.Location = new System.Drawing.Point(1055, 46);
-            this.lblUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUser.Location = new System.Drawing.Point(534, 12);
+            this.lblUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.lblUser.Location = new System.Drawing.Point(22, 22);
             this.lblUser.Name = "lblUser";
-            this.lblUser.Size = new System.Drawing.Size(118, 42);
+            this.lblUser.Size = new System.Drawing.Size(59, 24);
             this.lblUser.TabIndex = 0;
             this.lblUser.Text = "trucks";
             // 
             // btnTrips
             // 
-            this.btnTrips.Location = new System.Drawing.Point(87, 337);
+            this.btnTrips.Location = new System.Drawing.Point(101, 211);
             this.btnTrips.Name = "btnTrips";
             this.btnTrips.Size = new System.Drawing.Size(75, 42);
             this.btnTrips.TabIndex = 1;
@@ -62,7 +60,7 @@
             // 
             // btnTrucks
             // 
-            this.btnTrucks.Location = new System.Drawing.Point(315, 337);
+            this.btnTrucks.Location = new System.Drawing.Point(309, 211);
             this.btnTrucks.Name = "btnTrucks";
             this.btnTrucks.Size = new System.Drawing.Size(75, 42);
             this.btnTrucks.TabIndex = 2;
@@ -72,7 +70,7 @@
             // 
             // btnServices
             // 
-            this.btnServices.Location = new System.Drawing.Point(198, 337);
+            this.btnServices.Location = new System.Drawing.Point(204, 211);
             this.btnServices.Name = "btnServices";
             this.btnServices.Size = new System.Drawing.Size(75, 42);
             this.btnServices.TabIndex = 3;
@@ -82,7 +80,7 @@
             // 
             // btnUsers
             // 
-            this.btnUsers.Location = new System.Drawing.Point(420, 337);
+            this.btnUsers.Location = new System.Drawing.Point(411, 211);
             this.btnUsers.Name = "btnUsers";
             this.btnUsers.Size = new System.Drawing.Size(75, 42);
             this.btnUsers.TabIndex = 4;
@@ -90,13 +88,12 @@
             this.btnUsers.UseVisualStyleBackColor = true;
             this.btnUsers.Click += new System.EventHandler(this.btnUsers_Click);
             // 
-
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(99, 12);
+            this.pictureBox1.Location = new System.Drawing.Point(169, 12);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(396, 267);
+            this.pictureBox1.Size = new System.Drawing.Size(282, 174);
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
             // 
@@ -104,8 +101,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-
-            this.ClientSize = new System.Drawing.Size(682, 434);
+            this.ClientSize = new System.Drawing.Size(599, 300);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btnUsers);
             this.Controls.Add(this.btnServices);
@@ -113,11 +109,12 @@
             this.Controls.Add(this.btnTrips);
             this.Controls.Add(this.lblUser);
             this.Name = "MainForm";
-            this.Text = "Crazy Trucks Bookings";
+            this.Text = "Home";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

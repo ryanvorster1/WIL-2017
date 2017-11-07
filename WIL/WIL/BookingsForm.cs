@@ -44,34 +44,47 @@ namespace WIL
         {
             TruckType type = await db.GetTruckTypeById((int)slctTruckBox.SelectedValue);
 
-            List<Truck> trucks = await db.GetAvailiableTrucks(type);
-            Truck truck = trucks[0];
-            List<User> users = await db.GetAvailibleDrivers();//[0];
-            User user = users[0];
-            Route route = db.GetRouteByID((int)destinationBox.SelectedValue);
-            
-            
-            Customer customer = db.GetCustomerByID((int)cmbCustomers.SelectedValue);
+            //List<Truck> trucks = await db.GetAvailiableTrucks(type);
+            try
+            {
+                Truck truck = await db.GetNextAvailableTruck(type);
+                List<User> users = await db.GetAvailibleDrivers();//[0];
+                User user = users[0];
+                Route route = await db.GetRouteByID((int)destinationBox.SelectedValue);
+                TripStatus status = await db.GetTripStatusByID(0);
 
-            Trip trip = new Trip(truck, customer, (DateTime)dateTimePicker.Value, (DateTime)dateTimePicker.Value.AddDays(3), user, route);
-            
-            await db.BookTrip(trip);
+                Customer customer = await db.GetCustomerByID((int)cmbCustomers.SelectedValue);
+
+                Trip trip = new Trip(truck, customer, (DateTime)dateTimePicker.Value, (DateTime)dateTimePicker.Value.AddDays(3), user, route, status);
+
+                trip = await db.BookTrip(trip);
+
+                MessageBox.Show($"Trip booked for {trip.Start} with Truck {trip.Truck.ID}");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                MessageBox.Show("Next availible date: " + await db.NextAvailibleDate(type));
+                return;
+            }
+
+          
+
             this.Close();
-
-
+            
         }
 
-        private void BookingsForm_Load(object sender, EventArgs e)
+        private async void BookingsForm_Load(object sender, EventArgs e)
         {
-            cmbCustomers.DataSource = db.GetCustomers();
+            cmbCustomers.DataSource = await db.GetCustomers();
             cmbCustomers.DisplayMember = "Fname";
             cmbCustomers.ValueMember = "ID";
 
-            slctTruckBox.DataSource = db.GetTruckType();
+            slctTruckBox.DataSource = await db.GetTruckType();
             slctTruckBox.DisplayMember = "Type";
             slctTruckBox.ValueMember = "ID";
 
-            destinationBox.DataSource = db.GetRoutes();
+            destinationBox.DataSource = await db.GetRoutes();
             destinationBox.DisplayMember = "Destination";
             destinationBox.ValueMember = "ID";
 

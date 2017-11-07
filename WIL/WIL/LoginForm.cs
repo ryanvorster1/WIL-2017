@@ -31,10 +31,10 @@ namespace WIL
                 {
                     switch (loggedIn.Type.Type.ToLower())
                     {
-                        case "driver":
-                            //show driver form
-                            new LogIncidentForm(loggedIn).Show();
-                            break;
+                        //case "driver":
+                        //    //show driver form
+                        //    new LogIncidentForm(loggedIn).Show();
+                        //    break;
                         default:
                             new MainForm(loggedIn).Show();
                             break;

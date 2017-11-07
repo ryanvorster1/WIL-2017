@@ -28,7 +28,7 @@ namespace WIL
 
         private void ListBoxHandle()
         {
-            lvServiceList.Columns.Add("Truck #", 50);
+            lvServiceList.Columns.Add("Truck ID", 100);
             lvServiceList.Columns.Add("Truck Type", 200);
             lvServiceList.Columns.Add("Service #", 800);
         }
@@ -92,6 +92,10 @@ namespace WIL
                     case "Monthly":
                         services = await dbm.GetServices(theDate, theDate.AddMonths(1));
 
+                    break;
+                    case "Yearly":
+                        services = await dbm.GetServices(theDate, theDate.AddYears(1));
+                    
                     break;
                 }
 
@@ -210,16 +214,23 @@ namespace WIL
                 {
                     case "Daily":
                         services = await dbm.GetServices(theDate);
+                        lblServiceReport.Text = "Daily Service Report";
 
                         break;
                     case "Weekly":
                         services = await dbm.GetServices(theDate, theDate.AddDays(7));
+                        lblServiceReport.Text = "Weekly Service Report";
 
                         break;
                     case "Monthly":
                         services = await dbm.GetServices(theDate, theDate.AddMonths(1));
-
+                        lblServiceReport.Text = "Monthly Service Report";
                         break;
+
+                    case "Yearly":
+                        services = await dbm.GetServices(theDate, theDate.AddYears(1));
+                        lblServiceReport.Text = "Yearly Service Report";
+                        break; 
                 }
 
                 double cost = 0;
