@@ -53,8 +53,9 @@ namespace WIL
         }
 
 
-        private void bttnComplete_Click(object sender, EventArgs e)
+        private async void bttnComplete_Click(object sender, EventArgs e)
         {
+            await dbm.CompleteService(service);
             this.Close();
         }
 

@@ -24,7 +24,6 @@ namespace WIL
             dbm = new DBManager();
 
             InitializeComponent();
-           // dtpDateTime_ValueChanged(null, null);
         }
 
         private void DisplayServiceHeadings()
@@ -40,39 +39,6 @@ namespace WIL
             this.Close();
         }
 
-        private async void displayIncompleteServices()
-        {
-
-            DateTime theDate = dtpDateTime.Value;
-            List<Service> services = new List<Service>();
-
-            if (cmbViewType.SelectedItem != null)
-            {
-                switch (cmbViewType.SelectedItem.ToString())
-                {
-                    case "Daily":
-                        services = await dbm.GetIncompleteServices(theDate,theDate.AddDays(1));
-                        break;
-                    case "Weekly":
-                        services = await dbm.GetIncompleteServices(theDate, theDate.AddDays(7));
-                        break;
-                    case "Monthly":
-                        services = await dbm.GetIncompleteServices(theDate, theDate.AddMonths(1));
-                        break;
-                }
-
-                lvServiceList.Clear();
-                DisplayServiceHeadings();
-                if (services.Count > 0)
-                {
-                    UpdateListBox(services);
-                    lvServiceList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-                    //ServiceReport();
-                }
-            }
-
-        }
-
         private async void dtpDateTime_ValueChanged(object sender, EventArgs e)
         {
             DateTime theDate = dtpDateTime.Value;
@@ -83,20 +49,16 @@ namespace WIL
                 switch(cmbViewType.SelectedItem.ToString())
                 {
                     case "Daily":
-                        services = await dbm.GetServices(theDate);
-
+                        services = await dbm.GetServices(theDate, theDate.AddDays(1));
                     break;
                     case "Weekly":
                         services = await dbm.GetServices(theDate, theDate.AddDays(7));
-
                     break;
                     case "Monthly":
                         services = await dbm.GetServices(theDate, theDate.AddMonths(1));
-
                     break;
                     case "Yearly":
                         services = await dbm.GetServices(theDate, theDate.AddYears(1));
-                    
                     break;
                 }
 
@@ -164,6 +126,7 @@ namespace WIL
                 Service service = services[serviceID];
                 ServiceDetailsForm svcDetailfrm = new ServiceDetailsForm(service);
                 svcDetailfrm.ShowDialog();
+                //UpdateListBox(await dbm.GetServiceById(service.ID));
             }
 
         }
@@ -191,7 +154,7 @@ namespace WIL
         private void ServiceForm_Load(object sender, EventArgs e)
         {
             cmbViewType.SelectedIndex = 0;
-            dtpDateTime_ValueChanged(sender, e);
+            //dtpDateTime_ValueChanged(sender, e);
             isReport = false;
         }
 
@@ -214,18 +177,15 @@ namespace WIL
                     case "Daily":
                         services = await dbm.GetServices(theDate);
                         lblServiceReport.Text = "Daily Service Report";
-
                         break;
                     case "Weekly":
                         services = await dbm.GetServices(theDate, theDate.AddDays(7));
                         lblServiceReport.Text = "Weekly Service Report";
-
                         break;
                     case "Monthly":
                         services = await dbm.GetServices(theDate, theDate.AddMonths(1));
                         lblServiceReport.Text = "Monthly Service Report";
                         break;
-
                     case "Yearly":
                         services = await dbm.GetServices(theDate, theDate.AddYears(1));
                         lblServiceReport.Text = "Yearly Service Report";
