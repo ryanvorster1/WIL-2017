@@ -12,16 +12,14 @@ namespace SystemLogic
         public Department Departure { get; set; }
         public Department Destination { get; set; }
         public int Kms { get; set; }
-        public double Cost { get; set; }
+        //public double Cost { get; set; }
 
-        public Route(int id, Department depart, Department dest, int kms, double cost)
+        public Route(int id, Department depart, Department dest, int kms)
         {
             ID = id;
             Departure = depart;
             Destination = dest;
             this.Kms = kms;
-            this.Cost = cost;
-
         }
 
         public override string ToString()

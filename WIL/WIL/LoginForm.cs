@@ -31,10 +31,10 @@ namespace WIL
                 {
                     switch (loggedIn.Type.Type.ToLower())
                     {
-                        case "driver":
-                            //show driver form
-                            new LogIncidentForm(loggedIn).Show();
-                            break;
+                        //case "driver":
+                        //    //show driver form
+                        //    new LogIncidentForm(loggedIn).Show();
+                        //    break;
                         default:
                             new MainForm(loggedIn).Show();
                             break;
@@ -48,7 +48,7 @@ namespace WIL
             }
         }
 
-        private void LoginForm_Load(object sender, EventArgs e)
+        private async void LoginForm_Load(object sender, EventArgs e)
         {
             txbUsername.Visible = true;
             ActiveControl = txbUsername;

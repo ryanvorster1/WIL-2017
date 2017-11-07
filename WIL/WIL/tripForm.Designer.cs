@@ -36,8 +36,8 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TripForm));
-            this.viewPlannedTripsBtn = new System.Windows.Forms.Button();
-            this.viewCompletedTripsBtn = new System.Windows.Forms.Button();
+            this.btnPlannedTrips = new System.Windows.Forms.Button();
+            this.btnCompleteTrips = new System.Windows.Forms.Button();
             this.addTripButton = new System.Windows.Forms.Button();
             this.exitButton = new System.Windows.Forms.Button();
             this.dgvTrips = new System.Windows.Forms.DataGridView();
@@ -61,6 +61,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.bentViewReport = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnLogIncident = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTrips)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.wILDBDataSetBindingSource)).BeginInit();
             this.pnlReportView.SuspendLayout();
@@ -69,22 +70,24 @@
             // 
             // viewPlannedTripsBtn
             // 
-            this.viewPlannedTripsBtn.Location = new System.Drawing.Point(39, 190);
-            this.viewPlannedTripsBtn.Name = "viewPlannedTripsBtn";
-            this.viewPlannedTripsBtn.Size = new System.Drawing.Size(117, 40);
-            this.viewPlannedTripsBtn.TabIndex = 0;
-            this.viewPlannedTripsBtn.Text = "View Planned Trips";
-            this.viewPlannedTripsBtn.UseVisualStyleBackColor = true;
-            this.viewPlannedTripsBtn.Click += new System.EventHandler(this.viewPlannedTripsBtn_Click);
+
+            this.btnPlannedTrips.Location = new System.Drawing.Point(12, 12);
+            this.btnPlannedTrips.Name = "viewPlannedTripsBtn";
+            this.btnPlannedTrips.Size = new System.Drawing.Size(117, 40);
+            this.btnPlannedTrips.TabIndex = 0;
+            this.btnPlannedTrips.Text = "View Planned Trips";
+            this.btnPlannedTrips.UseVisualStyleBackColor = true;
+            this.btnPlannedTrips.Click += new System.EventHandler(this.viewPlannedTripsBtn_Click);
             // 
             // viewCompletedTripsBtn
             // 
-            this.viewCompletedTripsBtn.Location = new System.Drawing.Point(205, 190);
-            this.viewCompletedTripsBtn.Name = "viewCompletedTripsBtn";
-            this.viewCompletedTripsBtn.Size = new System.Drawing.Size(121, 40);
-            this.viewCompletedTripsBtn.TabIndex = 2;
-            this.viewCompletedTripsBtn.Text = "View Completed Trips";
-            this.viewCompletedTripsBtn.UseVisualStyleBackColor = true;
+            this.btnCompleteTrips.Location = new System.Drawing.Point(154, 12);
+            this.btnCompleteTrips.Name = "viewCompletedTripsBtn";
+            this.btnCompleteTrips.Size = new System.Drawing.Size(121, 40);
+            this.btnCompleteTrips.TabIndex = 2;
+            this.btnCompleteTrips.Text = "View Completed Trips";
+            this.btnCompleteTrips.UseVisualStyleBackColor = true;
+            this.btnCompleteTrips.Click += new System.EventHandler(this.viewCompletedTripsBtn_Click);
             // 
             // addTripButton
             // 
@@ -125,7 +128,7 @@
             this.dgvTrips.RowHeadersVisible = false;
             this.dgvTrips.Size = new System.Drawing.Size(629, 289);
             this.dgvTrips.TabIndex = 5;
-            this.dgvTrips.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTrips_CellContentClick);
+            this.dgvTrips.DoubleClick += new System.EventHandler(this.dgvTrips_DoubleClick);
             // 
             // truckID
             // 
@@ -206,6 +209,7 @@
             this.lblTotalDistance.Location = new System.Drawing.Point(4, 31);
             this.lblTotalDistance.Name = "lblTotalDistance";
             this.lblTotalDistance.Size = new System.Drawing.Size(46, 17);
+
             this.lblTotalDistance.TabIndex = 9;
             this.lblTotalDistance.Text = "label6";
             // 
@@ -310,13 +314,22 @@
             this.pictureBox1.Size = new System.Drawing.Size(275, 172);
             this.pictureBox1.TabIndex = 8;
             this.pictureBox1.TabStop = false;
+            // btnLogIncident
+            // 
+            this.btnLogIncident.Location = new System.Drawing.Point(12, 508);
+            this.btnLogIncident.Name = "btnLogIncident";
+            this.btnLogIncident.Size = new System.Drawing.Size(108, 27);
+            this.btnLogIncident.TabIndex = 8;
+            this.btnLogIncident.Text = "Log Incident";
+            this.btnLogIncident.UseVisualStyleBackColor = true;
+            this.btnLogIncident.Click += new System.EventHandler(this.btnLogIncident_Click);
             // 
             // TripForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(677, 796);
-            this.Controls.Add(this.pictureBox1);
+            this.ClientSize = new System.Drawing.Size(631, 547);
+            this.Controls.Add(this.btnLogIncident);
             this.Controls.Add(this.bentViewReport);
             this.Controls.Add(this.pnlReportView);
             this.Controls.Add(this.cmbViewType);
@@ -325,8 +338,8 @@
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.addTripButton);
             this.Controls.Add(this.dtpTrips);
-            this.Controls.Add(this.viewCompletedTripsBtn);
-            this.Controls.Add(this.viewPlannedTripsBtn);
+            this.Controls.Add(this.btnCompleteTrips);
+            this.Controls.Add(this.btnPlannedTrips);
             this.Controls.Add(this.dgvTrips);
             this.Name = "TripForm";
             this.Text = "tripForm";
@@ -343,8 +356,8 @@
 
         #endregion
 
-        private System.Windows.Forms.Button viewPlannedTripsBtn;
-        private System.Windows.Forms.Button viewCompletedTripsBtn;
+        private System.Windows.Forms.Button btnPlannedTrips;
+        private System.Windows.Forms.Button btnCompleteTrips;
         private System.Windows.Forms.Button addTripButton;
         private System.Windows.Forms.Button exitButton;
         private System.Windows.Forms.DataGridView dgvTrips;
@@ -369,5 +382,6 @@
         private System.Windows.Forms.Label lblTotalDistance;
         private System.Windows.Forms.Label lblTotalTrips;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button btnLogIncident;
     }
 }

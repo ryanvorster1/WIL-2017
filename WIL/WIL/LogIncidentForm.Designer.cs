@@ -32,16 +32,20 @@
             this.cancelButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.cnbIncidents = new System.Windows.Forms.ComboBox();
-            this.panelIncidentDetails = new System.Windows.Forms.Panel();
+            this.pnlTripDetails = new System.Windows.Forms.Panel();
+            this.lblTruck = new System.Windows.Forms.Label();
+            this.lblTrip = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.startbtn = new System.Windows.Forms.Button();
-            this.currentTripLabel = new System.Windows.Forms.Label();
+            this.btnTripStatus = new System.Windows.Forms.Button();
+            this.lblTripStatus = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.otherDescriptionL = new System.Windows.Forms.Label();
             this.completedTripsbtn = new System.Windows.Forms.Button();
             this.btnLogIncident = new System.Windows.Forms.Button();
             this.pnlIncident = new System.Windows.Forms.Panel();
-            this.panelIncidentDetails.SuspendLayout();
+            this.lblDriver = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.pnlTripDetails.SuspendLayout();
             this.pnlIncident.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -87,43 +91,65 @@
             this.cnbIncidents.Click += new System.EventHandler(this.cnbIncidents_Click);
             this.cnbIncidents.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cnbIncidents_MouseClick);
             // 
-            // panelIncidentDetails
+            // pnlTripDetails
             // 
-            this.panelIncidentDetails.Controls.Add(this.label2);
-            this.panelIncidentDetails.Controls.Add(this.startbtn);
-            this.panelIncidentDetails.Controls.Add(this.currentTripLabel);
-            this.panelIncidentDetails.Location = new System.Drawing.Point(23, 41);
-            this.panelIncidentDetails.Name = "panelIncidentDetails";
-            this.panelIncidentDetails.Size = new System.Drawing.Size(406, 100);
-            this.panelIncidentDetails.TabIndex = 4;
+            this.pnlTripDetails.Controls.Add(this.lblDriver);
+            this.pnlTripDetails.Controls.Add(this.label4);
+            this.pnlTripDetails.Controls.Add(this.lblTruck);
+            this.pnlTripDetails.Controls.Add(this.lblTrip);
+            this.pnlTripDetails.Controls.Add(this.label2);
+            this.pnlTripDetails.Controls.Add(this.btnTripStatus);
+            this.pnlTripDetails.Controls.Add(this.lblTripStatus);
+            this.pnlTripDetails.Location = new System.Drawing.Point(23, 41);
+            this.pnlTripDetails.Name = "pnlTripDetails";
+            this.pnlTripDetails.Size = new System.Drawing.Size(406, 100);
+            this.pnlTripDetails.TabIndex = 4;
+            // 
+            // lblTruck
+            // 
+            this.lblTruck.AutoSize = true;
+            this.lblTruck.Location = new System.Drawing.Point(325, 4);
+            this.lblTruck.Name = "lblTruck";
+            this.lblTruck.Size = new System.Drawing.Size(52, 13);
+            this.lblTruck.TabIndex = 4;
+            this.lblTruck.Text = "Truck ID:";
+            // 
+            // lblTrip
+            // 
+            this.lblTrip.AutoSize = true;
+            this.lblTrip.Location = new System.Drawing.Point(78, 4);
+            this.lblTrip.Name = "lblTrip";
+            this.lblTrip.Size = new System.Drawing.Size(68, 13);
+            this.lblTrip.TabIndex = 3;
+            this.lblTrip.Text = "Current Trip: ";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(267, 4);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(52, 13);
+            this.label2.Size = new System.Drawing.Size(41, 13);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Truck ID:";
+            this.label2.Text = "Truck: ";
             // 
-            // startbtn
+            // btnTripStatus
             // 
-            this.startbtn.Location = new System.Drawing.Point(127, 51);
-            this.startbtn.Name = "startbtn";
-            this.startbtn.Size = new System.Drawing.Size(125, 34);
-            this.startbtn.TabIndex = 1;
-            this.startbtn.Text = "Start Trip";
-            this.startbtn.UseVisualStyleBackColor = true;
-            this.startbtn.Click += new System.EventHandler(this.startbtn_Click);
+            this.btnTripStatus.Location = new System.Drawing.Point(127, 51);
+            this.btnTripStatus.Name = "btnTripStatus";
+            this.btnTripStatus.Size = new System.Drawing.Size(125, 34);
+            this.btnTripStatus.TabIndex = 1;
+            this.btnTripStatus.Text = "Start Trip";
+            this.btnTripStatus.UseVisualStyleBackColor = true;
+            this.btnTripStatus.Click += new System.EventHandler(this.startbtn_Click);
             // 
-            // currentTripLabel
+            // lblTripStatus
             // 
-            this.currentTripLabel.AutoSize = true;
-            this.currentTripLabel.Location = new System.Drawing.Point(8, 4);
-            this.currentTripLabel.Name = "currentTripLabel";
-            this.currentTripLabel.Size = new System.Drawing.Size(68, 13);
-            this.currentTripLabel.TabIndex = 0;
-            this.currentTripLabel.Text = "Current Trip: ";
+            this.lblTripStatus.AutoSize = true;
+            this.lblTripStatus.Location = new System.Drawing.Point(8, 4);
+            this.lblTripStatus.Name = "lblTripStatus";
+            this.lblTripStatus.Size = new System.Drawing.Size(68, 13);
+            this.lblTripStatus.TabIndex = 0;
+            this.lblTripStatus.Text = "Current Trip: ";
             // 
             // textBox1
             // 
@@ -177,6 +203,24 @@
             this.pnlIncident.TabIndex = 8;
             this.pnlIncident.Visible = false;
             // 
+            // lblDriver
+            // 
+            this.lblDriver.AutoSize = true;
+            this.lblDriver.Location = new System.Drawing.Point(194, 26);
+            this.lblDriver.Name = "lblDriver";
+            this.lblDriver.Size = new System.Drawing.Size(68, 13);
+            this.lblDriver.TabIndex = 6;
+            this.lblDriver.Text = "Current Trip: ";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(124, 26);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(41, 13);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "Driver: ";
+            // 
             // LogIncidentForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -185,12 +229,12 @@
             this.Controls.Add(this.pnlIncident);
             this.Controls.Add(this.btnLogIncident);
             this.Controls.Add(this.completedTripsbtn);
-            this.Controls.Add(this.panelIncidentDetails);
+            this.Controls.Add(this.pnlTripDetails);
             this.Name = "LogIncidentForm";
             this.Text = "LogIncidentForm";
             this.Load += new System.EventHandler(this.LogIncidentForm_Load);
-            this.panelIncidentDetails.ResumeLayout(false);
-            this.panelIncidentDetails.PerformLayout();
+            this.pnlTripDetails.ResumeLayout(false);
+            this.pnlTripDetails.PerformLayout();
             this.pnlIncident.ResumeLayout(false);
             this.pnlIncident.PerformLayout();
             this.ResumeLayout(false);
@@ -203,14 +247,18 @@
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cnbIncidents;
-        private System.Windows.Forms.Panel panelIncidentDetails;
+        private System.Windows.Forms.Panel pnlTripDetails;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button startbtn;
-        private System.Windows.Forms.Label currentTripLabel;
+        private System.Windows.Forms.Button btnTripStatus;
+        private System.Windows.Forms.Label lblTripStatus;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label otherDescriptionL;
         private System.Windows.Forms.Button completedTripsbtn;
         private System.Windows.Forms.Button btnLogIncident;
         private System.Windows.Forms.Panel pnlIncident;
+        private System.Windows.Forms.Label lblTruck;
+        private System.Windows.Forms.Label lblTrip;
+        private System.Windows.Forms.Label lblDriver;
+        private System.Windows.Forms.Label label4;
     }
 }

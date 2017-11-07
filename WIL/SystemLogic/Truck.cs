@@ -44,9 +44,10 @@ namespace SystemLogic
 
         public override string ToString()
         {
-            string result = $"ID: {ID}\nVIN: {Vin}\nREG: {Reg}\nKMS: {Kms}\nAvail: {Availible}";
-            result += Type.ToString();
-            return result;
+            //string result = $"ID: {ID}\nVIN: {Vin}\nREG: {Reg}\nKMS: {Kms}\nAvail: {Availible}";
+            //result += Type.ToString();
+            //return result;
+            return $"{Type.Manufacturor} {Type.Type} #{ID}";
         }
 
     }
@@ -59,7 +60,7 @@ namespace SystemLogic
         public int EngineSize { get; set; }
         public int ServiceInterval { get; set; }
         public int MaxWeight { get; set; }
-        public float LitersPerHundy { get; set; }
+        public int LitersPerHundy { get; set; }
         public int MaxVol { get; set; }
 
         //default constructor
@@ -70,7 +71,7 @@ namespace SystemLogic
 
         //constructor will all paramaters
         public TruckType(int id, string type, string man,
-            int engineSize, int serviceInterval, int maxWeight, float litersPerHundy, int maxVol)
+            int engineSize, int serviceInterval, int maxWeight, int litersPerHundy, int maxVol)
         {
             ID = id;
             this.Type = type;
@@ -84,7 +85,7 @@ namespace SystemLogic
 
         //constructor without ID
         public TruckType(string type, string man,
-            int engineSize, int serviceInterval, int maxWeight, float litersPerHundy, int maxVol)
+            int engineSize, int serviceInterval, int maxWeight, int litersPerHundy, int maxVol)
         {
             this.Type = type;
             Manufacturor = man;

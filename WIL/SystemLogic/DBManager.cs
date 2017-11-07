@@ -32,36 +32,41 @@ namespace SystemLogic
             }
         }
 
-
-        public async Task<Trip> BookTrip(Trip trip)
+        //update trip status
+        public async Task<Trip> StartTrip(Trip trip)
         {
-
-            List<Truck> availableTrucks = await GetAvailiableTrucks(trip.Truck.Type);
-
-            if (availableTrucks.Count > 0)
-            {
-                AddTrip(trip);
-
-            }
-            else
+            return await Task.Run(async () =>
             {
                 //no trucks available get next availible date
                 try
                 {
-                    string sql = $"select min(endDate) as [Available Date] from trip join truck on trip.truckID = truck.ID where truckType = {trip.Truck.Type.Type}";
-                    SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
-                    DataSet ds = new DataSet();
-                    da.Fill(ds);
+                    string sql = $"update trip set statusID = 1 where ID = {trip.ID}";
+                    SqlCommand cmd = new SqlCommand(sql, dbCon);
+                    dbCon.Open();
+                    cmd.ExecuteNonQuery();
+                    dbCon.Close();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                return await GetTripByID(trip.ID);
+            });
+        }
 
-                    DataRow row = ds.Tables[0].Rows[0][0] as DataRow;
-
-                    DateTime startDate = Convert.ToDateTime(row["Available Date"]);
-                    startDate = startDate.AddDays(3.0);
-                    await UpdateTruckStatus(false, trip.Truck);
-                    await UpdateTruckKms(trip.Route.Kms, trip.Truck);
-
-                    trip.Start = startDate;
-                    AddTrip(trip);
+        //update trip status
+        public async Task<Trip> CompleteTrip(Trip trip)
+        {
+            return await Task.Run(async () =>
+            {
+                //no trucks available get next availible date
+                try
+                {
+                    string sql = $"update trip set statusID = 2 where ID = {trip.ID}";
+                    SqlCommand cmd = new SqlCommand(sql, dbCon);
+                    dbCon.Open();
+                    cmd.ExecuteNonQuery();
+                    dbCon.Close();
 
                 }
                 catch (Exception ex)
@@ -69,22 +74,156 @@ namespace SystemLogic
                     throw ex;
                 }
 
-            }
-            return trip;
+                return await GetTripByID(trip.ID);
+            });
+        }
+
+        public async Task<Truck> GetNextAvailableTruck(TruckType type)
+        {
+            return await Task.Run(async () =>
+            {
+                List<Truck> trucks = await GetTrucks();
+
+                foreach (var item in trucks)
+                {
+                    if(item.Type.ID == type.ID && item.Availible == true)
+                    {
+                        return item;
+                    }
+                }
+                return null;
+            });
+        }
+
+        //book trip with next availible date
+        public async Task<Trip> BookTrip(Trip trip)
+        {
+            return await Task.Run(async () =>
+            {
+                List<Truck> availableTrucks = await GetAvailiableTrucks(trip.Truck.Type);
+
+                if (availableTrucks.Count > 0) //trucks availible for that date. select 0th one
+                {
+                    trip.Truck = availableTrucks[0];
+                }
+                else
+                {
+                    //no trucks available get next availible date
+                    try
+                    {
+                        string sql = $"select enddate as [Available Date], truck.ID as [ID] from trip " +
+                        $"join truck on trip.truckID = truck.ID where truckType = {trip.Truck.Type.ID}" +
+                        $" order by endDate asc";
+                        SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                        DataSet ds = new DataSet();
+                        da.Fill(ds);
+
+                        DataRow row = ds.Tables[0].Rows[0][0] as DataRow;
+
+                        DateTime startDate = Convert.ToDateTime(row["Available Date"]);
+                        Truck truck = await GetTruckByID((int)row["ID"]);
+                        trip.Truck = truck;
+                        startDate = startDate.AddDays(3.0);                        
+
+                        trip.Start = startDate;
+
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+
+                }
+                await UpdateTruckStatus(false, trip.Truck);
+                await UpdateTruckKms(trip.Route.Kms, trip.Truck);
+                await AddTrip(trip);
+
+                return trip;
+            });
+        }
+
+        public async Task<DateTime> NextAvailibleDate(TruckType type)
+        {
+            return await Task.Run(async () =>
+            {
+               Truck availableTrucks = await GetNextAvailableTruck(type);
+                DateTime date;
+
+                if (availableTrucks != null) //current date
+                {
+                    date = DateTime.Now;
+                }
+
+                else
+                {
+                    //no trucks available get next availible date
+                    try
+                    {
+                        string sql = $"select enddate as [Available Date], truck.ID as [ID] from trip join truck on trip.truckID = truck.ID where truckType = {type.ID}" +
+                        $" order by endDate asc";
+                        SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                        DataSet ds = new DataSet();
+                        da.Fill(ds);
+
+                        DataRow row = ds.Tables[0].Rows[0][0] as DataRow;
+
+                        date = Convert.ToDateTime(row["Available Date"]);
+                        date = date.AddDays(3.0);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+
+                }
+                return date;
+            });
         }
 
         //get awaiting trip for driver
+        public async Task<Trip> GetAwaitingTrip(User _driver)
+        {
+            return await Task.Run(async () =>
+            {
+                Trip trip = null;
 
+                try
+                {
+                    string sql = $"select * from trip join tripStatus on trip.statusID = tripStatus.ID where statusID = 0 and driverID = {_driver.ID}";
+                    SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                    DataSet ds = new DataSet();
+                    da.Fill(ds);
 
+                    DataRow row = ds.Tables[0].Rows[0];
+                    int ID = (int)row["ID"];
+                    Truck truck = await GetTruckByID((int)row["truckID"]);
+                    Customer customer = await GetCustomerByID((int)row["clientID"]);
+                    User driver = await GetUserByID((int)row["driverID"]);
+                    DateTime start = (DateTime)row["StartDate"];
+                    DateTime end = (DateTime)row["endDate"];
+                    Route route = await GetRouteByID((int)row["routeID"]);
+                    TripStatus status = await GetTripStatusByID((int)row["statusID"]);
 
+                    trip = new Trip(ID, truck, customer, start, end, driver, route, status);
+                }
 
-        private async Task<Truck> UpdateTruckStatus(bool available, Truck truck)
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                return trip;
+            });
+
+        }
+
+        public async Task<Truck> UpdateTruckStatus(bool available, Truck truck)
         {
             return await Task.Run(() =>
             {
                 try
                 {
-                    string sql = $"UPDATE truck set availible = {available} where id = {truck.ID}";
+                    string sql = $"UPDATE truck set availible = '{available}' where id = {truck.ID}";
                     SqlCommand cmd = new SqlCommand(sql, dbCon);
 
                     dbCon.Open();
@@ -129,42 +268,136 @@ namespace SystemLogic
             });
         }
 
-        private Trip AddTrip(Trip trip)
+        //save Trip to DB
+        private async Task<Trip> AddTrip(Trip trip)
         {
-            try
+            return await Task.Run(() =>
             {
-                string query = "insert into trip(truckID, clientID, startDate, endDate, driverID, routeID) " +
-                    "values(@truckID, @clientID, @startDate, @endDate, @driverID, @routeID)";
+                try
+                {
+                    string query = "insert into trip(truckID, clientID, startDate, endDate, driverID, routeID, statusID) " +
+                        "values(@truckID, @clientID, @startDate, @endDate, @driverID, @routeID, @statusID)";
 
 
-                SqlCommand cmd = new SqlCommand(query, dbCon);
-                cmd.Parameters.AddWithValue("@truckID", trip.Truck.ID);
-                cmd.Parameters.AddWithValue("@clientID", trip.Customer.ID);
-                cmd.Parameters.AddWithValue("@startDate", trip.Start);
-                cmd.Parameters.AddWithValue("@endDate", trip.End);
-                cmd.Parameters.AddWithValue("@driverID", trip.Driver.ID);
-                cmd.Parameters.AddWithValue("@routeID", trip.Route.ID);
+                    SqlCommand cmd = new SqlCommand(query, dbCon);
+                    cmd.Parameters.AddWithValue("@truckID", trip.Truck.ID);
+                    cmd.Parameters.AddWithValue("@clientID", trip.Customer.ID);
+                    cmd.Parameters.AddWithValue("@startDate", trip.Start);
+                    cmd.Parameters.AddWithValue("@endDate", trip.End);
+                    cmd.Parameters.AddWithValue("@driverID", trip.Driver.ID);
+                    cmd.Parameters.AddWithValue("@routeID", trip.Route.ID);
+                    cmd.Parameters.AddWithValue("@statusID", trip.Status.ID);
 
+                    int id = -1;
 
-                int id = -1;
-
-                dbCon.Open();
-                //do insert
-                cmd.ExecuteNonQuery();
-                //get ID
-                query = "select @@identity";
-                cmd.CommandText = query;
-                id = Convert.ToInt32(cmd.ExecuteScalar());
-                trip.ID = id;
-                dbCon.Close();
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-            return trip;
+                    dbCon.Open();
+                    //do insert
+                    cmd.ExecuteNonQuery();
+                    //get ID
+                    query = "select @@identity";
+                    cmd.CommandText = query;
+                    id = Convert.ToInt32(cmd.ExecuteScalar());
+                    trip.ID = id;
+                    dbCon.Close();
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
+                return trip;
+            });
         }
 
+        public async Task<List<TripStatus>> GetTripStatuses()
+        {
+            return await Task.Run(async () =>
+            {
+                List<TripStatus> tripStatuses = new List<TripStatus>();
+
+                try
+                {
+                    string sql = $"select * from tripStatus";
+                    SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                    DataSet ds = new DataSet();
+                    da.Fill(ds);
+
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        int ID = (int)row["ID"];
+                        string status = row["status"].ToString();
+                        tripStatuses.Add(new TripStatus(ID, status));
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                return tripStatuses;
+            });
+        }
+
+        public async Task<TripStatus> GetTripStatusByID(int id)
+        {
+            return await Task.Run(async () =>
+            {
+                TripStatus tripStatus = null;
+
+                try
+                {
+                    string sql = $"select * from tripStatus where id = {id}";
+                    SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                    DataSet ds = new DataSet();
+                    da.Fill(ds);
+
+                    DataRow row = ds.Tables[0].Rows[0];
+                    {
+                        int ID = (int)row["ID"];
+                        string status = row["status"].ToString();
+                        tripStatus = new TripStatus(ID, status);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                return tripStatus;
+            });
+        }
+
+        public async Task<Trip> GetTripByID(int id)
+        {
+            return await Task.Run(async () =>
+            {
+                Trip trips = null;
+
+                try
+                {
+                    string sql = $"select * from trip where id = {id}";
+                    SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                    DataSet ds = new DataSet();
+                    da.Fill(ds);
+
+                    DataRow row = ds.Tables[0].Rows[0];
+                    int ID = (int)row["ID"];
+                    Truck truck = await GetTruckByID((int)row["truckID"]);
+                    Customer customer = await GetCustomerByID((int)row["clientID"]);
+                    User driver = await GetUserByID((int)row["driverID"]);
+                    DateTime start = (DateTime)row["StartDate"];
+                    DateTime end = (DateTime)row["endDate"];
+                    Route route = await GetRouteByID((int)row["routeID"]);
+                    TripStatus status = await GetTripStatusByID((int)row["statusID"]);
+
+                    trips = new Trip(ID, truck, customer, start, end, driver, route, status);
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                return trips;
+            });
+        }
 
         public async Task<List<Trip>> GetTrips(DateTime startDate, DateTime endDate)
         {
@@ -184,13 +417,14 @@ namespace SystemLogic
                     {
                         int ID = (int)row["ID"];
                         Truck truck = await GetTruckByID((int)row["truckID"]);
-                        Customer customer = GetCustomerByID((int)row["clientID"]);
+                        Customer customer = await GetCustomerByID((int)row["clientID"]);
                         User driver = await GetUserByID((int)row["driverID"]);
                         DateTime start = (DateTime)row["StartDate"];
                         DateTime end = (DateTime)row["endDate"];
-                        Route route = GetRouteByID((int)row["routeID"]);
+                        Route route = await GetRouteByID((int)row["routeID"]);
+                        TripStatus status = await GetTripStatusByID((int)row["statusID"]);
 
-                        trips.Add(new Trip(ID, truck, customer, start, end, driver, route));
+                        trips.Add(new Trip(ID, truck, customer, start, end, driver, route, status));
 
                     }
                 }
@@ -213,6 +447,7 @@ namespace SystemLogic
                     string sql = $"select * from trip where startDate >= '{startDate.ToShortDateString()}' and startdate <= '{endDate.ToShortDateString()}' or " +
                         $"enddate >= '{startDate.ToShortDateString()}' and enddate <= '{endDate.ToShortDateString()}' and statusID = 2";
                     SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                    //dbCon.Open();
                     DataSet ds = new DataSet();
                     da.Fill(ds);
 
@@ -220,15 +455,18 @@ namespace SystemLogic
                     {
                         int ID = (int)row["ID"];
                         Truck truck = await GetTruckByID((int)row["truckID"]);
-                        Customer customer = GetCustomerByID((int)row["clientID"]);
+                        Customer customer = await GetCustomerByID((int)row["clientID"]);
                         User driver = await GetUserByID((int)row["driverID"]);
                         DateTime start = (DateTime)row["StartDate"];
                         DateTime end = (DateTime)row["endDate"];
-                        Route route = GetRouteByID((int)row["routeID"]);
+                        Route route = await GetRouteByID((int)row["routeID"]);
+                        TripStatus status = await GetTripStatusByID((int)row["statusID"]);
 
-                        trips.Add(new Trip(ID, truck, customer, start, end, driver, route));
+                        trips.Add(new Trip(ID, truck, customer, start, end, driver, route, status));
 
                     }
+                    dbCon.Close();
+
                 }
                 catch (Exception ex)
                 {
@@ -247,7 +485,7 @@ namespace SystemLogic
                 try
                 {
                     string sql = $"select * from trip where startDate >= '{startDate.ToShortDateString()}' and startdate <= '{endDate.ToShortDateString()}' or " +
-                        $"enddate >= '{startDate.ToShortDateString()}' and enddate <= '{endDate.ToShortDateString()}' and statusID = 0";
+                        $"enddate >= '{startDate.ToShortDateString()}' and enddate <= '{endDate.ToShortDateString()}' and statusID = 0 or statusID = 1";
                     SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
                     DataSet ds = new DataSet();
                     da.Fill(ds);
@@ -256,18 +494,19 @@ namespace SystemLogic
                     {
                         int ID = (int)row["ID"];
                         Truck truck = await GetTruckByID((int)row["truckID"]);
-                        Customer customer = GetCustomerByID((int)row["clientID"]);
+                        Customer customer = await GetCustomerByID((int)row["clientID"]);
                         User driver = await GetUserByID((int)row["driverID"]);
                         DateTime start = (DateTime)row["StartDate"];
                         DateTime end = (DateTime)row["endDate"];
-                        Route route = GetRouteByID((int)row["routeID"]
-                        );
+                        Route route = await GetRouteByID((int)row["routeID"]);
+                        TripStatus status = await GetTripStatusByID((int)row["statusID"]);
 
-                        trips.Add(new Trip(ID, truck, customer, start, end, driver, route));
+
+                        trips.Add(new Trip(ID, truck, customer, start, end, driver, route, status));
 
                     }
                 }
-                catch (Exception ex) 
+                catch (Exception ex)
                 {
                     throw ex;
                 }
@@ -293,13 +532,14 @@ namespace SystemLogic
                     {
                         int ID = (int)row["ID"];
                         Truck truck = await GetTruckByID((int)row["truckID"]);
-                        Customer customer = GetCustomerByID((int)row["clientID"]);
+                        Customer customer = await GetCustomerByID((int)row["clientID"]);
                         User driver = await GetUserByID((int)row["driverID"]);
                         DateTime start = (DateTime)row["StartDate"];
                         DateTime end = (DateTime)row["endDate"];
-                        Route route = GetRouteByID((int)row["routeID"]);
+                        Route route = await GetRouteByID((int)row["routeID"]);
+                        TripStatus status = await GetTripStatusByID((int)row["statusID"]);
 
-                        trips.Add(new Trip(ID, truck, customer, start, end, driver, route));
+                        trips.Add(new Trip(ID, truck, customer, start, end, driver, route, status));
                     }
                 }
                 catch (Exception ex)
@@ -328,13 +568,14 @@ namespace SystemLogic
                     {
                         int ID = (int)row["ID"];
                         Truck truck = await GetTruckByID((int)row["truckID"]);
-                        Customer customer = GetCustomerByID((int)row["clientID"]);
+                        Customer customer = await GetCustomerByID((int)row["clientID"]);
                         User driver = await GetUserByID((int)row["driverID"]);
                         DateTime start = (DateTime)row["StartDate"];
                         DateTime end = (DateTime)row["endDate"];
-                        Route route = GetRouteByID((int)row["routeID"]);
+                        Route route = await GetRouteByID((int)row["routeID"]);
+                        TripStatus status = await GetTripStatusByID((int)row["statusID"]);
 
-                        trips.Add(new Trip(ID, truck, customer, start, end, driver, route));
+                        trips.Add(new Trip(ID, truck, customer, start, end, driver, route, status));
                     }
                 }
                 catch (Exception ex)
@@ -381,7 +622,7 @@ namespace SystemLogic
                     foreach (DataRow row in ds.Tables[0].Rows)
                     {
                         int ID = (int)row["ID"];
-                        IncidentType type = GetIncidentTypeByID((int)row["incidentType"]);
+                        IncidentType type = await GetIncidentTypeByID((int)row["incidentType"]);
                         User driver = await GetUserByID((int)row["driverID"]);
 
                         incidents.Add(new Incident(ID, type, driver));
@@ -411,7 +652,7 @@ namespace SystemLogic
                     foreach (DataRow row in ds.Tables[0].Rows)
                     {
                         int ID = (int)row["ID"];
-                        IncidentType type = GetIncidentTypeByID((int)row["incidentType"]);
+                        IncidentType type = await GetIncidentTypeByID((int)row["incidentType"]);
                         User driver = await GetUserByID((int)row["driverID"]);
                         //incidents = (new Incident(ID, type, driver));
                     }
@@ -424,8 +665,116 @@ namespace SystemLogic
             });
         }
 
+        public async Task<int> GetOrCreateLatestServiceID(Truck truck)
+        {
+            return await Task.Run(async () =>
+            {
+                string sql = $"select * from serviceItem join service on serviceItem.serviceID = service.ID where truckID = {truck.ID} and complete = 0";
+                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+
+                int serviceID;
+                if (ds.Tables[0].Rows.Count >= 1)
+                { //use this id
+                    DataRow row = ds.Tables[0].Rows[0];
+                    serviceID = (int)(row["ServiceID"]);
+                    Console.WriteLine($"current Service {serviceID}");
+
+                }
+                else // no id yet...create a new service
+                {
+
+                    //TODO how to get start date for service abd enddate
+                    Service service = new Service(truck, DateTime.Now, DateTime.Now.AddDays(3), false);
+                    serviceID = await AddService(service);
+
+                    Console.WriteLine($"new Service {service.ID}");
+                }
+
+                return serviceID;
+            });
+        }
+
+        //add new service ITEM
         //log incidents from driverform
-        public void LogIncident(int incidentId, User driver)
+        public async Task<ServiceItem> AddServiceIem(Service service, ServiceType type)
+        {
+            return await Task.Run(async () =>
+            {
+                int id = -1;
+                try
+                {
+                    string sql = "insert into ServiceItem(serviceID, serviceJob) " +
+                                "values(@serviceID, @job)";
+
+                    SqlCommand cmd = new SqlCommand(sql, dbCon);
+                    cmd.Parameters.AddWithValue("@serviceID", service.ID);
+                    cmd.Parameters.AddWithValue("@job", type.ID);
+
+                    dbCon.Open();
+                    //do insert
+                    cmd.ExecuteNonQuery();
+                    //get ID
+                    sql = "select @@identity";
+                    cmd.CommandText = sql;
+                    id = Convert.ToInt32(cmd.ExecuteScalar());
+
+                    dbCon.Close();
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                return await GetServiceItemById(id);
+            });
+            //naz.ID= id;
+
+            //return GetIncidentByID(id);
+        }
+
+        //add new service
+        //log incidents from driverform
+        public async Task<int> AddService(Service service)
+        {
+            return await Task.Run(async () =>
+            {
+                int id = -1;
+                try
+                {
+                    string sql = "insert into Service(truckID, startDate, endDate, complete) " +
+                                "values(@truckID, @startDate, @endDate, @complete)";
+
+                    SqlCommand cmd = new SqlCommand(sql, dbCon);
+                    cmd.Parameters.AddWithValue("@truckID", service.Truck.ID);
+                    cmd.Parameters.AddWithValue("@startDate", service.StartDate);
+                    cmd.Parameters.AddWithValue("@endDate", service.EndDate);
+                    cmd.Parameters.AddWithValue("@complete", false);
+
+                    dbCon.Open();
+                    //do insert
+                    cmd.ExecuteNonQuery();
+                    //get ID
+                    sql = "select @@identity";
+                    cmd.CommandText = sql;
+                    id = Convert.ToInt32(cmd.ExecuteScalar());
+
+                    dbCon.Close();
+                    return id;
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                return id;
+            });
+
+        }
+
+        //log incidents from driverform
+        public void LogIncident(Incident incident, User driver)
         {
             int id = -1;
             try
@@ -434,7 +783,7 @@ namespace SystemLogic
                             "values(@incidentType, @driverID)";
 
                 SqlCommand cmd = new SqlCommand(sql, dbCon);
-                cmd.Parameters.AddWithValue("@incidentType", incidentId);
+                cmd.Parameters.AddWithValue("@incidentType", incident.ID);
                 cmd.Parameters.AddWithValue("@driverID", driver.ID);
 
                 dbCon.Open();
@@ -458,119 +807,131 @@ namespace SystemLogic
         }
 
         //get specific incident type by ID
-        public IncidentType GetIncidentTypeByID(int id)
+        public async Task<IncidentType> GetIncidentTypeByID(int id)
         {
-            IncidentType incident = null;
-
-            try
+            return await Task.Run(() =>
             {
-                string sql = $"select * from IncidentType where id = {id}";
-                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
-                DataSet ds = new DataSet();
-                da.Fill(ds);
+                IncidentType incident = null;
 
-                DataRow row = ds.Tables[0].Rows[0];
-
-                int ID = (int)row["ID"];
-                string description = row["username"].ToString();
-                int cost = (int)row["cost"];
-                int hours = (int)row["repairTime"];
-
-                incident = new IncidentType(ID, description, cost, hours);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            return incident;
-        }
-
-        public List<IncidentType> GetIncidentTypes()
-        {
-            List<IncidentType> incident = new List<IncidentType>();
-
-            try
-            {
-                string sql = $"select * from IncidentType";
-                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
-                DataSet ds = new DataSet();
-                da.Fill(ds);
-
-                foreach (DataRow row in ds.Tables[0].Rows)
+                try
                 {
+                    string sql = $"select * from IncidentType where id = {id}";
+                    SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                    DataSet ds = new DataSet();
+                    da.Fill(ds);
+
+                    DataRow row = ds.Tables[0].Rows[0];
+
                     int ID = (int)row["ID"];
-                    string description = row["Description"].ToString();
-                    double cost = Convert.ToDouble(row["cost"]);
+                    string description = row["username"].ToString();
+                    int cost = (int)row["cost"];
                     int hours = (int)row["repairTime"];
 
-                    incident.Add(new IncidentType(ID, description, cost, hours));
+                    incident = new IncidentType(ID, description, cost, hours);
                 }
-            }
-            catch (Exception ex)
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                return incident;
+            });
+        }
+
+        public async Task<List<IncidentType>> GetIncidentTypes()
+        {
+            return await Task.Run(() =>
             {
-                throw ex;
-            }
-            return incident;
+                List<IncidentType> incident = new List<IncidentType>();
+
+                try
+                {
+                    string sql = $"select * from IncidentType";
+                    SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                    DataSet ds = new DataSet();
+                    da.Fill(ds);
+
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        int ID = (int)row["ID"];
+                        string description = row["Description"].ToString();
+                        double cost = Convert.ToDouble(row["cost"]);
+                        int hours = (int)row["repairTime"];
+
+                        incident.Add(new IncidentType(ID, description, cost, hours));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                return incident;
+            });
         }
 
         /////////////////////////////////////////////////////////////////////////////users
 
         //getcustomer by ID
-        public Customer GetCustomerByID(int id)
+        public async Task<Customer> GetCustomerByID(int id)
         {
-            Customer customer = null;
-            try
+            return await Task.Run(async () =>
             {
-                string sql = $"select * from customer where id = {id}";
-                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
-                DataSet ds = new DataSet();
-                da.Fill(ds);
-
-                DataRow row = ds.Tables[0].Rows[0];
-                int ID = (int)row["ID"];
-                string fname = row["fname"].ToString();
-                string lname = row["lname"].ToString();
-                string email = row["email"].ToString();
-                string cell = row["cell"].ToString();
-
-                customer = new Customer(ID, fname, lname, email, cell);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            return customer;
-        }
-
-        //get a list of all customers
-        public List<Customer> GetCustomers()
-        {
-            List<Customer> customers = new List<Customer>();
-
-            try
-            {
-                string sql = "select * from customer";
-                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
-                DataSet ds = new DataSet();
-                da.Fill(ds);
-
-                foreach (DataRow row in ds.Tables[0].Rows)
+                Customer customer = null;
+                try
                 {
+                    string sql = $"select * from customer where id = {id}";
+                    SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                    DataSet ds = new DataSet();
+                    da.Fill(ds);
+
+                    DataRow row = ds.Tables[0].Rows[0];
                     int ID = (int)row["ID"];
                     string fname = row["fname"].ToString();
                     string lname = row["lname"].ToString();
                     string email = row["email"].ToString();
                     string cell = row["cell"].ToString();
 
-                    Customer c = new Customer(ID, fname, lname, email, cell);
-                    customers.Add(c);
+                    customer = new Customer(ID, fname, lname, email, cell);
                 }
-            }
-            catch (Exception ex)
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                return customer;
+            });
+        }
+
+        //get a list of all customers
+        public async Task<List<Customer>> GetCustomers()
+        {
+            return await Task.Run(() =>
             {
-                throw ex;
-            }
-            return customers;
+                List<Customer> customers = new List<Customer>();
+
+                try
+                {
+                    string sql = "select * from customer";
+                    SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                    DataSet ds = new DataSet();
+                    da.Fill(ds);
+
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        int ID = (int)row["ID"];
+                        string fname = row["fname"].ToString();
+                        string lname = row["lname"].ToString();
+                        string email = row["email"].ToString();
+                        string cell = row["cell"].ToString();
+
+                        Customer c = new Customer(ID, fname, lname, email, cell);
+                        customers.Add(c);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                return customers;
+            });
         }
 
         //return ID. ref type Customer so cus.ID is automatically assigned
@@ -852,87 +1213,94 @@ namespace SystemLogic
         ////////////////////////////////////////////////////////////////////////////routes
 
         //get route by id
-        public Route GetRouteByID(int id)
+        public async Task<Route> GetRouteByID(int id)
         {
-            Route route = null;
-
-            try
+            return await Task.Run(async () =>
             {
-                string sql = $"select * from routes where id = {id}";
-                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
-                DataSet ds = new DataSet();
-                da.Fill(ds);
+                Route route = null;
 
-                DataRow row = ds.Tables[0].Rows[0];
-                int ID = (int)row["ID"];
-                Department deptart = GetDepartmentByID((int)row["departure"]);
-                Department dest = GetDepartmentByID((int)row["destination"]);
-                int kms = (int)row["kms"];
-                double cost = (double)row["cost"];
-                //get cost method
+                try
+                {
+                    string sql = $"select * from routes where id = {id}";
+                    SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                    DataSet ds = new DataSet();
+                    da.Fill(ds);
 
-                route = new Route(ID, deptart, dest, kms, cost);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            return route;
+                    DataRow row = ds.Tables[0].Rows[0];
+                    int ID = (int)row["ID"];
+                    Department deptart = await GetDepartmentByID((int)row["departure"]);
+                    Department dest = await GetDepartmentByID((int)row["destination"]);
+                    int kms = (int)row["kms"];
+                    //get cost method
+
+                    route = new Route(ID, deptart, dest, kms);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                return route;
+            });
         }
 
         //get a list of all routes
-        public List<Route> GetRoutes()
+        public async Task<List<Route>> GetRoutes()
         {
-            List<Route> routes = new List<Route>();
-
-            try
+            return await Task.Run(async () =>
             {
-                string sql = "select * from routes";
-                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
-                DataSet ds = new DataSet();
-                da.Fill(ds);
+                List<Route> routes = new List<Route>();
 
-                foreach (DataRow row in ds.Tables[0].Rows)
+                try
                 {
-                    int ID = (int)row["ID"];
-                    Department deptart = GetDepartmentByID((int)row["departure"]);
-                    Department dest = GetDepartmentByID((int)row["destination"]);
-                    int kms = (int)row["kms"];
-                    double cost = (double)row["cost"];
-                    //add cost method
+                    string sql = "select * from routes";
+                    SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                    DataSet ds = new DataSet();
+                    da.Fill(ds);
 
-                    routes.Add(new Route(ID, deptart, dest, kms, cost));
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        int ID = (int)row["ID"];
+                        Department deptart = await GetDepartmentByID((int)row["departure"]);
+                        Department dest = await GetDepartmentByID((int)row["destination"]);
+                        int kms = (int)row["kms"];
+                        //add cost method
+
+                        routes.Add(new Route(ID, deptart, dest, kms));
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            return routes;
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                return routes;
+            });
         }
 
         //get department by ID
-        public Department GetDepartmentByID(int id)
+        public async Task<Department> GetDepartmentByID(int id)
         {
-            Department depo;
-            try
+            return await Task.Run(async () =>
             {
-                string sql = $"select * from department where id = {id}";
-                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
-                DataSet ds = new DataSet();
-                da.Fill(ds);
+                Department depo;
+                try
+                {
+                    string sql = $"select * from department where id = {id}";
+                    SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                    DataSet ds = new DataSet();
+                    da.Fill(ds);
 
-                DataRow row = ds.Tables[0].Rows[0];
-                int ID = (int)row["ID"];
-                string name = row["name"].ToString();
+                    DataRow row = ds.Tables[0].Rows[0];
+                    int ID = (int)row["ID"];
+                    string name = row["name"].ToString();
 
-                depo = new Department(ID, name);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            return depo;
+                    depo = new Department(ID, name);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                return depo;
+            });
         }
 
         //get a list of all departments
@@ -1063,7 +1431,7 @@ namespace SystemLogic
                     string vin = row["vin"].ToString();
                     string reg = row["reg"].ToString();
                     int kms = (int)row["kms"];
-                    bool availible = (bool)row["availible"];
+                    bool availible = Convert.ToBoolean(row["availible"]);
                     TruckType type = await GetTruckTypeById((int)row["truckType"]);
                     truck = new Truck(ID, vin, reg, kms, availible, type);
                 }
@@ -1078,32 +1446,35 @@ namespace SystemLogic
         //get a list of all trucks in db
         public async Task<List<Truck>> GetTrucks()
         {
-            List<Truck> trucks = new List<Truck>();
-
-            try
+            return await Task.Run(async() =>
             {
-                string sql = "select * from truck";
-                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
-                DataSet ds = new DataSet();
-                da.Fill(ds);
+                List<Truck> trucks = new List<Truck>();
 
-                foreach (DataRow row in ds.Tables[0].Rows)
+                try
                 {
-                    int ID = (int)row["ID"];
-                    string vin = row["vin"].ToString();
-                    string reg = row["reg"].ToString();
-                    int kms = (int)row["kms"];
-                    bool availible = (bool)row["availible"];
-                    TruckType type = await GetTruckTypeById((int)row["truckType"]);
-                    Truck t = new Truck(ID, vin, reg, kms, availible, type);
-                    trucks.Add(t);
+                    string sql = "select * from truck";
+                    SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                    DataSet ds = new DataSet();
+                    da.Fill(ds);
+
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        int ID = (int)row["ID"];
+                        string vin = row["vin"].ToString();
+                        string reg = row["reg"].ToString();
+                        int kms = (int)row["kms"];
+                        bool availible = (bool)row["availible"];
+                        TruckType type = await GetTruckTypeById((int)row["truckType"]);
+                        Truck t = new Truck(ID, vin, reg, kms, availible, type);
+                        trucks.Add(t);
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            return trucks;
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                return trucks;
+            });
         }
 
         //query db for truck type by ID of type
@@ -1128,10 +1499,10 @@ namespace SystemLogic
                     int serviceInterval = (int)row["serviceInterval"];
                     int maxWeight = (int)row["maxWeight"];
                     int maxVol = (int)row["maxVol"];
-                    double litersPerHundy = Convert.ToDouble(row["litersPerHundy"]);
+                    int litersPerHundy = (int)row["litersPerHundy"];
 
                     truckType = new TruckType(typeID, type, manufacturor, engineSize,
-                        serviceInterval, maxWeight, (float)litersPerHundy, maxVol);
+                        serviceInterval, maxWeight, litersPerHundy, maxVol);
 
                 }
                 catch (Exception ex)
@@ -1144,42 +1515,44 @@ namespace SystemLogic
             });
         }
 
-
-        public List<TruckType> GetTruckType()
+        public async Task<List<TruckType>> GetTruckType()
         {
-            List<TruckType> truckTypes = new List<TruckType>();
-
-            try
+            return await Task.Run(() =>
             {
-                string sql = $"select * from trucktype";
-                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
-                DataSet ds = new DataSet();
-                da.Fill(ds);
+                List<TruckType> truckTypes = new List<TruckType>();
 
-                foreach (DataRow row in ds.Tables[0].Rows)
+                try
                 {
+                    string sql = $"select * from trucktype";
+                    SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                    DataSet ds = new DataSet();
+                    da.Fill(ds);
 
-                    int typeID = (int)row["ID"];
-                    string type = row["type"].ToString();
-                    string manufacturor = row["manufacturor"].ToString();
-                    int engineSize = (int)row["engineSize"];
-                    int serviceInterval = (int)row["serviceInterval"];
-                    int maxWeight = (int)row["maxWeight"];
-                    float litersPerHundy = (float)row["litersPerHundy"];
-                    int maxVol = (int)row["maxVol"];
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
 
-                    truckTypes.Add(new TruckType(typeID, type, manufacturor, engineSize,
-                        serviceInterval, maxWeight, litersPerHundy, maxVol));
+                        int typeID = (int)row["ID"];
+                        string type = row["type"].ToString();
+                        string manufacturor = row["manufacturor"].ToString();
+                        int engineSize = (int)row["engineSize"];
+                        int serviceInterval = (int)row["serviceInterval"];
+                        int maxWeight = (int)row["maxWeight"];
+                        int litersPerHundy = (int)row["litersPerHundy"];
+                        int maxVol = (int)row["maxVol"];
+
+                        truckTypes.Add(new TruckType(typeID, type, manufacturor, engineSize,
+                            serviceInterval, maxWeight, litersPerHundy, maxVol));
+
+                    }
 
                 }
+                catch (Exception ex)
+                {
 
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-            return truckTypes;
+                    throw ex;
+                }
+                return truckTypes;
+            });
         }
 
         //get availiable trucks of specified type that are currently free
@@ -1260,12 +1633,11 @@ namespace SystemLogic
                     {
                         int ID = (int)row["ID"];
                         Truck truck = await GetTruckByID((int)row["truckID"]);
-                        User mechanic = await GetUserByID((int)row["mechanic"]);
                         DateTime start = (DateTime)row["startdate"];
                         DateTime end = (DateTime)row["enddate"];
                         bool complete = (bool)row["complete"];
 
-                        Service s = new Service(ID, truck, mechanic, start, end, complete);
+                        Service s = new Service(ID, truck,  start, end, complete);
                         services.Add(s);
 
                     }
@@ -1293,12 +1665,11 @@ namespace SystemLogic
                 {
                     int ID = (int)row["ID"];
                     Truck truck = await GetTruckByID((int)row["truckID"]);
-                    User mechanic = await GetUserByID((int)row["mechanic"]);
                     DateTime start = (DateTime)row["startdate"];
                     DateTime end = (DateTime)row["enddate"];
                     bool complete = (bool)row["complete"];
 
-                    Service s = new Service(ID, truck, mechanic, start, end, complete);
+                    Service s = new Service(ID, truck, start, end, complete);
                     services.Add(s);
 
                 }
@@ -1329,12 +1700,11 @@ namespace SystemLogic
                     {
                         int ID = (int)row["ID"];
                         Truck truck = await GetTruckByID((int)row["truckID"]);
-                        User mechanic = await GetUserByID((int)row["mechanic"]);
                         DateTime start = (DateTime)row["startdate"];
                         DateTime end = (DateTime)row["enddate"];
                         bool complete = (bool)row["complete"];
 
-                        Service s = new Service(ID, truck, mechanic, start, end, complete);
+                        Service s = new Service(ID, truck,  start, end, complete);
                         services.Add(s);
 
                     }
@@ -1364,12 +1734,11 @@ namespace SystemLogic
                     {
                         int ID = (int)row["ID"];
                         Truck truck = await GetTruckByID((int)row["truckID"]);
-                        User mechanic = await GetUserByID((int)row["mechanic"]);
                         DateTime start = (DateTime)row["startdate"];
                         DateTime end = (DateTime)row["enddate"];
                         bool complete = (bool)row["complete"];
 
-                        Service s = new Service(ID, truck, mechanic, start, end, complete);
+                        Service s = new Service(ID, truck, start, end, complete);
                         services.Add(s);
 
                     }
@@ -1399,12 +1768,11 @@ namespace SystemLogic
                     {
                         int ID = (int)row["ID"];
                         Truck truck = await GetTruckByID((int)row["truckID"]);
-                        User mechanic = await GetUserByID((int)row["mechanic"]);
                         DateTime start = (DateTime)row["startdate"];
                         DateTime end = (DateTime)row["enddate"];
                         bool complete = (bool)row["complete"];
 
-                        Service s = new Service(ID, truck, mechanic, start, end, complete);
+                        Service s = new Service(ID, truck, start, end, complete);
                         services.Add(s);
 
                     }
@@ -1441,7 +1809,7 @@ namespace SystemLogic
                         DateTime end = (DateTime)row["enddate"];
                         bool complete = (bool)row["complete"];
 
-                        Service s = new Service(ID, truck, mechanic, start, end, complete);
+                        Service s = new Service(ID, truck, start, end, complete);
                         services.Add(s);
 
                     }
@@ -1471,18 +1839,18 @@ namespace SystemLogic
                     {
                         int ID = (int)row["ID"];
                         Truck truck = await GetTruckByID((int)row["truckID"]);
-                        User mechanic = await GetUserByID((int)row["mechanic"]);
-                        DateTime start = (DateTime)row["startdate"];
-                        DateTime end = (DateTime)row["enddate"];
-                        bool complete = (bool)row["complete"];
+                        DateTime start = Convert.ToDateTime(row["startdate"]);
+                        DateTime end = Convert.ToDateTime(row["enddate"]);
+                        bool complete = Convert.ToBoolean(row["complete"]);
 
-                        Service s = new Service(ID, truck, mechanic, start, end, complete);
+                        Service s = new Service(ID, truck, start, end, complete);
                         services.Add(s);
 
                     }
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine(ex.Message);
                     throw ex;
                 }
                 return services;
@@ -1523,12 +1891,11 @@ namespace SystemLogic
                     DataRow row = ds.Tables[0].Rows[0];
                     int ID = (int)row["ID"];
                     Truck truck = await GetTruckByID((int)row["truckID"]);
-                    User mechanic = await GetUserByID((int)row["mechanic"]);
-                    DateTime start = (DateTime)row["startdate"];
-                    DateTime end = (DateTime)row["enddate"];
-                    bool complete = (bool)row["complete"];
+                    DateTime start = Convert.ToDateTime(row["startdate"]);
+                    DateTime end = Convert.ToDateTime(row["enddate"]);
+                    bool complete = Convert.ToBoolean(row["complete"]);
 
-                    Service s = new Service(ID, truck, mechanic, start, end, complete);
+                    services = new Service(ID, truck, start, end, complete);
                 }
                 catch (Exception ex)
                 {
@@ -1538,94 +1905,103 @@ namespace SystemLogic
             });
         }
 
-        public List<ServiceType> GetServiceTypes()
+        public async Task<List<ServiceType>> GetServiceTypes()
         {
-            List<ServiceType> serviceTypes = new List<ServiceType>();
-
-            try
+            return await Task.Run(async () =>
             {
-                string sql = "select * from serviceType";
-                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
-                DataSet ds = new DataSet();
-                da.Fill(ds);
+                List<ServiceType> serviceTypes = new List<ServiceType>();
 
-                foreach (DataRow row in ds.Tables[0].Rows)
+                try
                 {
+                    string sql = "select * from serviceType";
+                    SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                    DataSet ds = new DataSet();
+                    da.Fill(ds);
+
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        int ID = (int)row["ID"];
+                        string job = row["job"].ToString();
+                        double cost = Convert.ToDouble(row["cost"]);
+                        int hours = (int)row["hours"];
+
+                        ServiceType st = new ServiceType(ID, job, cost, hours);
+                        serviceTypes.Add(st);
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                return serviceTypes;
+            });
+        }
+
+        public async Task<ServiceType> GetServiceTypeById(int id)
+        {
+            return await Task.Run(async () =>
+            {
+                ServiceType serviceType = null;
+
+                try
+                {
+                    string sql = $"select * from serviceType where id = {id}";
+                    SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                    DataSet ds = new DataSet();
+                    da.Fill(ds);
+
+                    DataRow row = ds.Tables[0].Rows[0];
                     int ID = (int)row["ID"];
                     string job = row["job"].ToString();
                     double cost = Convert.ToDouble(row["cost"]);
                     int hours = (int)row["hours"];
 
-                    ServiceType st = new ServiceType(ID, job, cost, hours);
-                    serviceTypes.Add(st);
+                    serviceType = new ServiceType(ID, job, cost, hours);
 
                 }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            return serviceTypes;
-        }
-
-        public ServiceType GetServiceTypeById(int id)
-        {
-            ServiceType serviceType = null;
-
-            try
-            {
-                string sql = $"select * from serviceType where id = {id}";
-                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
-                DataSet ds = new DataSet();
-                da.Fill(ds);
-
-                DataRow row = ds.Tables[0].Rows[0];
-                int ID = (int)row["ID"];
-                string job = row["job"].ToString();
-                double cost = Convert.ToDouble(row["cost"]);
-                int hours = (int)row["hours"];
-
-                serviceType = new ServiceType(ID, job, cost, hours);
-
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            return serviceType;
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                return serviceType;
+            });
         }
 
         public async Task<List<ServiceItem>> GetServiceItems()
         {
-            List<ServiceItem> serviceItems = new List<ServiceItem>();
-
-            try
+            return await Task.Run(async () =>
             {
-                string sql = "select * from serviceItem";
-                SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
-                DataSet ds = new DataSet();
-                da.Fill(ds);
+                List<ServiceItem> serviceItems = new List<ServiceItem>();
 
-                foreach (DataRow row in ds.Tables[0].Rows)
+                try
                 {
-                    int ID = (int)row["ID"];
-                    Service service = await GetServiceById((int)row["serviceID"]);
-                    ServiceType type = GetServiceTypeById((int)row["serviceJob"]);
+                    string sql = "select * from serviceItem";
+                    SqlDataAdapter da = new SqlDataAdapter(sql, dbCon);
+                    DataSet ds = new DataSet();
+                    da.Fill(ds);
 
-                    ServiceItem si = new ServiceItem(ID, service, type);
-                    serviceItems.Add(si);
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        int ID = (int)row["ID"];
+                        Service service = await GetServiceById((int)row["serviceID"]);
+                        ServiceType type = await GetServiceTypeById((int)row["serviceJob"]);
+
+                        ServiceItem si = new ServiceItem(ID, service, type);
+                        serviceItems.Add(si);
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            return serviceItems;
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                return serviceItems;
+            });
         }
 
         public async Task<List<ServiceItem>> GetServiceItems(Service service)
         {
-            return await Task.Run(() =>
+            return await Task.Run(async () =>
             {
                 List<ServiceItem> serviceItems = new List<ServiceItem>();
 
@@ -1639,7 +2015,7 @@ namespace SystemLogic
                     foreach (DataRow row in ds.Tables[0].Rows)
                     {
                         int ID = (int)row["ID"];
-                        ServiceType type = GetServiceTypeById((int)row["serviceJob"]);
+                        ServiceType type = await GetServiceTypeById((int)row["serviceJob"]);
 
                         ServiceItem si = new ServiceItem(ID, service, type);
                         serviceItems.Add(si);
@@ -1669,7 +2045,7 @@ namespace SystemLogic
                 {
                     int ID = (int)row["ID"];
                     Service service = await GetServiceById((int)row["serviceID"]);
-                    ServiceType type = GetServiceTypeById((int)row["serviceJob"]);
+                    ServiceType type = await GetServiceTypeById((int)row["serviceJob"]);
 
                     ServiceItem si = new ServiceItem(ID, service, type);
                     serviceItems.Add(si);
@@ -1697,7 +2073,7 @@ namespace SystemLogic
                 DataRow row = ds.Tables[0].Rows[0];
                 int ID = (int)row["ID"];
                 Service service = await GetServiceById((int)row["serviceID"]);
-                ServiceType type = GetServiceTypeById((int)row["serviceJob"]);
+                ServiceType type = await GetServiceTypeById((int)row["serviceJob"]);
 
                 serviceItem = new ServiceItem(ID, service, type);
 
