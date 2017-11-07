@@ -31,10 +31,10 @@ namespace WIL
                 {
                     switch (loggedIn.Type.Type.ToLower())
                     {
-                        case "driver":
-                            //show driver form
-                            new LogIncidentForm(loggedIn).Show();
-                            break;
+                        //case "driver":
+                        //    //show driver form
+                        //    new LogIncidentForm(loggedIn).Show();
+                        //    break;
                         default:
                             new MainForm(loggedIn).Show();
                             break;
@@ -48,12 +48,19 @@ namespace WIL
             }
         }
 
-        private void LoginForm_Load(object sender, EventArgs e)
+        private async void LoginForm_Load(object sender, EventArgs e)
         {
             txbUsername.Visible = true;
             ActiveControl = txbUsername;
             txbUsername.Text = "Bart";
             txbPassword.Text = "simps";
+
+            TruckType tuype = await new DBManager().GetTruckTypeById(0);
+            Truck t = await new DBManager().GetTruckByID(0);
+            Console.WriteLine(t.Availible);
+            t = await new DBManager().UpdateTruckStatus(false, t);
+            Console.WriteLine(t.Availible);
+            Console.WriteLine(t.ToString());
         }
     }
 }

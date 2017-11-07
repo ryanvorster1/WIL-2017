@@ -13,15 +13,14 @@ namespace WIL
 {
     public partial class LogIncidentForm : Form
     {
-        private User loggedIn;
         private bool updating;
         private DBManager dbm;
-        private bool isCurrentTrip;
-        public LogIncidentForm(User user)
+        private Trip trip;
+        public LogIncidentForm(Trip trip)
         {
-            loggedIn = user;
             InitializeComponent();
             dbm = new DBManager();
+            this.trip = trip;
         }
 
         private async void LogIncidentForm_Load(object sender, EventArgs e)
@@ -30,36 +29,34 @@ namespace WIL
             cnbIncidents.Items.Add("Select item here>");
             updating = true;
             cnbIncidents.SelectedIndex = 0;
+            UpdateDisplay();
+        }
 
-            Trip awaitingTrip = await dbm.GetAwaitingTrip(loggedIn);
-
-            if(awaitingTrip != null)
-            {//show in trip
-                switch (awaitingTrip.Status.ID)//awaiting
-                {
-                    case 0:
-                        MessageBox.Show("Awaiting " + awaitingTrip.ToString());
-
-                        break;
-                    case 1: // on way
-                        MessageBox.Show("On way " + awaitingTrip.ToString());
-                        break;
-                    case 2:
-                        MessageBox.Show("Complete" + awaitingTrip.ToString());
-                        break;
-                }
-                isCurrentTrip = false;
-                startbtn.Text = "Start Trip";
-            }else// if() trip on way
+        private void UpdateDisplay()
+        {
+            switch (trip.Status.ID)
             {
-                if()
-                isCurrentTrip = true;
-                startbtn.Text = "Complete Trip";
+                case 0:
+                    lblTripStatus.Text = "Awaiting Trip: ";
+                    btnTripStatus.Text = "Begin Trip";
+                    pnlTripDetails.BackColor = Color.Red;
+                    break;
+                case 1:
+                    lblTripStatus.Text = "Current Trip";
+                    btnTripStatus.Text = "Complete Trip";
+                    pnlTripDetails.BackColor = Color.Yellow;
+                    btnLogIncident.Visible = true;
+                    break;
+                case 2:
+                    btnTripStatus.Visible = false;
+                    pnlTripDetails.BackColor = Color.Green;
+                    lblTripStatus.Text = "Complete Trip: ";
+                    break;
             }
 
-            lblTrip.Text = awaitingTrip.ToString();
-            lblTruck.Text = awaitingTrip.Truck.ToString() + " " + awaitingTrip.Truck.ID;
-
+            lblDriver.Text = trip.Driver.Fname + " " + trip.Driver.Lname;
+            lblTrip.Text = trip.Route.ToString();
+            lblTruck.Text = trip.Truck.ToString();
 
         }
 
@@ -73,17 +70,41 @@ namespace WIL
             pnlIncident.Visible = false;
         }
 
-        private void sendIncidentReportButton_Click(object sender, EventArgs e)
+        private async void sendIncidentReportButton_Click(object sender, EventArgs e)
         {
-           dbm.LogIncident((int)cnbIncidents.SelectedValue,loggedIn);
+            Service service = await dbm.GetOrCreateLatestService(trip.Truck);
+            Console.WriteLine(service);
+            //if(await dbm.AddServiceIem(service, await dbm.GetServiceTypeById((int)cnbIncidents.SelectedValue)) != null)
+            //{
 
-            MessageBox.Show("Report succesful");
-            pnlIncident.Visible = false;
+            //    MessageBox.Show("Report succesful");
+            //pnlIncident.Visible = false;
+
+            //} else
+            //{
+            //    MessageBox.Show("Couldnt add incident");
+
+            //}
         }
 
-        private void startbtn_Click(object sender, EventArgs e)
+        private async void startbtn_Click(object sender, EventArgs e)
         {
-            btnLogIncident.Visible = true;
+            switch (trip.Status.ID)
+            {
+                case 0: //awaiting (start trip)
+                    btnLogIncident.Visible = false;
+                    trip = await dbm.StartTrip(trip);
+                    break;
+                case 1://on route (complete trip)
+                    btnLogIncident.Visible = true;
+                    trip = await dbm.CompleteTrip(trip);
+                    break;
+                case 2:
+
+                    break;
+            }
+            MessageBox.Show("trip updated " + trip.Status.Status);
+            UpdateDisplay();
         }
 
         private void cnbIncidents_SelectedIndexChanged(object sender, EventArgs e)
@@ -97,11 +118,11 @@ namespace WIL
             //updating = false;
         }
 
-        private void cnbIncidents_MouseClick(object sender, MouseEventArgs e)
+        private async void cnbIncidents_MouseClick(object sender, MouseEventArgs e)
         {
            
-                cnbIncidents.DataSource = new DBManager().GetIncidentTypes();
-                cnbIncidents.DisplayMember = "Description";
+                cnbIncidents.DataSource = await dbm.GetServiceTypes();
+                cnbIncidents.DisplayMember = "Job";
                 cnbIncidents.ValueMember = "ID";
             
             updating = false;

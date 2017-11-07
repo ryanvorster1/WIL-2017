@@ -14,7 +14,7 @@ namespace SystemLogic
         public int Kms { get; set; }
         public bool Availible { get; set; }
         public TruckType Type { get; set; }
-
+        
         public Truck()
         {
 
@@ -44,9 +44,10 @@ namespace SystemLogic
 
         public override string ToString()
         {
-            string result = $"ID: {ID}\nVIN: {Vin}\nREG: {Reg}\nKMS: {Kms}\nAvail: {Availible}";
-            result += Type.ToString();
-            return result;
+            //string result = $"ID: {ID}\nVIN: {Vin}\nREG: {Reg}\nKMS: {Kms}\nAvail: {Availible}";
+            //result += Type.ToString();
+            //return result;
+            return $"{Type.Manufacturor} {Type.Type} #{ID}";
         }
 
     }
@@ -59,6 +60,7 @@ namespace SystemLogic
         public int EngineSize { get; set; }
         public int ServiceInterval { get; set; }
         public int MaxWeight { get; set; }
+        public float LitersPerHundy { get; set; }
         public int MaxVol { get; set; }
 
         //default constructor
@@ -69,7 +71,7 @@ namespace SystemLogic
 
         //constructor will all paramaters
         public TruckType(int id, string type, string man,
-            int engineSize, int serviceInterval, int maxWeight, int maxVol)
+            int engineSize, int serviceInterval, int maxWeight, float litersPerHundy, int maxVol)
         {
             ID = id;
             this.Type = type;
@@ -77,18 +79,20 @@ namespace SystemLogic
             this.EngineSize = engineSize;
             this.ServiceInterval = serviceInterval;
             this.MaxWeight = maxWeight;
+            this.LitersPerHundy = litersPerHundy; 
             this.MaxVol = maxVol;
         }
 
         //constructor without ID
         public TruckType(string type, string man,
-            int engineSize, int serviceInterval, int maxWeight, int maxVol)
+            int engineSize, int serviceInterval, int maxWeight, float litersPerHundy, int maxVol)
         {
             this.Type = type;
             Manufacturor = man;
             this.EngineSize = engineSize;
             this.ServiceInterval = serviceInterval;
             this.MaxWeight = maxWeight;
+            this.LitersPerHundy = litersPerHundy;
             this.MaxVol = maxVol;
         }
 

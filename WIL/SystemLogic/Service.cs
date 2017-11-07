@@ -25,6 +25,16 @@ namespace SystemLogic
             Complete = complete;
         }
 
+        public Service(Truck truck, User mechanic, DateTime start, DateTime end, bool complete)
+        {
+            ID = -1;
+            Truck = truck;
+            Mechanic = mechanic;
+            StartDate = start;
+            EndDate = end;
+            Complete = complete;
+        }
+
         public Service(Truck truck, User mechanic)
         {
             ID = -1;

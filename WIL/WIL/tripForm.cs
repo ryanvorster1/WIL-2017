@@ -13,9 +13,14 @@ namespace WIL
 {
     public partial class TripForm : Form
     {
+        private DBManager dbm;
+        private List<Trip> displayedTrips;
+        private bool isCurrentTrips;
         public TripForm()
         {
+            dbm = new DBManager();
             InitializeComponent();
+            isCurrentTrips = false;
         }
 
         private void addTripButton_Click(object sender, EventArgs e)
@@ -23,11 +28,11 @@ namespace WIL
             //Show add bookings form once add trip button is clicked
             BookingsForm bf = new BookingsForm();
             bf.ShowDialog();
-            UpdateDGVTrips();     
+            UpdateDGVTrips();
         }
 
         private void exitButton_Click(object sender, EventArgs e)
-        { 
+        {
             //close form to get back to main form
             this.Close();
         }
@@ -35,14 +40,14 @@ namespace WIL
         private void TripForm_Load(object sender, EventArgs e)
         {
             cmbViewType.SelectedIndex = 0;
-            UpdateDGVTrips();
+            //UpdateDGVTrips();
         }
 
         private async void btnViewReport_Click(object sender, EventArgs e)
         {
             pnlReportView.Visible = true;
-            viewPlannedTripsBtn.Visible = false;
-            viewCompletedTripsBtn.Visible = false;
+            btnPlannedTrips.Visible = false;
+            btnCompleteTrips.Visible = false;
             //clear cols
             dgvTrips.Columns.Clear();
             //add column headingname and text 
@@ -51,32 +56,31 @@ namespace WIL
             dgvTrips.Columns.Add("Kms", "Kiliometers Travelled");
             dgvTrips.Columns.Add("Destination", "Destination");
 
-            //resize rows
-
-
-            // dataGridView1.AutoResizeColumns();// = DataGridViewAutoSizeColumnsMode.None;
             // dataGridView1.AllowUserToResizeRows = false;
-            dgvTrips.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
+           // dgvTrips.AutoResizeRows(DataGridViewAutoSizeRowsMode.DisplayedHeaders);
 
             //clear rows
             dgvTrips.Rows.Clear();
-            List<Trip> trips = await new DBManager().GetTrips();
-            foreach (var item in trips)
+            displayedTrips = await new DBManager().GetTrips();
+
+            foreach (var item in displayedTrips)
             {
                 dgvTrips.Rows.Add(item.Truck.ID, item.Driver.Username, item.Route.Kms, item.Route.Destination);
-               
+
             }
-        
+
+            //get total kms method
+            //getOverall();
         }
 
         private void btnCloseReportView_Click(object sender, EventArgs e)
         {
 
             UpdateDGVTrips();
-            
+
             pnlReportView.Visible = false;
-            viewPlannedTripsBtn.Visible = true;
-            viewCompletedTripsBtn.Visible = true;
+            btnPlannedTrips.Visible = true;
+            btnCompleteTrips.Visible = true;
         }
 
         private void dtpTrips_ValueChanged(object sender, EventArgs e)
@@ -86,6 +90,7 @@ namespace WIL
 
         private async void UpdateDGVTrips()
         {
+            Console.WriteLine(isCurrentTrips);
             dgvTrips.Rows.Clear();
             dgvTrips.Columns.Clear();
             dgvTrips.Columns.Add("ID", "Truck ID");
@@ -115,13 +120,32 @@ namespace WIL
                         end = end.AddYears(1);
                         break;
                 }
+                if (isCurrentTrips)
+                {
+                    displayedTrips = await dbm.GetInCompleteTrips(start, end);
+                } else
+                {
+                    displayedTrips = await dbm.GetCompleteTrips(start, end);
+                }
 
-                List<Trip> trips = await new DBManager().GetTrips(start,end);
-                DataTable table = new DataTable();
-                
-                foreach (var item in trips)
+                int index = 0;
+                foreach (var item in displayedTrips)
                 {
                     dgvTrips.Rows.Add(item.Truck.ID, item.Customer.ID, item.Route.Kms, item.Start, item.End, item.Route.Destination);
+
+                    switch (item.Status.ID)
+                    {//awaiting
+                        case 0:
+                            dgvTrips.Rows[index].DefaultCellStyle.BackColor = Color.Red;
+                            break;
+                        case 1:
+                            dgvTrips.Rows[index].DefaultCellStyle.BackColor = Color.Yellow;
+                            break;
+                        case 2:
+                            dgvTrips.Rows[index].DefaultCellStyle.BackColor = Color.Green;
+                            break;
+                    }
+                    index++;
                 }
             }
 
@@ -131,15 +155,39 @@ namespace WIL
         {
             UpdateDGVTrips();
         }
-
-        private void dgvTrips_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
         private void viewPlannedTripsBtn_Click(object sender, EventArgs e)
         {
+            isCurrentTrips = false;
+            btnPlannedTrips.Visible = false;
+            btnCompleteTrips.Visible = true;
+            UpdateDGVTrips();
+        }
+        
+        private void btnLogIncident_Click(object sender, EventArgs e)
+        {
+            foreach (var item in dgvTrips.SelectedCells)
+            {
+                Console.WriteLine(item);
+            }
+            //new LogIncidentForm().ShowDialog();
+        }
+
+        private void dgvTrips_DoubleClick(object sender, EventArgs e)
+        {
+            if(dgvTrips.SelectedCells != null)
+            {
+                Trip selectedTrip = displayedTrips[dgvTrips.CurrentCell.RowIndex];
+                new LogIncidentForm(selectedTrip).ShowDialog();
+            }
+        }
+
+        private void viewCompletedTripsBtn_Click(object sender, EventArgs e)
+        {
+            isCurrentTrips = true;
+            btnCompleteTrips.Visible = false;
+            btnPlannedTrips.Visible = true;
             UpdateDGVTrips();
         }
     }
+
 }

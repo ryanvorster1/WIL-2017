@@ -16,13 +16,14 @@ namespace WIL
     {
 
         private DBManager dbm;
+        private bool isReport;
 
         public ServiceForm()
         {
             dbm = new DBManager();
 
             InitializeComponent();
-            dtpDateTime_ValueChanged(null, null);
+           // dtpDateTime_ValueChanged(null, null);
         }
 
         private void ListBoxHandle()
@@ -38,8 +39,9 @@ namespace WIL
             this.Close();
         }
 
-        private async void dtpDateTime_ValueChanged(object sender, EventArgs e)
+        private async void displayIncompleteServices()
         {
+
             DateTime theDate = dtpDateTime.Value;
             List<Service> services = new List<Service>();
 
@@ -48,13 +50,13 @@ namespace WIL
                 switch (cmbViewType.SelectedItem.ToString())
                 {
                     case "Daily":
-                        services = await dbm.GetServices(theDate);
+                        services = await dbm.GetIncompleteServices(theDate,theDate.AddDays(1));
                         break;
                     case "Weekly":
-                        services = await dbm.GetServices(theDate, theDate.AddDays(7));
+                        services = await dbm.GetIncompleteServices(theDate, theDate.AddDays(7));
                         break;
                     case "Monthly":
-                        services = await dbm.GetServices(theDate, theDate.AddMonths(1));
+                        services = await dbm.GetIncompleteServices(theDate, theDate.AddMonths(1));
                         break;
                 }
 
@@ -64,7 +66,42 @@ namespace WIL
                 {
                     UpdateListBox(services);
                     lvServiceList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-                //    ServiceReport();
+                    //ServiceReport();
+                }
+            }
+
+        }
+
+        private async void dtpDateTime_ValueChanged(object sender, EventArgs e)
+        {
+            DateTime theDate = dtpDateTime.Value;
+            List<Service> services = new List<Service>();
+
+            if (cmbViewType.SelectedItem != null)
+            {
+                switch(cmbViewType.SelectedItem.ToString())
+                {
+                    case "Daily":
+                        services = await dbm.GetServices(theDate);
+
+                    break;
+                    case "Weekly":
+                        services = await dbm.GetServices(theDate, theDate.AddDays(7));
+
+                    break;
+                    case "Monthly":
+                        services = await dbm.GetServices(theDate, theDate.AddMonths(1));
+
+                    break;
+                }
+
+                lvServiceList.Clear();
+                ListBoxHandle();
+                if (services.Count > 0)
+                {
+                    UpdateListBox(services);
+                    lvServiceList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+                    //ServiceReport();
                 }
             }
         }
@@ -98,33 +135,10 @@ namespace WIL
                 lvServiceList.Items.Add(lvi);
             }
             lvServiceList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            ServiceReport();
         }
 
-        //private async void PopulateListBoxWithResults(List<Service> results)
-        //{
-        //       foreach (Service serviceItem in results)
-        //    {
-        //        string[] tRowData = new string[3];
-        //        tRowData[0] = $"{serviceItem.Truck.ID.ToString()}";
-        //        tRowData[1] = serviceItem.Truck.Type.Type;
-        //        List<ServiceItem> services = await dbm.GetServiceItems(serviceItem);
-        //        string ser = "";
-        //        foreach (var item in services)
-        //        {
-        //            ser += item.ServiceType.Job + ",";
-        //        }
-        //        tRowData[2] = ser;
-
-        //        InsertListBoxItem(tRowData);
-        //    }
-        //}
-
-        //private void InsertListBoxItem(string[] row)
-        //{
-        //    ListViewItem tRowItem = new ListViewItem(row);
-        //    lvServiceList.Items.Add(tRowItem);
-        //}
-
+  
         private async void lvServiceList_DoubleClick(object sender, EventArgs e)
         {
             if (lvServiceList.SelectedItems.Count >= 0)
@@ -149,12 +163,13 @@ namespace WIL
 
         }
 
-        private async void bttnServiceReport_Click(object sender, EventArgs e)
+        private void bttnServiceReport_Click(object sender, EventArgs e)
         {
             pnlServiceReport.Visible = true;
             btnServiceReport.Visible = false;
             //update 
             ServiceReport();
+            isReport = true;
 
         }
 
@@ -171,8 +186,10 @@ namespace WIL
 
         private void ServiceForm_Load(object sender, EventArgs e)
         {
-            dtpDateTime_ValueChanged(sender, e);
             cmbViewType.SelectedIndex = 0;
+            dtpDateTime_ValueChanged(sender, e);
+            //displayIncompleteServices();
+            isReport = false;
         }
 
         private void cmbViewType_SelectedIndexChanged(object sender, EventArgs e)
@@ -222,6 +239,8 @@ namespace WIL
                 totalHoursLbl.Text = hours.ToString();
             }
         }
+
+
     }
 }
 
@@ -269,3 +288,60 @@ namespace WIL
 //{
 //    iUserSelectedServiceID = lvServiceList.SelectedIndices[0];
 //}
+
+//private async void PopulateListBoxWithResults(List<Service> results)
+//{
+//       foreach (Service serviceItem in results)
+//    {
+//        string[] tRowData = new string[3];
+//        tRowData[0] = $"{serviceItem.Truck.ID.ToString()}";
+//        tRowData[1] = serviceItem.Truck.Type.Type;
+//        List<ServiceItem> services = await dbm.GetServiceItems(serviceItem);
+//        string ser = "";
+//        foreach (var item in services)
+//        {
+//            ser += item.ServiceType.Job + ",";
+//        }
+//        tRowData[2] = ser;
+
+//        InsertListBoxItem(tRowData);
+//    }
+//}
+
+//private void InsertListBoxItem(string[] row)
+//{
+//    ListViewItem tRowItem = new ListViewItem(row);
+//    lvServiceList.Items.Add(tRowItem);
+//}
+
+
+     //case "Daily":
+     //                   if (isReport)
+     //                   {
+     //                       services = await dbm.GetCompleteServices(theDate, theDate.AddDays(1));
+     //                   }
+     //                   else
+     //                   {
+     //                       services = await dbm.GetIncompleteServices(theDate, theDate.AddDays(1));
+     //                   }
+     //                   break;
+     //               case "Weekly":
+     //                   if (isReport)
+     //                   {
+     //                       services = await dbm.GetCompleteServices(theDate, theDate.AddDays(7));
+     //                   }
+     //                   else
+     //                   {
+     //                       services = await dbm.GetIncompleteServices(theDate, theDate.AddDays(7));
+     //                   }
+     //                   break;
+     //               case "Monthly":
+     //                   if (isReport)
+     //                   {
+     //                       services = await dbm.GetCompleteServices(theDate, theDate.AddMonths(1));
+     //                   }
+     //                   else
+     //                   {
+     //                       services = await dbm.GetIncompleteServices(theDate, theDate.AddMonths(1));
+     //                   }
+     //                   break;
